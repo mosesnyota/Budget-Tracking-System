@@ -1,0 +1,24 @@
+2020.08.18 19:35:00 INFO  started: Metals version 0.9.2 in workspace 'C:\wamp64\www\finance' for client vscode.
+2020.08.18 19:35:02 INFO  time: initialize in 1.94s
+2020.08.18 19:35:06 WARN  no build tool detected in workspace 'C:\wamp64\www\finance'. The most common cause for this problem is that the editor was opened in the wrong working directory, for example if you use sbt then the workspace directory should contain build.sbt. 
+2020.09.06 11:00:10 INFO  started: Metals version 0.9.3 in workspace 'C:\wamp64\www\finance' for client vscode.
+2020.09.06 11:00:11 INFO  time: initialize in 1.63s
+2020.09.06 11:00:19 WARN  no build tool detected in workspace 'C:\wamp64\www\finance'. The most common cause for this problem is that the editor was opened in the wrong working directory, for example if you use sbt then the workspace directory should contain build.sbt. 
+2020.09.07 22:52:39 INFO  started: Metals version 0.9.3 in workspace 'C:\wamp64\www\finance' for client vscode.
+2020.09.07 22:52:43 INFO  time: initialize in 4.09s
+2020.09.07 22:53:02 WARN  no build tool detected in workspace 'C:\wamp64\www\finance'. The most common cause for this problem is that the editor was opened in the wrong working directory, for example if you use sbt then the workspace directory should contain build.sbt. 
+2020.09.08 02:23:15 INFO  shutting down Metals
+2020.09.08 21:52:51 INFO  started: Metals version 0.9.3 in workspace 'C:\wamp64\www\finance' for client vscode.
+2020.09.08 21:52:53 INFO  time: initialize in 1.24s
+2020.09.08 21:53:00 WARN  no build tool detected in workspace 'C:\wamp64\www\finance'. The most common cause for this problem is that the editor was opened in the wrong working directory, for example if you use sbt then the workspace directory should contain build.sbt. 
+2020.09.08 23:37:02 INFO  shutting down Metals
+2020.09.10 11:34:49 INFO  started: Metals version 0.9.3 in workspace 'C:\wamp64\www\finance' for client vscode.
+2020.09.10 11:34:57 INFO  time: initialize in 7.39s
+2020.09.10 11:35:12 WARN  no build tool detected in workspace 'C:\wamp64\www\finance'. The most common cause for this problem is that the editor was opened in the wrong working directory, for example if you use sbt then the workspace directory should contain build.sbt. 
+2020.09.11 03:10:07 INFO  started: Metals version 0.9.3 in workspace 'C:\wamp64\www\finance' for client vscode.
+2020.09.11 03:10:09 INFO  time: initialize in 2.29s
+2020.09.11 03:10:18 WARN  no build tool detected in workspace 'C:\wamp64\www\finance'. The most common cause for this problem is that the editor was opened in the wrong working directory, for example if you use sbt then the workspace directory should contain build.sbt. 
+2020.09.11 06:01:25 INFO  shutting down Metals
+2020.09.11 13:59:08 INFO  started: Metals version 0.9.3 in workspace 'C:\wamp64\www\finance' for client vscode.
+2020.09.11 13:59:10 INFO  time: initialize in 2.29s
+2020.09.11 13:59:13 WARN  no build tool detected in workspace 'C:\wamp64\www\finance'. The most common cause for this problem is that the editor was opened in the wrong working directory, for example if you use sbt then the workspace directory should contain build.sbt. 
