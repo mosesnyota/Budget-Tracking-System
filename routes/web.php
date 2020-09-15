@@ -74,6 +74,14 @@ Route::post('/activity/store','ActivitiesController@store');
 Route::post('/activity/update/{activity}','ActivitiesController@update');
 
 
+Route::get('/viewproject/editvotehead/{votehead}','VoteheadController@edit');
+
+Route::post('/saveeditedvotehead/{votehead}','VoteheadController@update');
+
+Route::get('/viewproject/deletevotehead/{votehead}','VoteheadController@destroy');
 
 
 
+Route::get('/viewproject/deletemilestone/{milestone}','ActivitiesController@destroy');
+Route::get('/viewproject/editmilestone/{milestone}','ActivitiesController@edit');
+Route::post('/saveupdatedmilestone/{activity}','ActivitiesController@saveupdated');

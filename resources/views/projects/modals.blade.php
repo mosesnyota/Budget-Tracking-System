@@ -47,7 +47,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Issue Funds</h4>
+                <h4 class="modal-title">Record Funds Release</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -57,18 +57,15 @@
                 <form role="form" method="post" action="/finance/public/disbursment/store" enctype="multipart/form-data" >
                     {{ csrf_field() }}
                     <div class="box-body"> 
-  
-                      
-
                        <div class="form-group">
                         <label>Funds Issued On</label>
-                        <div>
+                         <div>
                             <div class="input-group">
-                                <input type="text" class="form-control" placeholder="mm/dd/yyyy" id="datepicker-autoclose" name="voucherdate">
+                                <input type="text" class="form-control" autocomplete="off" id="datepicker-autoclose" name="voucherdate">
                                 <div class="input-group-append bg-custom b-0"><span class="input-group-text"><i class="mdi mdi-calendar"></i></span></div>
                             </div><!-- input-group -->
+                         </div>
                         </div>
-                    </div>
   
                        <div class="form-group">
                         <div class="form-group">
@@ -149,29 +146,27 @@
                         </div>
                         </div>
 
-                        
-
-                        
-                        
                         <div class="form-group">
                             <label>Start Date</label>
-                            <div class="input-group date" id="projectstartdate" data-target-input="nearest">
-                                <input type="text" name="start_date" class="form-control datetimepicker-input" data-target="#projectstartdate"/>
-                                <div class="input-group-append" data-target="#projectstartdate" data-toggle="datetimepicker">
-                                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                                </div>
+                            <div>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" autocomplete="off" id="datepicker-startdate" name="start_date">
+                                    <div class="input-group-append bg-custom b-0"><span class="input-group-text"><i class="mdi mdi-calendar"></i></span></div>
+                                </div><!-- input-group -->
                             </div>
-                           </div>
+                        </div>
 
-                           <div class="form-group">
+
+                        <div class="form-group">
                             <label>Deadline Date</label>
-                            <div class="input-group date" id="projectenddate" data-target-input="nearest">
-                                <input type="text" name="deadline_date" class="form-control datetimepicker-input" data-target="#projectenddate"/>
-                                <div class="input-group-append" data-target="#projectenddate" data-toggle="datetimepicker">
-                                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                                </div>
+                            <div>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" autocomplete="off" id="datepicker-deadline" name="deadline_date">
+                                    <div class="input-group-append bg-custom b-0"><span class="input-group-text"><i class="mdi mdi-calendar"></i></span></div>
+                                </div><!-- input-group -->
                             </div>
-                           </div>
+                        </div>
+                           
 
                 </div>
                     <!-- /.card-body -->
@@ -321,7 +316,7 @@
                         <div class="form-group">
                             <div class="form-group">
                               <label>Narration </label>
-                              <input type="text" name="narration" id="narration" disabled class="form-control" >
+                              <input type="text" name="narration22" id="narration22" disabled class="form-control" >
                           </div>
                           </div>
                        <div class="form-group">
@@ -352,66 +347,7 @@
   </div>
 
 
-  <div class="modal fade" id="modal-edittransaction">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">Edit Transaction</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
   
-                <form role="form" method="post" action="/finance/public/disbursment/edit/1" enctype="multipart/form-data" >
-                    {{ csrf_field() }}
-                    <div class="box-body"> 
-                   
-                        <label>Amount </label>
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="fas fa-dollar"></i></span>
-                            </div>
-                            <input type="number" name="debit" id="debit" class="form-control" >
-                        </div>
-  
-                        <div class="form-group">
-                            <div class="form-group">
-                              <label>Narration </label>
-                              <input type="text" name="narration" id="narration" disabled class="form-control" >
-                          </div>
-                          </div>
-
-                        <div class="form-group">
-                            <div class="form-group">
-                              <label>Paid To </label>
-                              <input type="text" name="paid_to" id="paid_to" class="form-control" >
-                          </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="form-group">
-                              <label>Cheque No / Ref </label>
-                              <input type="text" name="chequeno" id="chequeno" class="form-control" >
-                          </div>
-                        </div>
-
-
-                    </div>
-                    <!-- /.card-body -->
-                    <div class="modal-footer justify-content-between">
-                    <input type="hidden" id="disbursment_id" name="disbursment_id" >
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save</button>
-                    </div>
-                </form>           
-            </div>
-  
-        </div>
-        <!-- /.modal-content -->
-    </div>
-    <!-- /.modal-dialog -->
-  </div>
 
 
   

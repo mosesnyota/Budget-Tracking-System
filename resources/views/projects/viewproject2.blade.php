@@ -36,7 +36,8 @@
                                           </div>
                                       </div>
                                   </div>
-                                  <a href="/finance/public/deleteproject/{{$project ->project_id}}" class="btn btn-danger btn-md float-right mr-1"   role="button"><b class="fa fa-trash"> Delete Project</b></a>
+                                  <a href="/finance/public/deleteproject/{{$project ->project_id}}" class="btn btn-danger btn-md float-right mr-1 delete-confirm"    role="button" data-role="deleteproject"  data-id="{{$project ->project_id}}"><b class="fa fa-trash"> Delete Project</b></a>
+                                  
                                   <a href="/finance/public/editproject/{{$project ->project_id}}" class="btn btn-success btn-md float-right mr-1"   role="button"><b class="fa fa-edit"> Edit Project </b></a>
                                   
                                   <a href="/finance/public/downloadPDF/{{$project ->project_id}}" class="btn btn-warning btn-md float-right mr-1" target="_blank"  role="button"><b class="ti-import"> Print Report </b></a>
@@ -76,7 +77,7 @@
                         <div class="p-3 mini-stat-desc">
                             <div class="clearfix">
                                 <h6 class="text-uppercase mt-0 float-left text-white-50">Amount Used</h6>
-                                <h4 class="mb-3 mt-0 float-right">{{$totalAmountUsed}}</h4>
+                                <h4 class="mb-3 mt-0 float-right">{{number_format($totalAmountUsed,0)}}</h4>
                             </div>
                            
                         </div>
@@ -189,8 +190,7 @@
                                                                       <th style="width:10px">#</th>
                                                                       <th>Code</th>
                                                                       <th>Votehead</th>
-                                                                      <th>Narration</th>
-                                                                      <th>Paid To</th>
+                                                                      <th style="width: 30%;">Narration</th>
                                                                       <th>Date</th>
                                                                       <th>Amount</th>
                                                                       <th>Action</th>
@@ -205,14 +205,14 @@
                                                                                   <td style="width:10px">{{$counter}}</td>
                                                                                   <td data-target="voucherno">{{$disbursment ->voucherno}}</td>
                                                                                   <td data-target="votehead_name">{{$disbursment ->votehead_name}}</td>
-                                                                                  <td data-target="narration">{{$disbursment ->narration}}</td>
-                                                                                  <td data-target="paid_to">{{$disbursment ->paid_to}}</td>
+                                                                                  <td data-target="narrationname" style="width: 30%;">{{$disbursment ->narration}}</td>
+                                                                                  
                                                                                   <td data-target="voucherdate"> {{ date("d-m-Y", strtotime($disbursment ->voucherdate )) }} </td>
                                                                                   <td data-target="debit">{{number_format($disbursment ->debit,2)}}</td>
                                                                                   <td>
                                                                                     <a class="btn btn-primary btn-sm" href="editdisbursment/{{$disbursment ->disbursment_id}}"><i class="fas fa-edit"></i></a>
                                                                                     <button type="button" class="btn btn-danger btn-sm mr-1 delete-confirm"  href="disbursment/destroy/{{$disbursment ->disbursment_id}}"> <a  data-role="deletedisburse"  data-id="{{$disbursment ->disbursment_id}}"> <i class="fa fa-trash" > </i></a>  </button>  
-                                                                                    <button type="button" class="btn btn-success btn-sm mr-1"> <a  data-role="updatedispersementvotehead"  data-id="{{$disbursment ->disbursment_id}}"> <i class="fa fa-eye" > Assign </i></a>  </button>  
+                                                                                    <button type="button" class="btn btn-success btn-sm mr-1"> <a  data-role="updatedispersementvotehead"  data-id="{{$disbursment ->disbursment_id}}"> <i class="fa fa-eye" > Budget </i></a>  </button>  
                                                                                
 
                                                                                   </td>  
@@ -254,7 +254,7 @@
                                                                               <thead>
                                                                               <tr>
                                                                                 <th>ID</th>
-                                                                                <th>Vote Head</th>
+                                                                                <th>Budget Line</th>
                                                                                 <th>Amount</th>
                                                                                 <th>Used</th>
                                                                                 <th>Balance</th>
@@ -271,7 +271,7 @@
                                                                                 <td>{{$votehead ->votehead_name}}</td>
                                                                                 <td>{{number_format($votehead ->amount_allocated,2)}}</td>
                                                     
-                                                                             @if ( array_key_exists($voteheadid,$mytotals))
+                                                                             @if (array_key_exists($voteheadid,$mytotals))
                                                                              <td><span class="badge badge-success">{{number_format($mytotals[$voteheadid],2)}}</span></td>
                                                                              <td><span class="badge badge-warning">{{number_format(($votehead ->amount_allocated - $mytotals[$voteheadid]),2)}}</span></td>
                                                                                                        
@@ -283,9 +283,9 @@
                                                                             
                                                                              @endif   
                                                                              
-                                                                            
-                                                                            <td><button type="button" class="btn btn-success btn-sm mr-1"><i class="fa fa-edit"> </i></button>
-                                                                                <button type="button" class="btn btn-danger btn-sm mr-1"><i class="fa fa-trash"> </i></button>
+                                                                             <td>
+                                                                                <a class="btn btn-primary btn-sm" href="editvotehead/{{$votehead ->votehead_id}}"><i class="fas fa-edit"></i></a>
+                                                                                <a class="btn btn-danger btn-sm delete-confirm" href="deletevotehead/{{$votehead ->votehead_id}}"><i class="fas fa-trash"></i></a>
                                                                                 <button type="button" class="btn btn-warning btn-sm mr-1"><i class="fa fa-file-pdf-o"> Statement </i></button></td>
                                                                             </tr>
                                                                             <?php $counter += 1 ; ?>
@@ -346,8 +346,9 @@
                                                                               @endif 
                                                          
                                                                             <td><button type="button" class="btn btn-success btn-sm mr-1"> <a  data-role="update"  data-id="{{$activity ->activity_id}}"> <i class="fa fa-eye" > Update </i></a>  </button>
-                                                                            <button type="button" class="btn btn-warning btn-sm mr-1"><i class="fa fa-edit"> </i></button>
-                                                                            <button type="button" class="btn btn-danger btn-sm mr-1"><i class="fa fa-trash"> </i></button></td>
+                                                                            <a class="btn btn-primary btn-sm" href="editmilestone/{{$activity ->activity_id}}"><i class="fas fa-edit"></i></a>
+                                                                       
+                                                                            <a class="btn btn-danger btn-sm delete-confirm" href="deletemilestone/{{$activity ->activity_id}}"><i class="fas fa-trash"></i></a>
                                                                               
                                                                              
                                                   
@@ -448,18 +449,9 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                              
-                   
                                                             </div>
-                                                      
                                                             </div>
-
-                                                               
-
-                                                               
-
                                                            </div>
-                           
                                                        </div>
                                                    </div>
                                                </div>

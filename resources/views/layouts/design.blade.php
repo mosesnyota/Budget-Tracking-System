@@ -821,32 +821,15 @@ $(function () {
     //  append values in input fields
       $(document).on('click','a[data-role=updatedispersementvotehead]',function(){
             var id  = $(this).data('id');
-            var activityname  = $('#'+id).children('td[data-target=narration]').text();
-            $('#narration').val(activityname);
+            var activityname  = $('#'+id).children('td[data-target=narrationname]').text();
+            $('#narration22').val(activityname);
             $('#disbursmentid').val(id);
             $('#modal-assignvotehead').modal('toggle');
       });
     });
 </script>
 
-<script>
-  $(document).ready(function(){
-    //  append values in input fields
-      $(document).on('click','a[data-role=edittransaction]',function(){
-            var id  = $(this).data('id');
-            var narration  = $('#'+id).children('td[data-target=narration]').text();
-            var debit  = $('#'+id).children('td[data-target=debit]').text();
-            var paid_to  = $('#'+id).children('td[data-target=paid_to]').text();
-          
-            $('#narration').val(narration);
-            $('#debit').val(debit);
-            $('#paid_to').val(paid_to);
-           
-            $('#disbursment_id').val(id);
-            $('#modal-edittransaction').modal('toggle');
-      });
-    });
-</script>
+
 
 @include('sweetalert::alert')
 
@@ -894,6 +877,28 @@ $('.delete-confirm').on('click', function (event) {
         }
     });
 });
+</script>
+
+<script>
+      jQuery('#datepicker-deadline').datepicker({
+            autoclose: true,
+            todayHighlight: true
+        });
+
+        jQuery('#datepicker-startdate').datepicker({
+            autoclose: true,
+            todayHighlight: true
+        });
+
+        jQuery('#datepicker-projectstart').datepicker({
+            autoclose: true,
+            todayHighlight: true
+        });
+
+        jQuery('#datepicker-projectdeadline').datepicker({
+            autoclose: true,
+            todayHighlight: true
+        });
 </script>
 
     </body>

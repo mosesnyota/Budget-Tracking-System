@@ -64,7 +64,8 @@ class ActivitiesController extends Controller
      */
     public function edit($id)
     {
-        //
+        $activity =  Activities::find($id); 
+        return view('milestones.editemilestone', compact('activity'));
     }
 
     /**
@@ -85,12 +86,29 @@ class ActivitiesController extends Controller
         $Activity->cur_status = $input['curstatus'];
         
         $Activity->save();
-        if(session('success_message')) {
-            Alert::success('Success', 'Projects Successfully Saved');
-        }
+       
         return redirect()->action(
-            'ProjectsController@index'
+            'ProjectsController@show',$Activity->project_id
         );
+    }
+
+    public function saveupdated(Request $request, $id){
+
+        $input = $request->all();
+        $Activity = Activities::find($id);
+        $start = strtotime($input['start_date']); 
+        $deadline = strtotime($input['deadline_date']); 
+
+        $Activity->start_date = date('Y-m-d', $start);
+        $Activity->deadline_date = date('Y-m-d', $deadline);
+        $Activity->activityname = $input['activityname'];
+
+        $Activity->save();
+
+        return redirect()->action(
+            'ProjectsController@show',$Activity->project_id
+        );
+
     }
 
     /**
@@ -101,6 +119,11 @@ class ActivitiesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $Activity = Activities::find($id);
+        $project_id = $Activity->project_id;
+        Activities::where('activity_id',$id)->delete();
+        return redirect()->action(
+            'ProjectsController@show',$project_id
+        );
     }
 }

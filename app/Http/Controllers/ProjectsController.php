@@ -552,7 +552,7 @@ foreach ($activities as $activity){
         DisbursmentNew::where('project_id',$id)->delete();
         Votehead::where('project_id',$id)->delete();
         Activities::where('project_id',$id)->delete();
-Project::where('project_id',$id)->delete();
+        Project::where('project_id',$id)->delete();
 
         return redirect()->action(
             'ProjectsController@index'

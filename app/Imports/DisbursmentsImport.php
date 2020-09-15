@@ -21,6 +21,10 @@ class DisbursmentsImport implements ToModel
     */
     public function model(array $row)
     {
+        
+       
+        if(!empty($row) && $row[0] != null) {
+       
         $debit = 0.0;
         if($row[5] == 0){
             $debit = 0.0;
@@ -30,13 +34,7 @@ class DisbursmentsImport implements ToModel
 
 
         $credit = 0.0;
-        if($row[6] == 0){
-            $credit = 0.0;
-        }else{
-            $credit = $row[6];
-        }
-
-
+       
 
         return new DisbursmentNew([
            'VoucherNo'      =>  $row[0],
@@ -51,4 +49,5 @@ class DisbursmentsImport implements ToModel
 
         ]);
     }
+}
 }

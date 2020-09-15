@@ -68,28 +68,24 @@
                   </div>
                     
                   <div class="form-group row">
-                    <label  class="col-sm-2 col-form-label">Start Date</label>
+                    <label for="budget" class="col-sm-2 col-form-label">Start Date</label>
                     <div class="col-sm-10">
-                      <div class="input-group date" id="reservationdate" data-target-input="nearest">
-                            <input type="text" name="start_date" class="form-control datetimepicker-input" data-target="#reservationdate"/>
-                            <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
-                                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                            </div>
-                        </div>
+                      <div class="input-group">
+                        <input type="text" class="form-control" autocomplete="off" id="datepicker-startdate" name="start_date">
+                        <div class="input-group-append bg-custom b-0"><span class="input-group-text"><i class="mdi mdi-calendar"></i></span></div>
+                    </div><!-- input-group -->
                     </div>
+                </div>
+                    
+                <div class="form-group row">
+                  <label for="budget" class="col-sm-2 col-form-label">Deadline</label>
+                  <div class="col-sm-10">
+                    <div class="input-group">
+                      <input type="text" class="form-control" autocomplete="off" id="datepicker-deadline" name="deadline" >
+                      <div class="input-group-append bg-custom b-0"><span class="input-group-text"><i class="mdi mdi-calendar"></i></span></div>
+                  </div><!-- input-group -->
                   </div>
-                  
-                 <div class="form-group row">
-                    <label for="start_date" class="col-sm-2 col-form-label">Set Deadline</label>
-                    <div class="col-sm-10">
-                      <div class="input-group date" id="datetimepicker4" data-target-input="nearest">
-                            <input type="text" name="deadline" class="form-control datetimepicker-input" data-target="#datetimepicker4"/>
-                            <div class="input-group-append" data-target="#datetimepicker4" data-toggle="datetimepicker">
-                                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                            </div>
-                        </div>
-                    </div>
-                  </div>
+              </div>
                     <div class="form-group row">
                         <label for="sponsor_id" class="col-sm-2 col-form-label">Funded By</label>
                         <div class="col-sm-10">

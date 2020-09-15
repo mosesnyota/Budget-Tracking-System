@@ -19,14 +19,28 @@
             format: 'hex'
         });
         $('.colorpicker-rgba').colorpicker();
-
         // Date Picker
         jQuery('#datepicker').datepicker();
         jQuery('#datepicker-autoclose').datepicker({
             autoclose: true,
             todayHighlight: true
         });
-        jQuery('#datepicker-inline').datepicker();
+        jQuery('#datepicker1-autoclose').datepicker({
+            autoclose: true,
+            todayHighlight: true
+        });
+        jQuery('#datepicker2-autoclose').datepicker({
+            autoclose: true,
+            todayHighlight: true
+        });
+        jQuery('#datepicker3-autoclose').datepicker({
+            autoclose: true,
+            todayHighlight: true
+        });
+        jQuery('#datepicker-inline').datepicker({
+            autoclose: true,
+            todayHighlight: true
+        });
         jQuery('#datepicker-multiple-date').datepicker({
             format: "mm/dd/yyyy",
             clearBtn: true,

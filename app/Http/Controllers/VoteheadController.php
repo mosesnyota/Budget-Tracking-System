@@ -68,7 +68,8 @@ class VoteheadController extends Controller
      */
     public function edit($id)
     {
-        //
+        $votehead =  Votehead::find($id); 
+        return view('voteheads.editvotehead', compact('votehead'));
     }
 
     /**
@@ -80,7 +81,16 @@ class VoteheadController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $input = $request->all();
+        
+        $votehead =  Votehead::find($id); 
+        $votehead ->votehead_name  =  $input['votehead_name'];
+        $votehead ->amount_allocated =  $input['amount_allocated'];
+        $votehead->save();
+        return redirect()->action(
+            'ProjectsController@show',$votehead->project_id
+        );
+       
     }
 
 
@@ -111,6 +121,12 @@ class VoteheadController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $votehead =  Votehead::find($id); 
+        DisbursmentNew::where('votehead_id',$id)->delete();
+        Votehead::where('votehead_id',$id)->delete();
+       
+        return redirect()->action(
+            'ProjectsController@show',$votehead->project_id
+        );
     }
 }

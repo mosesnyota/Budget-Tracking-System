@@ -22,3 +22,19 @@
 2020.09.11 13:59:08 INFO  started: Metals version 0.9.3 in workspace 'C:\wamp64\www\finance' for client vscode.
 2020.09.11 13:59:10 INFO  time: initialize in 2.29s
 2020.09.11 13:59:13 WARN  no build tool detected in workspace 'C:\wamp64\www\finance'. The most common cause for this problem is that the editor was opened in the wrong working directory, for example if you use sbt then the workspace directory should contain build.sbt. 
+2020.09.11 18:31:01 INFO  shutting down Metals
+2020.09.12 00:18:38 INFO  started: Metals version 0.9.3 in workspace 'C:\wamp64\www\finance' for client vscode.
+2020.09.12 00:18:39 INFO  time: initialize in 2.28s
+2020.09.12 00:18:50 WARN  no build tool detected in workspace 'C:\wamp64\www\finance'. The most common cause for this problem is that the editor was opened in the wrong working directory, for example if you use sbt then the workspace directory should contain build.sbt. 
+Sep 12, 2020 1:18:01 AM org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint notify
+INFO: Unsupported notification method: $/setTraceNotification
+2020.09.12 03:02:10 INFO  shutting down Metals
+2020.09.13 10:36:46 INFO  started: Metals version 0.9.3 in workspace 'C:\wamp64\www\finance' for client vscode.
+2020.09.13 10:36:48 INFO  time: initialize in 1.96s
+2020.09.13 10:36:55 WARN  no build tool detected in workspace 'C:\wamp64\www\finance'. The most common cause for this problem is that the editor was opened in the wrong working directory, for example if you use sbt then the workspace directory should contain build.sbt. 
+Sep 13, 2020 1:25:47 PM org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint notify
+INFO: Unsupported notification method: $/setTraceNotification
+2020.09.14 10:14:50 INFO  started: Metals version 0.9.3 in workspace 'C:\wamp64\www\finance' for client vscode.
+2020.09.14 10:14:51 INFO  time: initialize in 1.25s
+2020.09.14 10:14:57 WARN  no build tool detected in workspace 'C:\wamp64\www\finance'. The most common cause for this problem is that the editor was opened in the wrong working directory, for example if you use sbt then the workspace directory should contain build.sbt. 
+2020.09.14 10:21:42 INFO  shutting down Metals

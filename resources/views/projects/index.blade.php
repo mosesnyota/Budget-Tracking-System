@@ -38,7 +38,7 @@
 
 
                                   </div>
-                                  <a href="/finance/public/newproject" class="btn btn-warning btn-md float-right mr-1"  role="button"><b class="ti-plus"> New Project </b></a>
+                                  <a href="/finance/public/newproject" class="btn btn-success btn-md float-right mr-1"  role="button"><b class="ti-plus"> New Project </b></a>
                                   
                               </div>
                             
@@ -153,6 +153,8 @@
                         <td class="project-actions text-right">
                           <a class="btn btn-primary btn-sm" href="viewproject/{{$project ->project_id}}">
                               <i class="fas fa-eye"></i> View</a>
+
+                              <a href="/finance/public/deleteproject/{{$project ->project_id}}" class="btn btn-danger btn-sm float-right mr-1 delete-confirm"    role="button" data-role="deleteproject"  data-id="{{$project ->project_id}}"><b class="fa fa-trash"></b></a>
                       </td>
                       <?php $counter += 1 ; ?>
 
