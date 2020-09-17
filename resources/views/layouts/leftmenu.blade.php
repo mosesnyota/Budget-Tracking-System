@@ -35,16 +35,16 @@
                 <li class="has_sub">
                     <a href="javascript:void(0);" class="waves-effect"><i class="dripicons-user"></i> <span> Staff </span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
                     <ul class="list-unstyled">
-                        <li><a href="">New Staff</a></li>
-                        <li><a href="">Manage Staff</a></li>
+                        <li><a href="/finance/public/staff">New Staff</a></li>
+                        <li><a href="/finance/public/staff">Manage Staff</a></li>
                     </ul>
                 </li>
 
                 <li class="has_sub">
                     <a href="javascript:void(0);" class="waves-effect"><i class="dripicons-rocket"></i> <span> Benefactors </span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
                     <ul class="list-unstyled">
-                        <li><a href="">New Sponsor</a></li>
-                        <li><a href="">Manage Benefactors</a></li>
+                        <li><a href="sponsors">New Sponsor</a></li>
+                        <li><a href="sponsors">Manage Benefactors</a></li>
                        
                     </ul>
                 </li>

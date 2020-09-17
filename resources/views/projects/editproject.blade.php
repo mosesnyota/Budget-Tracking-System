@@ -50,7 +50,7 @@
                 <label for="budget" class="col-sm-2 col-form-label">Deadline</label>
                 <div class="col-sm-10">
                   <div class="input-group">
-                    <input type="text" class="form-control" autocomplete="off" id="datepicker-deadline" name="deadline_date">
+                    <input type="text" class="form-control" autocomplete="off" id="datepicker-deadline" name="deadline">
                     <div class="input-group-append bg-custom b-0"><span class="input-group-text"><i class="mdi mdi-calendar"></i></span></div>
                 </div><!-- input-group -->
                 </div>

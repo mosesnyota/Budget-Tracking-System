@@ -4,11 +4,7 @@
   <!-- Start content -->
   <div class="content">
 
-      <!-- Top Bar Start -->
-      <div class="topbar">
-
-      </div>
-      <!-- Top Bar End -->
+      
 
       <div class="page-content-wrapper ">
 

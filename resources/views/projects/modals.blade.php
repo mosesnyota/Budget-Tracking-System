@@ -43,8 +43,9 @@
     <!-- /.modal-dialog -->
   </div>
   
-<div class="modal fade" id="modal-dispersfunds">
-    <div class="modal-dialog">
+
+<div class="modal fade bs-example-modal-lg" id="modal-dispersfunds" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">Record Funds Release</h4>
@@ -53,60 +54,84 @@
                 </button>
             </div>
             <div class="modal-body">
-  
                 <form role="form" method="post" action="/finance/public/disbursment/store" enctype="multipart/form-data" >
                     {{ csrf_field() }}
                     <div class="box-body"> 
-                       <div class="form-group">
-                        <label>Funds Issued On</label>
-                         <div>
-                            <div class="input-group">
-                                <input type="text" class="form-control" autocomplete="off" id="datepicker-autoclose" name="voucherdate">
+                        <div class="form-group row">
+                            <label for="budget" class="col-sm-2 col-form-label">Date Issued</label>
+                            <div class="col-sm-10">
+                              <div class="input-group">
+                                <input type="text" class="form-control" autocomplete="off" id="datepicker-autoclose" name="voucherdate" >
                                 <div class="input-group-append bg-custom b-0"><span class="input-group-text"><i class="mdi mdi-calendar"></i></span></div>
                             </div><!-- input-group -->
-                         </div>
-                        </div>
-  
-                       <div class="form-group">
-                        <div class="form-group">
-                          <label>Votehead </label>
-                          <select class="form-control select2" name="votehead_id" style="width: 100%;">
-                            <option value=""></option>
-                            @foreach ($voteheads as $votehead)
-                              <option value="{{$votehead ->votehead_id}}">{{$votehead ->votehead_name}}</option>
-                            @endforeach
-                            
-                        </select>
-                      </div>
-                      </div>
-                        <label>Amount </label>
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="fas fa-dollar"></i></span>
                             </div>
-                            <input type="number" name="debit" id="debit" class="form-control" placeholder="Amount">
                         </div>
   
-                        <div class="form-group">
-                          <div class="form-group">
-                            <label>Narration </label>
-                            <input type="text" name="narration" id="narration" class="form-control" placeholder="Narration">
+
+                    <div class="form-group row">
+                            <label for="voucherno" class="col-sm-2 col-form-label">DBAM REF</label>
+                            <div class="col-sm-10">
+                              <input type="text" class="form-control" id="voucherno" name="voucherno" placeholder="DBAM Code : Optional" >
+                            </div>
+                    </div> 
+                
+
+                    <div class="form-group row">
+                        <label for="votehead_id" class="col-sm-2 col-form-label">Votehead</label>
+                        <div class="col-sm-10">
+                            <select class="form-control select2" name="votehead_id" style="width: 100%;">
+                                <option value=""></option>
+                                @foreach ($voteheads as $votehead)
+                                  <option value="{{$votehead ->votehead_id}}">{{$votehead ->votehead_name}}</option>
+                                @endforeach
+                                
+                            </select>
                         </div>
+                    </div>
+
+                        
+                        <div class="form-group row">
+                            <label for="debit" class="col-sm-2 col-form-label">Amount</label>
+                            <div class="col-sm-10">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fas fa-dollar"></i></span>
+                                    </div>
+                                    <input type="number" name="debit" id="debit" class="form-control" placeholder="Amount">
+                                </div>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <div class="form-group">
-                              <label>Paid To </label>
-                              <input type="text" name="paid_to" id="paid_to" class="form-control" placeholder="Paid To">
-                          </div>
-                          </div>
+
+  
+                    
+
+                        <div class="form-group row">
+                            <label for="narration" class="col-sm-2 col-form-label">Narration</label>
+                            <div class="col-sm-10">
+                              <input type="text" class="form-control" id="narration" name="narration" placeholder="Narration" required>
+                            </div>
+                          </div> 
+
+                          <div class="form-group row">
+                            <label for="paid_to" class="col-sm-2 col-form-label">Paid To</label>
+                            <div class="col-sm-10">
+                              <input type="text" class="form-control" id="paid_to" name="paid_to" placeholder="Paid To: optional" >
+                            </div>
+                          </div> 
+
+
+                          <div class="form-group row">
+                            <label for="chequeno" class="col-sm-2 col-form-label">Ref/Cheque No</label>
+                            <div class="col-sm-10">
+                              <input type="text" class="form-control" id="chequeno" name="chequeno" placeholder="Reference: optional" >
+                            </div>
+                          </div> 
+
+
+
                         
 
-                        <div class="form-group">
-                            <div class="form-group">
-                              <label>Reference </label>
-                              <input type="text" name="chequeno" id="chequeno" class="form-control" placeholder="Cheque No">
-                          </div>
-                        </div>
+
                     </div>
                     <!-- /.card-body -->
                     <div class="modal-footer justify-content-between">
@@ -124,6 +149,9 @@
   </div>
 
 
+
+  
+   
 
   <div class="modal fade" id="modal-addactivity">
     <div class="modal-dialog">

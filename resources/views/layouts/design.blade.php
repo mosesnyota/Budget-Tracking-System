@@ -633,10 +633,10 @@
           "bInfo" : false,
           
       });
-      $('#example2').DataTable({
+      $('#example3').DataTable({
           "paging": true,
           "lengthChange": false,
-          "searching": false,
+          "searching": true,
           "ordering": true,
           "info": true,
           "autoWidth": false,
@@ -663,8 +663,14 @@ $(function () {
   $(function () {
       var tbl = $("#nobuttonstable");
       $("#nobuttonstable").DataTable({
+          "paging": true,
+          "lengthChange": true,
+          "searching": true,
+          "bInfo" : true,
+          "ordering": true,
+          "info": true,
+          "autoWidth": true,
           "responsive": true,
-          "autoWidth": false,
       });
       $('#example2').DataTable({
           "paging": true,
@@ -707,14 +713,13 @@ $(function () {
                       </div>
 
 
-                      <div class="form-group">
-                          <label>Issued to: </label>
-                          <select class="form-control select2" name ="issuedto" id ="issuedto" style="width: 100%;" required>
-                              <option value="">------Select Person------</option>
-                              <option value="Non Employee">Non Employee</option>
+                     
 
-                          </select>
-                      </div>
+                      <div class="form-group">
+                        <label>Issued To: </label>
+                        <input type="text" name="issuedto" id="issuedto" class="form-control" placeholder="Comment">
+                    </div>
+
                       <label>Amount: </label>
                       <div class="input-group mb-3">
                           <div class="input-group-prepend">

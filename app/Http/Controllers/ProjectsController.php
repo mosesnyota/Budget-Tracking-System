@@ -143,52 +143,39 @@ class ProjectsController extends Controller
         ->select(DB::raw('project_id,project_name,location,start_date,deadline,sponsor_id,staff_id,budget,cur_status,details,created_at,updated_at,DATEDIFF(deadline, start_date) AS days'))
         ->where('project_id', '=', $id)
         ->get();
-
         foreach ($projects as $prj){ 
             $val = $prj->days;
             $project->days =  $val;
         }
-
         $time = strtotime($project ->start_date);
         $project ->start_date = date('d-m-Y',$time);
-
         $time2 = strtotime($project ->deadline);
         $project ->deadline = date('d-m-Y',$time2);
         $project ->budget2 = number_format($project ->budget,2);
         $voteheads = Votehead::all()->where('project_id', '=', $id) ;
         $activities = Activities::all()->where('project_id', '=', $id) ;
-
         $completedactivities = DB::table('activities')
         ->select(DB::raw('project_id, SUM(DATEDIFF(activities.deadline_date , activities.start_date) ) AS activitydays '))
         ->where('cur_status', '=', 'Completed')
         ->where('project_id', '=', $id)
         ->groupBy('project_id')
         ->get();
-
         $completionStatus = array();
-        
         $completionStatus[$id] =  0;
-       
-
         foreach ($completedactivities as $activity1){ 
             $val = $activity1->project_id;
             $completionStatus[$val] =  $activity1->activitydays;
         }
-
-        
-
         $voteheadtotals =  DB::table('disbursment_news')
         ->select(DB::raw('votehead_id, SUM(debit) AS total'))
         ->where('disbursment_news.project_id', '=', $id)
         ->groupBy('votehead_id')
         ->get();
-
         $mytotals = array();
         foreach ($voteheadtotals as $totald){ 
             $val = $totald->votehead_id;
             $mytotals[$val] =  $totald->total;
         }
-
         $sponsor = Sponsor::find($project ->sponsor_id) ;
         $staff =  Staff::find($project ->staff_id) ;
         //get total budget expenditure for this project
@@ -196,24 +183,17 @@ class ProjectsController extends Controller
         ->select(DB::raw('SUM(debit) AS total'))
         ->where('disbursment_news.project_id', '=', $id)
         ->get();
-
         $totalAmountUsed = 0;
-      
         foreach ($totalused as $totald){ 
             $totalAmountUsed = $totald->total;
         }
-
         $disbursments = DB::table('disbursment_news')
             ->leftJoin('voteheads', 'disbursment_news.votehead_id', '=', 'voteheads.votehead_id')
             ->select('disbursment_news.*', 'voteheads.votehead_name')
             ->where('disbursment_news.project_id', '=', $id)
             ->orderBy('disbursment_news.created_at', 'DESC')
             ->get();
-
-
-
-
-        return view('projects.viewproject2', compact('disbursments','completionStatus','activities','project','staff','sponsor','voteheads','mytotals','totalAmountUsed'));
+        return view('projects.viewproject', compact('disbursments','completionStatus','activities','project','staff','sponsor','voteheads','mytotals','totalAmountUsed'));
     }
 
     /**
@@ -253,20 +233,13 @@ class ProjectsController extends Controller
         $project ->budget = $input['budget'];
         $project ->details = $input['details'];
         $project->save();
-        
         alert()->success('Success', 'Projects Successfully Saved');
-        
         return redirect()->action(
             'ProjectsController@show',$project->project_id
         );
-       
     }
 
 
-    
-
-
-    
     public function printPdfReport($id){
         $project =  Project::find($id) ;
         $time = strtotime($project ->start_date);
@@ -280,7 +253,7 @@ class ProjectsController extends Controller
         $activities = Activities::all()->where('project_id', '=', $id) ;
 
         $disbursments= DB::table('disbursment_news')
-            ->join('voteheads', 'disbursment_news.votehead_id', '=', 'voteheads.votehead_id')
+            ->leftJoin('voteheads', 'disbursment_news.votehead_id', '=', 'voteheads.votehead_id')
             ->select('disbursment_news.*', 'voteheads.votehead_name')
             ->where('disbursment_news.project_id', '=', $id)
             ->orderBy('disbursment_news.voucherdate', 'DESC')
@@ -297,34 +270,26 @@ class ProjectsController extends Controller
             $val = $totald->votehead_id;
             $mytotals[$val] =  $totald->total;
         }
-
-
         $sponsor = Sponsor::find($project ->sponsor_id) ;
         $staff =  Staff::find($project ->staff_id) ;
-
-
         //get total budget expenditure for this project
         $totalused =  DB::table('disbursment_news')
         ->select(DB::raw('SUM(debit) AS total'))
         ->where('disbursment_news.project_id', '=', $id)
         ->get();
-
         $totalAmountUsed = 0;
-      
         foreach ($totalused as $totald){ 
             $totalAmountUsed = $totald->total;
-            
         }
-
-  
        $pdf = new MyPDF();
-        $pdf->AddPage();
+       $pdf-> SetWidths(7);
+        $pdf->AddPage('L');
         $pdf->SetFont('Arial','',14);
         //Table with 20 rows and 4 columns
         $pdf->SetX(5);
         $pdf->SetFillColor(237, 228, 226);
         $pdf->Ln(7);
-        $pdf-> Cell(195, 10, "Project Report",0, 0, 'C', 1, '');
+        $pdf-> Cell(280, 10, "Project Report",0, 0, 'C', 1, '');
         $pdf->Ln(15);
         $pdf->SetX(10);
         $pdf->SetFont('Times','',12);
@@ -334,7 +299,7 @@ class ProjectsController extends Controller
 $pdf->SetFillColor(157, 245, 183);
 $pdf->setFont("times", "", "11");
 $pdf->setXY(10, 60);
-$pdf->Cell(105, 7, "PROJECT DETAILS", 1, 0, "L", 1);
+$pdf->Cell(130, 7, "PROJECT DETAILS", 1, 0, "L", 1);
 $pdf->Ln();
 $pdf->Cell(40, 7, "Project Name :", 1, 0, "L", 0);
 $pdf->Cell(90, 7, $project->project_name, 1, 0, "L", 0);
@@ -379,11 +344,11 @@ $pdf->Ln();
 
 
 $pdf->Ln();
-$pdf->Cell(105, 7, "BUDGET VOTEHEADS", 1, 0, "C", 1);
+$pdf->Cell(105, 7, "BUDGET LINES", 1, 0, "C", 1);
 $pdf->SetFillColor(224, 235, 255);
 $pdf->Ln();
 $pdf->Cell(20, 7, "#", 1, 0, "L", 1);
-$pdf->Cell(55, 7, "Vote Head", 1, 0, "C", 1);
+$pdf->Cell(55, 7, "Budget Line", 1, 0, "C", 1);
 $pdf->Cell(40, 7, "Total Allocation", 1, 0, "C", 1);
 $pdf->Cell(40, 7, "Paid Out", 1, 0, "C", 1);
 $pdf->Cell(40, 7, "Balance", 1, 0, "C", 1);
@@ -392,6 +357,8 @@ $counter = 1;
 $y = $pdf->GetY();
 $x = 10;
 $fill = 0;
+       
+
 foreach ($voteheads as $votehead){ 
     $voteheadid =  $votehead->votehead_id;
     $pdf->Cell(20, 7,"VTH0".$counter, 1, 0, "L", $fill);
@@ -410,70 +377,81 @@ foreach ($voteheads as $votehead){
     
     $y += 7;
     $fill = !$fill;
-    if ($y > 275) {
-        $pdf->AddPage();
-        $pdf->SetFillColor(128, 128, 128); //gray
+    if ($y > 160) {
+        $pdf->AddPage('L');
+        $pdf->SetFillColor(157, 245, 183);
         $pdf->setFont("times", "", "11");
-        $pdf->setXY(10, 40);
+        $pdf->setXY(10, 45);
 
         $pdf->Cell(20, 7, "#", 1, 0, "L", 1);
-        $pdf->Cell(40, 7, "Vote Head", 1, 0, "C", 1);
+        $pdf->Cell(40, 7, "Budget Line", 1, 0, "C", 1);
         $pdf->Cell(35, 7, "Total Allocation", 1, 0, "C", 1);
         $pdf->Cell(30, 7, "Paid Out", 1, 0, "C", 1);
         $pdf->Cell(30, 7, "Balance", 1, 0, "C", 1);
 
         $pdf->Ln();
-        $y = 47;
+        $y = 52;
     }
 
     $pdf->Ln();
     $pdf->SetFillColor(224, 235, 255);
     $pdf->setXY($x, $y);
 }
+$pdf->Ln();
 
-$y = $pdf->GetY();
 $pdf->setXY($x, $y);
 $pdf->Ln();
 $pdf->SetFillColor(157, 245, 183);
 $pdf->Cell(105, 7, "FINANCE DISBURSMENT REPORT", 1, 0, "C", 1);
 $pdf->SetFillColor(224, 235, 255);
+$y += 7;
+$pdf->setXY($x, $y);
 $pdf->Ln();
 $pdf->Cell(20, 7, "#", 1, 0, "L", 1);
-$pdf->Cell(55, 7, "Vote Head", 1, 0, "C", 1);
-$pdf->Cell(40, 7, "Date", 1, 0, "C", 1);
-$pdf->Cell(40, 7, "Reference", 1, 0, "C", 1);
+$pdf->Cell(30, 7, "Date", 1, 0, "C", 1);
+$pdf->Cell(50, 7, "Budget Line", 1, 0, "C", 1);
+$pdf->Cell(90, 7, "Narration", 1, 0, "C", 1);
+$pdf->Cell(50, 7, "Paid To", 1, 0, "C", 1);
 $pdf->Cell(40, 7, "Amount", 1, 0, "C", 1);
-
+$y += 7;
+$pdf->setXY($x, $y);
 $pdf->Ln();
 $counter = 1;
+
+$pdf->SetWidths(array(20,30,50,90,50,40));
+$aligns = array('L','C','L','L','L','R');
+$pdf->SetAligns($aligns );
+$pdf->SetFillColor(245, 241, 216 );
+$fill = 0;
 foreach ($disbursments as $disbursment){ 
     
-    $pdf->Cell(20, 7,"TRX0".$counter, 1, 0, "L", $fill);
-    $pdf->Cell(55, 7, $disbursment ->votehead_name, 1, 0, "L", $fill);
-    $pdf->Cell(40, 7, date("d-m-Y", strtotime($disbursment ->voucherdate)), 1, 0, "R", $fill);
-    $pdf->Cell(40, 7, $disbursment ->chequeno, 1, 0, "R", $fill);
-    $pdf->Cell(40, 7, number_format($disbursment ->debit,2), 1, 0, "R", $fill);
+    $pdf->SetFillColor(224, 235, 255);
+    $pdf->Row(array( "TRX0".$counter,
+    date("d-m-Y", strtotime($disbursment ->voucherdate)), 
+    $disbursment ->votehead_name ,
+    $disbursment ->narration, 
+    $disbursment ->paid_to , 
+    number_format($disbursment ->debit,2)),$fill);
     $counter++;
-    
-    $y += 7;
     $fill = !$fill;
-    if ($y > 275) {
-        $pdf->AddPage();
-        $pdf->SetFillColor(128, 128, 128); //gray
+    if ($pdf->GetY() == 52) {
+        $pdf->AddPage('L');
+        $pdf->SetFillColor(224, 235, 255);
         $pdf->setFont("times", "", "11");
-        $pdf->setXY(10, 40);
-
+        $pdf->setXY(10, 45);
         $pdf->Cell(20, 7, "#", 1, 0, "L", 1);
-        $pdf->Cell(55, 7, "Vote Head", 1, 0, "C", 1);
         $pdf->Cell(40, 7, "Date", 1, 0, "C", 1);
-        $pdf->Cell(40, 7, "Reference", 1, 0, "C", 1);
-        $pdf->Cell(40, 7, "Amount", 1, 0, "C", 1);
+        $pdf->Cell(60, 7, "Vote Head", 1, 0, "C", 1);
+        $pdf->Cell(100, 7, "Narration", 1, 0, "C", 1);
+        $pdf->Cell(50, 7, "Paid To", 1, 0, "C", 1);
+        $pdf->Cell(50, 7, "Amount", 1, 0, "C", 1);
         $pdf->Ln();
-        $y = 47;
+        $y += 7;
     }
 
-    $pdf->Ln();
-    $pdf->SetFillColor(224, 235, 255);
+  
+    
+  
    
 }
 
@@ -492,7 +470,8 @@ $pdf->Cell(75, 7, "Activity Name", 1, 0, "C", 1);
 $pdf->Cell(30, 7, "Start Date", 1, 0, "C", 1);
 $pdf->Cell(30, 7, "Deadline", 1, 0, "C", 1);
 $pdf->Cell(40, 7, "Current Status", 1, 0, "C", 1);
-
+$y += 7;
+$pdf->setXY($x, $y);
 $pdf->Ln();
 $counter = 1;
 foreach ($activities as $activity){ 
@@ -515,11 +494,11 @@ foreach ($activities as $activity){
     
     $y += 7;
     $fill = !$fill;
-    if ($y > 275) {
-        $pdf->AddPage();
+    if ($y > 150) {
+        $pdf->AddPage('L');
         $pdf->SetFillColor(128, 128, 128); //gray
         $pdf->setFont("times", "", "11");
-        $pdf->setXY(10, 40);
+        $pdf->setXY(10, 45);
 
         $pdf->Cell(20, 7, "#", 1, 0, "L", 1);
         $pdf->Cell(55, 7, "Activity Name", 1, 0, "C", 1);
@@ -527,11 +506,12 @@ foreach ($activities as $activity){
         $pdf->Cell(40, 7, "Deadline", 1, 0, "C", 1);
         $pdf->Cell(40, 7, "Current Status", 1, 0, "C", 1);
         $pdf->Ln();
-        $y = 47;
+        $y = 52;
     }
 
     $pdf->Ln();
     $pdf->SetFillColor(224, 235, 255);
+    $pdf->setXY($x, $y);
    
 }
 

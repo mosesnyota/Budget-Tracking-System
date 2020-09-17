@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Staff;
 use App\User;
+use DB;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
@@ -24,8 +25,12 @@ class StaffsController extends Controller
      */
     public function index()
     {
+        $categories= DB::table('staff_categories')
+        ->select('staff_categories.*')
+        ->orderBy('categoryname', 'ASC')
+        ->get();
         $staffs =  Staff::all() ;
-        return view('staff.index')->with('staffs',$staffs);
+        return view('staff.index',compact('staffs','categories'));
     }
 
     /**
@@ -35,7 +40,12 @@ class StaffsController extends Controller
      */
     public function create()
     {
-        return view('newstaff');
+        
+        $categories= DB::table('staff_categories')
+        ->select('staff_categories.*')
+        ->orderBy('categoryname', 'ASC')
+        ->get();
+        return view('newstaff')->with('categories',$categories);
     }
 
     /**
@@ -59,9 +69,7 @@ class StaffsController extends Controller
                 'password' => $hashedPassword );
         User::create($records);
         
-        if(session('success_message')) {
-                Alert::success('Success', 'Staff Info Successfully Saved');
-        }
+       
 
        return back()->withSuccessMessage('Successfully Added');
     }
@@ -85,7 +93,12 @@ class StaffsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $categories= DB::table('staff_categories')
+        ->select('staff_categories.*')
+        ->orderBy('categoryname', 'ASC')
+        ->get();
+        $staff =  Staff::find($id) ;
+        return view('staff.editstaff', compact('categories','staff'));
     }
 
     /**
@@ -97,7 +110,18 @@ class StaffsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $input = $request->all();
+        $staff =  Staff::find($id) ;
+        $staff ->firstname = $input['firstname'];
+        $staff ->othernames = $input['othernames'];
+        $staff ->staffcategory_id = $input['staffcategory_id'];
+        $staff ->phone = $input['phone'];
+        $staff ->email = $input['email'];
+        $staff->save();
+        return redirect()->action(
+            'StaffsController@index'
+        );
+
     }
 
     /**
@@ -108,6 +132,9 @@ class StaffsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Staff::where('staffid',$id)->delete();
+        return redirect()->action(
+            'StaffsController@index'
+        );
     }
 }

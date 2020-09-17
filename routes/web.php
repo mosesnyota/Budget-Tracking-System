@@ -23,10 +23,12 @@ Route::get('/home', 'MyController@index')->name('home');
 Route::get('/test', 'MyController@test')->name('test');
 
 //this creates all the routes for staff
-
 Route::get('/staff','StaffsController@index');
 Route::post('/staff/store','StaffsController@store');
-
+Route::post('/staff/addnewstaff','StaffsController@create');
+Route::get('/editstaff/{staff}','StaffsController@edit');
+Route::post('/editstaff/update/{staff}','StaffsController@update');
+Route::get('/staff/destroy/{staff}','StaffsController@destroy');
 
 Route::get('/pettycash','PettyCashs@index');
 Route::post('/pettycash/store','PettyCashs@store');

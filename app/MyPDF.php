@@ -13,24 +13,24 @@ function Header()
 {
     // Logo
 	$this->Image('logo.png',10,6,30);
-	$this->Image('donbosco.png',170,6,40);
+	$this->Image('donbosco.png',250,6,40);
     // Arial bold 15
     $this->SetFont('Arial','B',14);
     // Move to the right
     
 	// Title
-	$this->Cell(40);
-	$this->Cell(120,0,'DON BOSCO DEVELOPMENT OUTREACH NETWORK',0,0,'C');
+	
+	$this->Cell(280,0,'DON BOSCO DEVELOPMENT OUTREACH NETWORK',0,0,'C');
 	$this->Ln(7);
 	$this->SetFont('Arial','B',13);
-	$this->Cell(40);
-	$this->Cell(120,0,'P.O.BOX 62322-00200, NAIROBI , KENYA',0,0,'C');
+	
+	$this->Cell(280,0,'P.O.BOX 62322-00200, NAIROBI , KENYA',0,0,'C');
 	$this->Ln(7);
-	$this->Cell(40);
-	$this->Cell(120,0,'info@dbdon.org',0,0,'C');
+	
+	$this->Cell(280,0,'info@dbdon.org',0,0,'C');
 	$this->Ln(7);
-	$this->Cell(40);
-	$this->Cell(120,0,'TEL: +254202724495, +254743794129',0,0,'C');
+
+	$this->Cell(280,0,'TEL: +254202724495, +254743794129',0,0,'C');
     // Line break
     $this->Ln(9);
 }
@@ -59,7 +59,7 @@ function SetAligns($a)
 	$this->aligns=$a;
 }
 
-function Row($data)
+function Row($data,$fill)
 {
 	//Calculate the height of the row
 	$nb=0;
@@ -69,7 +69,7 @@ function Row($data)
 	//Issue a page break first if needed
 	$this->CheckPageBreak($h);
 	//Draw the cells of the row
-	$fill = 1;
+	
 	for($i=0;$i<count($data);$i++)
 	{
 		$w=$this->widths[$i];
@@ -77,18 +77,16 @@ function Row($data)
 		//Save the current position
 		$x=$this->GetX();
 		$y=$this->GetY();
-		//Draw the border
-		$this->Rect($x,$y,$w,$h);
+		
+		
 		//Print the text
 		$this->MultiCell($w,7,$data[$i],0,$a,$fill);
+		//Draw the border
+		$this->Rect($x,$y,$w,$h);
 		//Put the position to the right of the cell
 		$this->SetXY($x+$w,$y);
 
-		if($fill == 1){
-			$fill = 0;
-		}else{
-			$fill = 1;
-		}
+		
 	}
 	//Go to the next line
 	$this->Ln($h);
@@ -98,7 +96,10 @@ function CheckPageBreak($h)
 {
 	//If the height h would cause an overflow, add a new page immediately
 	if($this->GetY()+$h>$this->PageBreakTrigger)
-		{$this->AddPage($this->CurOrientation);}
+		{
+			$this->AddPage($this->CurOrientation);
+			$this->SetXY(10,52);
+		}
 }
 
 function NbLines($w,$txt)

@@ -2,17 +2,12 @@
 @section('content')
 <!-- Start content -->
 <div class="content">
-
 <!-- Top Bar Start -->
 <div class="topbar">
-
 </div>
 <!-- Top Bar End -->
-
 <div class="page-content-wrapper ">
-
     <div class="container-fluid">
-
         <div class="row">
             <div class="col-sm-12">
                 <div class="page-title-box">
@@ -46,7 +41,6 @@
             <div class="col-12">
                 <div class="card m-b-30">
                     <div class="card-body">
-
                      <!-- form start -->
               <form class="form-horizontal" method="post" action="savenewproject" enctype="multipart/form-data" >
                   {{ csrf_field() }}
