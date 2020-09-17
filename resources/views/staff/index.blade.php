@@ -34,11 +34,7 @@
                                                 <a class="dropdown-item" href="#">Print Staff List</a>
                                             </div>
                                         </div>
-
-
                                     </div>
-                                    
-
                                         <button type="button"  class="btn btn-success btn-md float-right mr-1"  data-toggle="modal" data-target="#modal_newstaff" data-backdrop="static" data-keyboard="false" href="#"> <b class="fa fa-plus-circle"> Add Staff </b></button>
                                    </div>
 
@@ -60,8 +56,8 @@
 
 
 
-                                <table id="datatable" class="table table-striped table-bordered dt-responsive nowrap"
-                                    style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                
+                                <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                     <thead>
                                         <tr>
                                             <th width="10%">#</th>

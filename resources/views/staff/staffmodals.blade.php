@@ -84,7 +84,7 @@ aria-labelledby="myLargeModalLabel" aria-hidden="true">
 
 
                     <div class="form-group row">
-                        <label for="chequeno" class="col-sm-2 col-form-label">Password</label>
+                        <label for="chequeno" class="col-sm-2 col-form-label">Temporary Password:</label>
                         <div class="col-sm-10">
                             <input type="password" autocomplete="off" class="form-control" id="password" name="password">
                         </div>

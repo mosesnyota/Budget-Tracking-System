@@ -39,9 +39,7 @@ class ActivitiesController extends Controller
         $input['start_date']  =  date('Y-m-d', strtotime($input['start_date']));
         $input['deadline_date']  =  date('Y-m-d', strtotime($input['deadline_date']));
         Activities::create($input);
-        if(session('success_message')) {
-                Alert::success('Success', 'Created Successfully');
-        }
+        
        return back()->withSuccessMessage('Successfully Added');
     }
 

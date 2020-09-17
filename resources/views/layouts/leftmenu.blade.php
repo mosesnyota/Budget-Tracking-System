@@ -26,40 +26,36 @@
                 <li class="has_sub">
                     <a href="javascript:void(0);" class="waves-effect"><i class="dripicons-briefcase"></i> <span> Projects </span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
                     <ul class="list-unstyled">
-                        <li><a href="/finance/public/newproject">New Project</a></li>
-                        <li><a href="/finance/public/projects">Manage Projects</a></li>
-                        <li><a href="/finance/public/projects">Projects Reports</a></li>
+                        <li><a href="/finance/public/newproject"><b class="fa fa-plus-circle" > New Project </b></a></li>
+                        <li><a href="/finance/public/projects"><b class="dripicons-briefcase" > Manage Projects </b></a></li>
+                        <li><a href="/finance/public/projects"><b class="fa fa-file" > Projects Reports </b></a></li>
                     </ul>
                 </li>
 
                 <li class="has_sub">
                     <a href="javascript:void(0);" class="waves-effect"><i class="dripicons-user"></i> <span> Staff </span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
                     <ul class="list-unstyled">
-                        <li><a href="/finance/public/staff">New Staff</a></li>
-                        <li><a href="/finance/public/staff">Manage Staff</a></li>
+                        
+                        <li><a href="/finance/public/staff"> <b class="fa fa-users" > Manage Staff </b></a></li>
                     </ul>
                 </li>
 
                 <li class="has_sub">
-                    <a href="javascript:void(0);" class="waves-effect"><i class="dripicons-rocket"></i> <span> Benefactors </span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
+                    <a href="javascript:void(0);" class="waves-effect"><i class="fa fa-users"></i> <span> Project Sponsors </span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
+                    
                     <ul class="list-unstyled">
-                        <li><a href="sponsors">New Sponsor</a></li>
-                        <li><a href="sponsors">Manage Benefactors</a></li>
-                       
+                        
+                        <li><a href="sponsors"> <b class="dripicons-user" > Manage Sponsors </b></a></li>
                     </ul>
                 </li>
 
-                <li>
-                    <a href="/finance/public/calendar" class="waves-effect"><i class="dripicons-calendar"></i><span> Calendar </span></a>
-                </li>
+               
 
                 <li class="has_sub">
-                    <a href="javascript:void(0);" class="waves-effect"><i class="dripicons-document"></i><span> Petty Cash </span> <span class="badge badge-warning badge-pill float-right">8</span></a>
+                    <a href="javascript:void(0);" class="waves-effect"><i class="fas fa-dollar-sign"></i> <span> Petty Cash </span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
                     <ul class="list-unstyled">
-                        <li><a href="/finance/public/pettycash">Issue Cash</a></li>
-                        <li><a href="/finance/public/pettycash">Add Funds</a></li>
-                        <li><a href="/finance/public/pettycash">Manage Transactions</a></li>
-  
+                        
+                        <li><a href="/finance/public/pettycash"> <b class="fas fa-dollar-sign" > Manage Transactions </b></a></li>
                     </ul>
                 </li>
 

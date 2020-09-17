@@ -1,140 +1,215 @@
 @extends('layouts.design')
 @section('content')
-<div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <section class="content-header">
-      <div class="container-fluid">
-        <div class="row mb-12">
-          <div class="col-sm-6">
-            
-          </div>
-          <div class="col-sm-6">
-            <button type="button" class="btn btn-success btn-lg float-right"  data-toggle="modal" data-target="#modal-addsponsor"> <b class="fa fa-plus-circle"> New Record </b></button>
-          </div>
-        </div>
-      </div><!-- /.container-fluid -->
-    </section>
 
-    <!-- Main content -->
-    <section class="content">
-      <div class="container-fluid">
-        <div class="row">
-          
-          <div class="col-12">
-            <div class="card">
-              
-              <!-- /.card-header -->
-              <div class="card-body">
-                <table id="stafftable" class="table table-bordered table-striped table-hover">
-                  <thead>
-                  <tr>
-                    <th width="10%">#</th>
-                    <th>Name/Organization</th>
-                    <th>Contact Person</th>
-                    <th>Joined</th>
-                    <th>Phone</th>
-                    <th></th>
-                    <th></th>
-                  </tr>
-                  </thead>
-                  <tbody>
-                    <?php $counter = 1 ; ?>
-                    @if(count($sponsors) > 0)
-                    @foreach($sponsors as $transaction)
-                            <tr>
-                                <td>{{$counter}}</td>
-                                <td>{{$transaction -> sponsornames}}</td>
-                                <td>{{$transaction -> contactperson}}</td>
-                                <td>{{$transaction -> startdate}}</td>
-                                <td>{{$transaction -> phone}}</td>
-                                <td><button type="button" class="btn btn-secondary btn-sm mr-1"><i class="fa fa-edit"> Edit </i></button></td>
-                                <td><button type="button" class="btn btn-secondary btn-sm mr-1"><i class="fa fa-trash"> Delete</i></button></td>
-                                 <?php $counter += 1 ; ?>
-                            </tr>
-                        @endforeach 
-                @endif
-                  </tbody>
-                  
-                </table>
-              </div>
-              <!-- /.card-body -->
-            </div>
-            <!-- /.card -->
-          </div>
-          <!-- /.col -->
+    <!-- Start content -->
+    <div class="content">
+
+        <!-- Top Bar Start -->
+        <div class="topbar">
+
         </div>
-        <!-- /.row -->
+        <!-- Top Bar End -->
+
+        <div class="page-content-wrapper ">
+
+            <div class="container-fluid">
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="page-title-box">
+                            <div class="row align-items-center">
+                                <div class="col-md-8">
+                                    <h4 class="page-title m-0">STAFF</h4>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="float-right d-none d-md-block">
+                                        <div class="dropdown">
+                                            <button class="btn btn-primary dropdown-toggle" type="button"
+                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <i class="ti-settings mr-1"></i> Options
+                                            </button>
+                                            <div class="dropdown-menu dropdown-menu-right dropdown-menu-animated">
+                                                <a class="dropdown-item" href="#">Export to Excel</a>
+                                                <div class="dropdown-divider"></div>
+                                                <a class="dropdown-item" href="#">Print List</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                        <button type="button"  class="btn btn-success btn-md float-right mr-1"  data-toggle="modal" data-target="#modal-addsponsor" data-backdrop="static" data-keyboard="false" href="#"> <b class="fa fa-plus-circle"> Add New </b></button>
+                                   </div>
+
+                                <!-- end col -->
+                            </div>
+                            <!-- end row -->
+                        </div>
+                        <!-- end page-title-box -->
+                    </div>
+                </div>
+                <!-- end page title -->
+
+
+                <div class="row">
+          
+                  <div class="col-12">
+                    <div class="card">
+                      
+                      <!-- /.card-header -->
+                      <div class="card-body">
+                        
+                          <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                          <thead>
+                          <tr>
+                            <th width="10%">#</th>
+                            <th>Name/Organization</th>
+                            <th>Contact Person</th>
+                            <th>Joined</th>
+                            <th>Phone</th>
+                            <th></th>
+                            
+                          </tr>
+                          </thead>
+                          <tbody>
+                            <?php $counter = 1 ; ?>
+                            @if(count($sponsors) > 0)
+                            @foreach($sponsors as $sponsor)
+                                    <tr>
+                                        <td>{{$counter}}</td>
+                                        <td>{{$sponsor -> sponsornames}}</td>
+                                        <td>{{$sponsor -> contactperson}}</td>
+                                        <td>{{$sponsor -> startdate}}</td>
+                                        <td>{{$sponsor -> phone}}</td>
+                                        <td>
+                                          <a class="btn btn-primary btn-sm" href="editstaff/{{$sponsor->sponsor_id}}"><i class="fas fa-edit"></i></a>
+                                          <button type="button" class="btn btn-danger btn-sm mr-1 delete-confirm"  href="staff/destroy/{{$sponsor->sponsor_id}}"> <a  data-role="deletestaff"  data-id="{{$sponsor->sponsor_id}}"> <i class="fa fa-trash" > </i></a>  </button>  
+                                          <button type="button" class="btn btn-success btn-sm mr-1"> <a  data-role="viewstaff"  data-id="{{$sponsor->sponsor_id}}"> <i class="fa fa-eye" > </i></a>  </button>  
+                                     
+
+                                        </td> 
+                                         <?php $counter += 1 ; ?>
+                                    </tr>
+                                @endforeach 
+                        @endif
+                          </tbody>
+                          
+                        </table>
+                      </div>
+                      <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+                  </div>
+                  <!-- /.col -->
+                </div>
+
+                
+
+            </div><!-- container fluid -->
+
+        </div> <!-- Page content Wrapper -->
+
+    </div> <!-- content -->
+
+    
+
+
+    
+  <div class="modal fade bs-example-modal-lg" id="modal-addsponsor" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Add Project Sponsor</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          
+            <form role="form" method="post" action="sponsors/store" enctype="multipart/form-data" >
+                {{ csrf_field() }}
+                <div class="box-body"> 
+                    
+                   
+
+                  <div class="form-group row">
+                      <label for="sponsornames" class="col-sm-2 col-form-label">Name/Organization:</label>
+                      <div class="col-sm-10">
+                          <input type="text" autocomplete="off" class="form-control" id="sponsornames" name="sponsornames" required>
+                      </div>
+                  </div>
+
+                  <div class="form-group row">
+                    <label for="contactperson" class="col-sm-2 col-form-label">Contact Person:</label>
+                    <div class="col-sm-10">
+                        <input type="text" autocomplete="off" class="form-control" id="contactperson" name="contactperson" required>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                      <label for="address" class="col-sm-2 col-form-label">Address:</label>
+                      <div class="col-sm-10">
+                          <input type="text" autocomplete="off" class="form-control" id="address" name="address" required>
+                      </div>
+                  </div>
+
+                 
+
+                   
+
+                     <div class="form-group row">
+                      <label for="email" class="col-sm-2 col-form-label">Email</label>
+                      <div class="col-sm-10">
+                          <div class="input-group mb-3">
+                                  <div class="input-group-prepend">
+                                      <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                                  </div>
+                                  <input type="text" name="email" id="email" class="form-control"
+                                  autocomplete="off" required>
+                          </div>
+                      </div>
+                  </div>
+                    
+                     
+               
+
+              <div class="form-group row">
+                <label for="phone" class="col-sm-2 col-form-label">Phone</label>
+                <div class="col-sm-10">
+                    <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-phone"></i></span>
+                            </div>
+                            <input type="text" autocomplete="off" name="phone" id="phone" class="form-control" required>                        </div>
+                </div>
+            </div>
+
+                   
+
+                    <div class="form-group row">
+                      <label for="startdate" class="col-sm-2 col-form-label">With Us From:</label>
+                      <div class="col-sm-10">
+                        <div class="input-group">
+                          <input type="text" class="form-control" autocomplete="off" id="datepicker-startdate" name="startdate">
+                          <div class="input-group-append bg-custom b-0"><span class="input-group-text"><i class="mdi mdi-calendar"></i></span></div>
+                      </div><!-- input-group -->
+                      </div>
+                  </div>
+
+
+                </div>
+                <!-- /.card-body -->
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </form>           
+        </div>
+        
       </div>
-      <!-- /.container-fluid -->
-    </section>
-    <!-- /.content -->
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
   </div>
 
+    <!-- End Right content here -->
 @endsection
 
-
-<div class="modal fade" id="modal-addsponsor">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h4 class="modal-title">Add Project Sponsor</h4>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              
-                <form role="form" method="post" action="sponsors/store" enctype="multipart/form-data" >
-                    {{ csrf_field() }}
-                    <div class="box-body"> 
-                        
-                        <div class="form-group">
-                            <label>Name/Organization: </label>
-                            <input type="text" name="sponsornames" id="sponsornames" class="form-control" placeholder="Name/Organization">
-                        </div>
-                        
-                         <div class="form-group">
-                            <label>Contact Person: </label>
-                            <input type="text" name="contactperson" id="contactperson" class="form-control" placeholder="Contact Person">
-                         </div>
-                        
-                        <div class="form-group">
-                            <label>Address: </label>
-                            <input type="text" name="address" id="address" class="form-control" placeholder="Address">
-                         </div>
-                        
-                        <div class="form-group">
-                            <label>Email: </label>
-                            <input type="text" name="email" id="email" class="form-control" placeholder="Email">
-                         </div>
-                        
-                        <div class="form-group">
-                            <label>Phone: </label>
-                            <input type="text" name="phone" id="phone" class="form-control" placeholder="Phone">
-                        </div>
-                        
-                        
-                        <div class="form-group">
-                            <label>Start Date: </label>
-                            <div class="input-group date" id="datetimepicker4" data-target-input="nearest">
-                                <input type="text" name="startdate" class="form-control datetimepicker-input" data-target="#datetimepicker4"/>
-                                <div class="input-group-append" data-target="#datetimepicker4" data-toggle="datetimepicker">
-                                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /.card-body -->
-                    <div class="modal-footer justify-content-between">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                    </div>
-                </form>           
-            </div>
-            
-          </div>
-          <!-- /.modal-content -->
-        </div>
-        <!-- /.modal-dialog -->
-      </div>
 
