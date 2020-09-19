@@ -19,7 +19,7 @@
                         <div class="page-title-box">
                             <div class="row align-items-center">
                                 <div class="col-md-8">
-                                    <h4 class="page-title m-0">STAFF</h4>
+                                    <h4 class="page-title m-0">SPONSORS/FINANCIERS/PROJECTS PARTNERS</h4>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="float-right d-none d-md-block">
@@ -62,7 +62,7 @@
                             <th width="10%">#</th>
                             <th>Name/Organization</th>
                             <th>Contact Person</th>
-                            <th>Joined</th>
+                            <th>Email</th>
                             <th>Phone</th>
                             <th></th>
                             
@@ -74,14 +74,15 @@
                             @foreach($sponsors as $sponsor)
                                     <tr>
                                         <td>{{$counter}}</td>
-                                        <td>{{$sponsor -> sponsornames}}</td>
-                                        <td>{{$sponsor -> contactperson}}</td>
-                                        <td>{{$sponsor -> startdate}}</td>
-                                        <td>{{$sponsor -> phone}}</td>
+                                        <td>{{$sponsor ->sponsornames}}</td>
+                                        <td>{{$sponsor ->contactperson}}</td>
+                                        <td>{{$sponsor ->email}}</td>
+                                        <td>{{$sponsor ->phone}}</td>
+                                        
                                         <td>
-                                          <a class="btn btn-primary btn-sm" href="editstaff/{{$sponsor->sponsor_id}}"><i class="fas fa-edit"></i></a>
-                                          <button type="button" class="btn btn-danger btn-sm mr-1 delete-confirm"  href="staff/destroy/{{$sponsor->sponsor_id}}"> <a  data-role="deletestaff"  data-id="{{$sponsor->sponsor_id}}"> <i class="fa fa-trash" > </i></a>  </button>  
-                                          <button type="button" class="btn btn-success btn-sm mr-1"> <a  data-role="viewstaff"  data-id="{{$sponsor->sponsor_id}}"> <i class="fa fa-eye" > </i></a>  </button>  
+                                          <a class="btn btn-primary btn-sm" href="editsponsor/{{$sponsor->sponsor_id}}"><i class="fas fa-edit"></i></a>
+                                          <button type="button" class="btn btn-danger btn-sm mr-1 delete-confirm"  href="editsponsor/destroy/{{$sponsor->sponsor_id}}"> <a  data-role="deletesponsor"  data-id="{{$sponsor->sponsor_id}}"> <i class="fa fa-trash" > </i></a>  </button>  
+                                          <button type="button" class="btn btn-success btn-sm mr-1"> <a  data-role="viewsponsor"  data-id="{{$sponsor->sponsor_id}}"> <i class="fa fa-eye" > </i></a>  </button>  
                                      
 
                                         </td> 

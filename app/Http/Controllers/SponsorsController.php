@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Sponsor;
+use DB;
 
 class SponsorsController extends Controller
 {
@@ -45,9 +46,7 @@ class SponsorsController extends Controller
         $date = strtotime($input['startdate']); 
         $input['startdate']  =  date('Y-m-d', $date);
         Sponsor::create($input);
-        if(session('success_message')) {
-                Alert::success('Success', 'Projects Sponsor Successfully Saved');
-        }
+       
        return back()->withSuccessMessage('Successfully Added');
     }
 
@@ -70,7 +69,8 @@ class SponsorsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $sponsor=  Sponsor::find($id) ;
+        return view('sponsors.editsponsor', compact('sponsor'));
     }
 
     /**
@@ -82,7 +82,19 @@ class SponsorsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $input = $request->all();
+        $sponsor =  Sponsor::find($id) ;
+        $sponsor ->sponsornames = $input['sponsornames'];
+        $sponsor ->contactperson = $input['contactperson'];
+        $sponsor ->phone = $input['phone'];
+        $sponsor ->email = $input['email'];
+        $sponsor ->address = $input['address'];
+        
+        $sponsor->save();
+        return redirect()->action(
+            'SponsorsController@index'
+        );
+
     }
 
     /**
@@ -93,6 +105,9 @@ class SponsorsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Sponsor::where('sponsor_id',$id)->delete();
+        return redirect()->action(
+            'SponsorsController@index'
+        );
     }
 }

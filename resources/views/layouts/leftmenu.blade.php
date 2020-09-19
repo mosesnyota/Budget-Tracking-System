@@ -45,7 +45,7 @@
                     
                     <ul class="list-unstyled">
                         
-                        <li><a href="sponsors"> <b class="dripicons-user" > Manage Sponsors </b></a></li>
+                        <li><a href="/finance/public/sponsors"> <b class="dripicons-user" > Manage Sponsors </b></a></li>
                     </ul>
                 </li>
 

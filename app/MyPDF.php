@@ -7,8 +7,6 @@ class MyPDF extends FPDF
 var $widths;
 var $aligns;
 
-
-
 function Header()
 {
     // Logo

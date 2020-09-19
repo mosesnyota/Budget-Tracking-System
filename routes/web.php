@@ -38,8 +38,9 @@ Route::post('/pettycash/store','PettyCashs@store');
 
 Route::get('/sponsors','SponsorsController@index');
 Route::post('/sponsors/store','SponsorsController@store');
-
-
+Route::get('/editsponsor/{sponsor}','SponsorsController@edit');
+Route::post('/editsponsor/update/{sponsor}','SponsorsController@update');
+Route::get('/editsponsor/destroy/{sponsor}','SponsorsController@destroy');
 
 
 
