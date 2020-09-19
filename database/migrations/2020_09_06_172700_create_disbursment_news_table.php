@@ -22,7 +22,6 @@ class CreateDisbursmentNewsTable extends Migration
             $table->string('chequeno')->nullable();
             $table->string('narration');
             $table->string('paid_to');
-            
             $table->double('debit')->default("0");
             $table->double('credit')->default("0");
             $table->timestamps();
