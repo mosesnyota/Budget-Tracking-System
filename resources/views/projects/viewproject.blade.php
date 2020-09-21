@@ -235,7 +235,9 @@
                 
                                                                     <div class="row"> <div class="col-12 col-sm-12">
                                                                         
-                                                                        <button type="button"  class="btn btn-success btn-md float-right mr-1"  data-toggle="modal" data-target="#modal-addvotehead" data-backdrop="static" data-keyboard="false" href="#"> <b class="fa fa-plus-circle"> Add Vote Head </b></button>
+                                                                        <button type="button"  class="btn btn-success btn-md float-right mr-1"  data-toggle="modal" 
+                                                                        data-target="#modal-addvotehead" data-backdrop="static" data-keyboard="false" href="#"> 
+                                                                        <b class="fa fa-plus-circle"> Add Vote Head </b></button>
                                                     
                                                                     </div></div>
                                                                     
@@ -302,7 +304,9 @@
 
                                                             <div class="tab-pane p-3" id="messages-1" role="tabpanel">
                                                             <div class="row"> <div class="col-12 col-sm-12">
-                                                                  <button type="button"  class="btn btn-success btn-md float-right mr-1"  data-toggle="modal" data-target="#modal-addactivity" data-backdrop="static" data-keyboard="false" href="#"> <b class="fa fa-plus-circle"> Add Milestone</b></button>
+                                                                  <button type="button"  class="btn btn-success btn-md float-right mr-1"  
+                                                                  data-toggle="modal" data-target="#modal-addactivity" data-backdrop="static" 
+                                                                  data-keyboard="false" href="#"> <b class="fa fa-plus-circle"> Add Milestone</b></button>
                                                   
                                                               </div></div>
                                                   

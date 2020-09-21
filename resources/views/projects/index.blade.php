@@ -53,9 +53,6 @@
                   <div class="col-12">
                       <div class="card m-b-30">
                           <div class="card-body">
-
-                             
-
                               <table id="datatable" class="table table-striped dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                   <thead>
                                   <tr>

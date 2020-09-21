@@ -19,18 +19,27 @@
                 <li>
                     <a href="/finance/public/home" class="waves-effect">
                         <i class="dripicons-home"></i>
-                        <span> Dashboard <span class="badge badge-success badge-pill float-right">.</span></span>
+                        
+                        <b> Dashboard </b>
                     </a>
                 </li>
 
                 <li class="has_sub">
                     <a href="javascript:void(0);" class="waves-effect"><i class="dripicons-briefcase"></i> <span> Projects </span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
                     <ul class="list-unstyled">
-                        <li><a href="/finance/public/newproject"><b class="fa fa-plus-circle" > New Project </b></a></li>
+                       
                         <li><a href="/finance/public/projects"><b class="dripicons-briefcase" > Manage Projects </b></a></li>
-                        <li><a href="/finance/public/projects"><b class="fa fa-file" > Projects Reports </b></a></li>
+                      
                     </ul>
                 </li>
+
+                <li class="has_sub">
+                    <a href="javascript:void(0);" class="waves-effect"><i class="fas fa-money-check-alt"></i> <span> Funds </span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
+                    <ul class="list-unstyled">
+                        <li><a href="/finance/public/funds"><b class="fas fa-money-check-alt" aria-hidden="true"> Manage Funds </b></a></li>
+                    </ul>
+                </li>
+
 
                 <li class="has_sub">
                     <a href="javascript:void(0);" class="waves-effect"><i class="dripicons-user"></i> <span> Staff </span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
@@ -41,7 +50,7 @@
                 </li>
 
                 <li class="has_sub">
-                    <a href="javascript:void(0);" class="waves-effect"><i class="fa fa-users"></i> <span> Project Sponsors </span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
+                    <a href="javascript:void(0);" class="waves-effect"><i class="fa fa-users"></i> <span> Sponsors </span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
                     
                     <ul class="list-unstyled">
                         

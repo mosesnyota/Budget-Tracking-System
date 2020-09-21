@@ -82,8 +82,8 @@
                                         <td>
                                           <a class="btn btn-primary btn-sm" href="editsponsor/{{$sponsor->sponsor_id}}"><i class="fas fa-edit"></i></a>
                                           <button type="button" class="btn btn-danger btn-sm mr-1 delete-confirm"  href="editsponsor/destroy/{{$sponsor->sponsor_id}}"> <a  data-role="deletesponsor"  data-id="{{$sponsor->sponsor_id}}"> <i class="fa fa-trash" > </i></a>  </button>  
-                                          <button type="button" class="btn btn-success btn-sm mr-1"> <a  data-role="viewsponsor"  data-id="{{$sponsor->sponsor_id}}"> <i class="fa fa-eye" > </i></a>  </button>  
-                                     
+                                           
+                                          <a class="btn btn-primary btn-sm" href="viewsponsor/{{$sponsor->sponsor_id}}/view"><i class="fas fa-eye"></i></a>
 
                                         </td> 
                                          <?php $counter += 1 ; ?>

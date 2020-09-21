@@ -42,6 +42,13 @@ Route::get('/editsponsor/{sponsor}','SponsorsController@edit');
 Route::post('/editsponsor/update/{sponsor}','SponsorsController@update');
 Route::get('/editsponsor/destroy/{sponsor}','SponsorsController@destroy');
 
+Route::get('/viewsponsor/{sponsor}/view','SponsorsController@show');
+Route::get('/viewsponsor/viewfundings/{sponsor}/view','SponsorsController@showfundings');
+Route::get('/viewsponsor/viewprojects/{sponsor}/view','SponsorsController@showprojects');
+Route::get('/viewsponsor/printsponsorprojects/{sponsor}/print','SponsorsController@printprojects');
+Route::get('/viewsponsor/printsponsorfundings/{sponsor}/print','SponsorsController@printfunds');
+
+
 
 
 Route::get('/projects','ProjectsController@index');
@@ -88,3 +95,17 @@ Route::get('/viewproject/deletevotehead/{votehead}','VoteheadController@destroy'
 Route::get('/viewproject/deletemilestone/{milestone}','ActivitiesController@destroy');
 Route::get('/viewproject/editmilestone/{milestone}','ActivitiesController@edit');
 Route::post('/saveupdatedmilestone/{activity}','ActivitiesController@saveupdated');
+
+
+
+
+Route::get('/funds','FundingController@index');
+Route::post('/funds/store','FundingController@store');
+Route::get('/funds/{fund}/edit','FundingController@edit');
+Route::post('/funds/{fund}/update','FundingController@update');
+Route::get('/funds/{fund}/destroy','FundingController@destroy');
+
+
+
+
+
