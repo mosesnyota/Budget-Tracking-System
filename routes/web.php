@@ -104,8 +104,3 @@ Route::post('/funds/store','FundingController@store');
 Route::get('/funds/{fund}/edit','FundingController@edit');
 Route::post('/funds/{fund}/update','FundingController@update');
 Route::get('/funds/{fund}/destroy','FundingController@destroy');
-
-
-
-
-
