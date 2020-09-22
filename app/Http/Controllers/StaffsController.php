@@ -25,11 +25,18 @@ class StaffsController extends Controller
      */
     public function index()
     {
+        $staffs= DB::table('staff')
+        ->leftJoin('staff_categories', 'staff.staffcategory_id', '=', 'staff_categories.staffcategory_id')
+        ->select(DB::raw('staff.*,categoryname'))
+        ->orderBy('firstname', 'ASC')
+        ->get();
+
         $categories= DB::table('staff_categories')
         ->select('staff_categories.*')
         ->orderBy('categoryname', 'ASC')
         ->get();
-        $staffs =  Staff::all() ;
+     
+
         return view('staff.index',compact('staffs','categories'));
     }
 
@@ -82,7 +89,42 @@ class StaffsController extends Controller
      */
     public function show($id)
     {
-        //
+        $details = array();
+        $allprojects =  DB::table('projects')
+        ->select(DB::raw('count(*) AS total'))
+        ->where('staff_id', '=', $id)
+        ->get();
+      
+        $total = 0 ;
+        foreach ($allprojects as $totald){ 
+            $total = $totald->total;
+        }
+        if( $total ){
+            $details['total'] = $total;
+        }else{
+            $details['total'] = 0.0;
+        }
+       
+        $selectdprojects =  DB::table('projects')
+        ->select(DB::raw('count(*) AS projects'))
+        ->where('staff_id', '=', $id)
+        ->where('cur_status', '=', 'Active')
+        ->get();
+      
+        $activeprojects  = 0;
+        foreach ($selectdprojects as $totald){ 
+            $activeprojects = $totald->projects;
+        }
+        $details['active'] = $activeprojects;
+       
+       
+        $staffd = DB::table('staff')
+            ->join('staff_categories', 'staff.staffcategory_id', '=', 'staff_categories.staffcategory_id')
+            ->select(DB::raw('staff.*,categoryname'))
+            ->where('staffid', '=', $id)
+            ->get();
+            $staff = $staffd->first();
+        return view('staff.view', compact('staff','details'));
     }
 
     /**

@@ -29,11 +29,10 @@ Route::post('/staff/addnewstaff','StaffsController@create');
 Route::get('/editstaff/{staff}','StaffsController@edit');
 Route::post('/editstaff/update/{staff}','StaffsController@update');
 Route::get('/staff/destroy/{staff}','StaffsController@destroy');
+Route::get('/staff/{staff}/view','StaffsController@show');
 
 Route::get('/pettycash','PettyCashs@index');
 Route::post('/pettycash/store','PettyCashs@store');
-
-
 
 
 Route::get('/sponsors','SponsorsController@index');
@@ -104,3 +103,13 @@ Route::post('/funds/store','FundingController@store');
 Route::get('/funds/{fund}/edit','FundingController@edit');
 Route::post('/funds/{fund}/update','FundingController@update');
 Route::get('/funds/{fund}/destroy','FundingController@destroy');
+
+Route::get('/funds/report/{start}/{end}','FundingController@report');
+
+Route::post('/funds/report1','FundingController@report1');
+
+
+
+
+Route::get('/pettycash/{petty}/destroy','PettyCashs@destroy');
+Route::get('/pettycash/{petty}/edit','PettyCashs@edit');

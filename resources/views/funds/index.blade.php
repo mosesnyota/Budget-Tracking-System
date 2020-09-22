@@ -29,14 +29,15 @@
                                                 <i class="ti-settings mr-1"></i> Options
                                             </button>
                                             <div class="dropdown-menu dropdown-menu-right dropdown-menu-animated">
-                                                <a class="dropdown-item" href="" target="_blank" ><b class="ti-import"> Generate Report </b></a>
+                                              <button type="button"  class="btn btn-info btn-md float-right mr-1"  target="_blank"  data-toggle="modal" data-target="#modal-report" data-backdrop="static" data-keyboard="false" href="#"> <b class="mdi mdi-file-pdf" aria-hidden="true"> Generate Report </b></button>
                                                 
                                                 
                   
                                             </div>
                                         </div>
                                     </div>
-                                   <button type="button"  class="btn btn-success btn-md float-right mr-1"  data-toggle="modal" data-target="#modal-addfundings" data-backdrop="static" data-keyboard="false" href="#"> <b class="fa fa-plus-circle"> Add Funds </b></button>
+                                    <button type="button"  class="btn btn-info btn-md float-right mr-1"  target="_blank"  data-toggle="modal" data-target="#modal-report" data-backdrop="static" data-keyboard="false" href="#"> <b class="mdi mdi-file-pdf" aria-hidden="true"> Print Report </b></button>
+                                    <button type="button"  class="btn btn-success btn-md float-right mr-1"  data-toggle="modal" data-target="#modal-addfundings" data-backdrop="static" data-keyboard="false" href="#"> <b class="fa fa-plus-circle"> Add Funds </b></button>
                                   
                                     
                                 </div>
@@ -74,22 +75,16 @@
                               <tbody>
                                
                             <tr>
-                                <td>Total Donations</td>
+                                <td>Received This Year</td>
                                 
-                                <td><span class="badge badge-success"></span></td>
+                                <td><span class="badge badge-success">{{number_format($funds['thisyear'],2)}}</span></td>
                             </tr>
                             
                             <tr>
-                                <td><a>Projects</a></td>
-                                <td><span class="badge badge-warning"></span></td>
-                              
-                                
+                                <td><a>This Month</a></td>
+                                <td><span class="badge badge-warning">{{number_format($funds['thismonth'],2)}}</span></td>
                             </tr>
-                            <tr>
-                                <td><a>With Us From</a></td>
-                               
-                                <td><span class="badge badge-primary"></span></td>
-                            </tr>
+                            
                            
                            
                           

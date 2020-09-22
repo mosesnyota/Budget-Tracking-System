@@ -95,7 +95,10 @@ class PettyCashs extends Controller
      */
     public function edit($id)
     {
-        //
+        $transaction =  PettyCash::find($id) ;
+
+        
+        
     }
 
     /**
@@ -118,7 +121,19 @@ class PettyCashs extends Controller
      */
     public function destroy($id)
     {
-        //
+
+        $transaction =  PettyCash::find($id) ;
+
+        if($transaction -> transactiontype == 'Deposit'){
+            DB::statement("UPDATE petties SET balance = balance -   $transaction->amount ");
+        }else{
+            DB::statement("UPDATE petties SET balance = balance +  $transaction->amount ");
+        }
+        PettyCash::where('transactionid',$id)->delete();
+        
+        return redirect()->action(
+            'PettyCashs@index'
+        );
     }
 
 

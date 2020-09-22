@@ -29,6 +29,10 @@
         <link href="{{asset('assets/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css">
         <link href="{{asset('assets/css/icons.css')}}" rel="stylesheet" type="text/css">
         <link href="{{asset('assets/css/style.css')}}" rel="stylesheet" type="text/css">
+
+        <link href="{{asset('modalheader.css')}}" rel="stylesheet" type="text/css">
+
+
         <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 
@@ -235,7 +239,7 @@
         <script src="{{asset('plugins/datatables/responsive.bootstrap4.min.js')}}"></script>
 
         <!-- Datatable init js -->
-        <script src="{{asset('assets/pages/datatables.init.js')}}"></script>        
+        <script src="{{asset('datatables.init.js')}}"></script>        
 
        
         <!-- Plugins js -->
@@ -656,6 +660,45 @@ $(function () {
           
       });
   });
+
+
+  
+
+$(document).ready(function() {
+
+  var tbl = $('#mytable');
+
+
+var settings={dom: 'Bfrtip',
+        buttons: [
+            'csv', 'excel', 'pdf', 'print'
+        ]};
+
+
+settings.buttons = [
+    {  
+        extend:'pdfHtml5',
+        text:'Export PDF',
+        orientation:'portrait',
+        customize : function(doc){
+            var colCount = new Array();
+            $(tbl).find('tbody tr:first-child td').each(function(){
+                if($(this).attr('colspan')){
+                    for(var i=1;i<=$(this).attr('colspan');$i++){
+                        colCount.push('*');
+                    }
+                }else{ colCount.push('*'); }
+            });
+            doc.content[1].table.widths = colCount;
+        }
+    },'excel', 'print'
+];
+
+
+
+$('#mytable').dataTable(settings);
+  
+  } );
 </script>
 
 
@@ -689,122 +732,7 @@ $(function () {
     CKEDITOR.replace( 'details' );
 </script> 
 
-<div class="modal fade" id="modal-issuefunds">
-  <div class="modal-dialog">
-      <div class="modal-content">
-          <div class="modal-header">
-              <h4 class="modal-title">Issue Funds</h4>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-              </button>
-          </div>
-          <div class="modal-body">
 
-              <form role="form" method="post" action="pettycash/store" enctype="multipart/form-data" >
-                  {{ csrf_field() }}
-                  <div class="box-body"> 
-                      <div class="form-group">
-                          <div class="input-group date" id="datetimepicker4" data-target-input="nearest">
-                              <input type="text" name="transaction_date" class="form-control datetimepicker-input" data-target="#datetimepicker4"/>
-                              <div class="input-group-append" data-target="#datetimepicker4" data-toggle="datetimepicker">
-                                  <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                              </div>
-                          </div>
-                      </div>
-
-
-                     
-
-                      <div class="form-group">
-                        <label>Issued To: </label>
-                        <input type="text" name="issuedto" id="issuedto" class="form-control" placeholder="Comment">
-                    </div>
-
-                      <label>Amount: </label>
-                      <div class="input-group mb-3">
-                          <div class="input-group-prepend">
-                              <span class="input-group-text"><i class="fas fa-dollar"></i></span>
-                          </div>
-                          <input type="number" name="amount" id="amount" class="form-control" placeholder="Amount">
-                      </div>
-
-                      <div class="form-group">
-                          <label>Comment: </label>
-                          <input type="text" name="description" id="description" class="form-control" placeholder="Comment">
-                      </div>
-
-                  </div>
-                  <!-- /.card-body -->
-                  <div class="modal-footer justify-content-between">
-                      <input type="hidden" name="transactiontype" value="Withdraw" >
-                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                      <button type="submit" class="btn btn-primary">Submit</button>
-                  </div>
-              </form>           
-
-
-
-          </div>
-
-      </div>
-      <!-- /.modal-content -->
-  </div>
-  <!-- /.modal-dialog -->
-</div>
-
-
-
-<div class="modal fade" id="modal-addfunds">
-  <div class="modal-dialog">
-      <div class="modal-content">
-          <div class="modal-header">
-              <h4 class="modal-title">Add Funds to Petty Cash</h4>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-              </button>
-          </div>
-          <div class="modal-body">
-
-              <form role="form" method="post" action="pettycash/store" enctype="multipart/form-data" >
-                  {{ csrf_field() }}
-                  <div class="box-body"> 
-                      <div class="form-group">
-                          <div class="input-group date" id="reservationdate" data-target-input="nearest">
-                              <input type="text" name="transaction_date" class="form-control datetimepicker-input" data-target="#reservationdate"/>
-                              <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
-                                  <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                              </div>
-                          </div>
-                      </div>
-                      <label>Amount: </label>
-                      <div class="input-group mb-3">
-                          <div class="input-group-prepend">
-                              <span class="input-group-text"><i class="fas fa-dollar"></i></span>
-                          </div>
-                          <input type="number" name="amount" id="amount" class="form-control" placeholder="Amount">
-                      </div>
-
-                      <div class="form-group">
-                          <label>Comment: </label>
-                          <input type="text" name="description" id="description" class="form-control" placeholder="Comment">
-                      </div>
-
-                  </div>
-                  <!-- /.card-body -->
-                  <div class="modal-footer justify-content-between">
-                      <input type="hidden" name="transactiontype" value="Deposit" >
-                      <input type="hidden" name="issuedto" value="-" >
-                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                      <button type="submit" class="btn btn-primary">Submit</button>
-                  </div>
-              </form>           
-          </div>
-
-      </div>
-      <!-- /.modal-content -->
-  </div>
-  <!-- /.modal-dialog -->
-</div>
 
 
 <script>
@@ -864,6 +792,24 @@ $(function () {
         }
     });
 });
+
+
+
+$(document).ready(function() {
+    $('#datatable').DataTable();
+
+    //Buttons examples
+    var table = $('#datatable-buttons77').DataTable({
+        lengthChange: false,
+        buttons: ['excel', 'pdf', 'print']
+    });
+
+    table.buttons().container()
+        .appendTo('#datatable-buttons_wrapper .col-md-6:eq(0)');
+} );
+
+
+
 </script>
 
 

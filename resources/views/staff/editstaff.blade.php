@@ -116,8 +116,9 @@
         
                         </div>
                         <!-- /.card-body -->
-                        <div class="modal-footer center">
-                            <button type="submit" class="btn btn-primary">Save</button>
+                        <div class="modal-footer justify-content-between">
+                            <a class="btn btn-primary btn-lg" href="../staff"> <i class="fas fa-return">  BACK    </i></a>
+                            <button type="submit" class="btn btn-primary btn-lg">Save</button>
                         </div>
                     </form>
               

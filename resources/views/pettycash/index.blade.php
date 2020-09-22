@@ -24,22 +24,10 @@
                                         </b></button> </h4>
                                 </div>
                                 <div class="col-md-6">
-                                    <div class="float-right d-none d-md-block">
-                                        <div class="dropdown">
-                                            <button class="btn btn-primary dropdown-toggle" type="button"
-                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <i class="ti-settings mr-1"></i> Options
-                                            </button>
-                                            <div class="dropdown-menu dropdown-menu-right dropdown-menu-animated">
-                                                <a class="dropdown-item" href="#">Export to Excel</a>
-                                                <div class="dropdown-divider"></div>
-                                                <a class="dropdown-item" href="#">Print List</a>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    
                                   
                                     <a href="/finance/public/pettycashreport" target="_blank"
-                                        class="btn btn-warning btn-md float-right mr-1" role="button"><b
+                                        class="btn btn-info btn-md float-right mr-1" role="button"><b
                                             class="fa fa-file-pdf-o"> Print Report </b></a>
                                     <button type="button" class="btn btn-warning btn-md float-right mr-1"
                                         data-toggle="modal" data-target="#modal-issuefunds" data-backdrop="static"
@@ -131,113 +119,6 @@
 
     </div> <!-- content -->
 
-
-
-
-
-    <div class="modal fade bs-example-modal-lg" id="modal-addsponsor" tabindex="-1" role="dialog">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Add Project Sponsor</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-
-                    <form role="form" method="post" action="sponsors/store" enctype="multipart/form-data">
-                        {{ csrf_field() }}
-                        <div class="box-body">
-
-
-
-                            <div class="form-group row">
-                                <label for="sponsornames" class="col-sm-2 col-form-label">Name/Organization:</label>
-                                <div class="col-sm-10">
-                                    <input type="text" autocomplete="off" class="form-control" id="sponsornames"
-                                        name="sponsornames" required>
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <label for="contactperson" class="col-sm-2 col-form-label">Contact Person:</label>
-                                <div class="col-sm-10">
-                                    <input type="text" autocomplete="off" class="form-control" id="contactperson"
-                                        name="contactperson" required>
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <label for="address" class="col-sm-2 col-form-label">Address:</label>
-                                <div class="col-sm-10">
-                                    <input type="text" autocomplete="off" class="form-control" id="address" name="address"
-                                        required>
-                                </div>
-                            </div>
-
-
-
-
-
-                            <div class="form-group row">
-                                <label for="email" class="col-sm-2 col-form-label">Email</label>
-                                <div class="col-sm-10">
-                                    <div class="input-group mb-3">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text"><i class="fas fa-envelope"></i></span>
-                                        </div>
-                                        <input type="text" name="email" id="email" class="form-control" autocomplete="off"
-                                            required>
-                                    </div>
-                                </div>
-                            </div>
-
-
-
-
-                            <div class="form-group row">
-                                <label for="phone" class="col-sm-2 col-form-label">Phone</label>
-                                <div class="col-sm-10">
-                                    <div class="input-group mb-3">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text"><i class="fas fa-phone"></i></span>
-                                        </div>
-                                        <input type="text" autocomplete="off" name="phone" id="phone" class="form-control"
-                                            required>
-                                    </div>
-                                </div>
-                            </div>
-
-
-
-                            <div class="form-group row">
-                                <label for="startdate" class="col-sm-2 col-form-label">With Us From:</label>
-                                <div class="col-sm-10">
-                                    <div class="input-group">
-                                        <input type="text" class="form-control" autocomplete="off" id="datepicker-startdate"
-                                            name="startdate">
-                                        <div class="input-group-append bg-custom b-0"><span class="input-group-text"><i
-                                                    class="mdi mdi-calendar"></i></span></div>
-                                    </div><!-- input-group -->
-                                </div>
-                            </div>
-
-
-                        </div>
-                        <!-- /.card-body -->
-                        <div class="modal-footer justify-content-between">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Submit</button>
-                        </div>
-                    </form>
-                </div>
-
-            </div>
-            <!-- /.modal-content -->
-        </div>
-        <!-- /.modal-dialog -->
-    </div>
-
+@include('pettycash.pettymodals')
     <!-- End Right content here -->
 @endsection

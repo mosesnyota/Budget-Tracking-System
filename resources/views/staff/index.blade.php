@@ -29,9 +29,7 @@
                                                 <i class="ti-settings mr-1"></i> Options
                                             </button>
                                             <div class="dropdown-menu dropdown-menu-right dropdown-menu-animated">
-                                                <a class="dropdown-item" href="#">Export to Excel</a>
-                                                <div class="dropdown-divider"></div>
-                                                <a class="dropdown-item" href="#">Print Staff List</a>
+                                               
                                             </div>
                                         </div>
                                     </div>
@@ -57,11 +55,12 @@
 
 
                                 
-                                <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                <table id="mytable" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                     <thead>
                                         <tr>
                                             <th width="10%">#</th>
                                             <th>Name</th>
+                                            <th>Role</th>
                                             <th>Phone</th>
                                             <th>Email</th>
                                             <th></th>
@@ -76,13 +75,14 @@
                                                 <tr>
                                                     <td>{{ $counter }}</td>
                                                     <td>{{ $staff->firstname.' '.$staff->othernames }}</td>
+                                                    <td>{{ $staff->categoryname }}</td>
                                                     <td>{{ $staff->phone }}</td>
                                                     <td>{{ $staff->email }}</td>
 
                                                     <td>
                                                       <a class="btn btn-primary btn-sm" href="editstaff/{{$staff->staffid}}"><i class="fas fa-edit"></i></a>
                                                       <button type="button" class="btn btn-danger btn-sm mr-1 delete-confirm"  href="staff/destroy/{{$staff->staffid}}"> <a  data-role="deletestaff"  data-id="{{$staff->staffid}}"> <i class="fa fa-trash" > </i></a>  </button>  
-                                                      <button type="button" class="btn btn-success btn-sm mr-1"> <a  data-role="viewstaff"  data-id="{{$staff->staffid}}"> <i class="fa fa-eye" > </i></a>  </button>  
+                                                      <a class="btn btn-primary btn-sm" href="staff/{{$staff->staffid}}/view"><i class="fas fa-eye"></i></a>
                                                  
 
                                                     </td> 
