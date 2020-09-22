@@ -57,6 +57,7 @@ class ProjectsController extends Controller
         $countprojects =  DB::table('projects')
             ->select(DB::raw('COUNT(*) AS total'))
             ->where('cur_status', '=', 'Active')
+            ->where('deleted_at', '=', NULL)
             ->get();
     
             $ongoingprojects = 0 ;
@@ -71,6 +72,7 @@ class ProjectsController extends Controller
         $completed =  DB::table('projects')
             ->select(DB::raw('COUNT(*) AS total'))
             ->where('cur_status', '=', 'Complete')
+            ->where('deleted_at', '=', NULL)
             ->get();
     
             $completedprojects = 0 ;
@@ -84,6 +86,7 @@ class ProjectsController extends Controller
         //get total budget expenditure per project
         $voteheadtotals =  DB::table('disbursment_news')
         ->select(DB::raw('project_id, SUM(debit) AS total'))
+        ->where('deleted_at', '=', NULL)
         ->groupBy('project_id')
         ->get();
 
@@ -142,6 +145,7 @@ class ProjectsController extends Controller
         $projects =  DB::table('projects')
         ->select(DB::raw('project_id,project_name,location,start_date,deadline,sponsor_id,staff_id,budget,cur_status,details,created_at,updated_at,DATEDIFF(deadline, start_date) AS days'))
         ->where('project_id', '=', $id)
+        ->where('deleted_at', '=', NULL)
         ->get();
         foreach ($projects as $prj){ 
             $val = $prj->days;
@@ -169,6 +173,7 @@ class ProjectsController extends Controller
         $voteheadtotals =  DB::table('disbursment_news')
         ->select(DB::raw('votehead_id, SUM(debit) AS total'))
         ->where('disbursment_news.project_id', '=', $id)
+        ->where('deleted_at', '=', NULL)
         ->groupBy('votehead_id')
         ->get();
         $mytotals = array();
@@ -182,6 +187,7 @@ class ProjectsController extends Controller
         $totalused =  DB::table('disbursment_news')
         ->select(DB::raw('SUM(debit) AS total'))
         ->where('disbursment_news.project_id', '=', $id)
+        ->where('deleted_at', '=', NULL)
         ->get();
         $totalAmountUsed = 0;
         foreach ($totalused as $totald){ 
@@ -191,6 +197,7 @@ class ProjectsController extends Controller
             ->leftJoin('voteheads', 'disbursment_news.votehead_id', '=', 'voteheads.votehead_id')
             ->select('disbursment_news.*', 'voteheads.votehead_name')
             ->where('disbursment_news.project_id', '=', $id)
+            ->where('disbursment_news.deleted_at', '=', NULL)
             ->orderBy('disbursment_news.created_at', 'DESC')
             ->get();
         return view('projects.viewproject', compact('disbursments','completionStatus','activities','project','staff','sponsor','voteheads','mytotals','totalAmountUsed'));
@@ -256,12 +263,14 @@ class ProjectsController extends Controller
             ->leftJoin('voteheads', 'disbursment_news.votehead_id', '=', 'voteheads.votehead_id')
             ->select('disbursment_news.*', 'voteheads.votehead_name')
             ->where('disbursment_news.project_id', '=', $id)
+            ->where('disbursment_news.deleted_at', '=', NULL)
             ->orderBy('disbursment_news.voucherdate', 'DESC')
             ->get();
 
         $voteheadtotals =  DB::table('disbursment_news')
         ->select(DB::raw('votehead_id, SUM(debit) AS total'))
         ->where('disbursment_news.project_id', '=', $id)
+        ->where('disbursment_news.deleted_at', '=', NULL)
         ->groupBy('votehead_id')
         ->get();
 
@@ -276,6 +285,7 @@ class ProjectsController extends Controller
         $totalused =  DB::table('disbursment_news')
         ->select(DB::raw('SUM(debit) AS total'))
         ->where('disbursment_news.project_id', '=', $id)
+        ->where('disbursment_news.deleted_at', '=', NULL)
         ->get();
         $totalAmountUsed = 0;
         foreach ($totalused as $totald){ 

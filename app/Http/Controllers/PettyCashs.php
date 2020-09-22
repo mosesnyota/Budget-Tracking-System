@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\PettyCash;
 use App\Petty;
 use DB;
-use App\MyPDF;
+use App\PettyCashReceipt;
 
 
 class PettyCashs extends Controller
@@ -22,7 +22,8 @@ class PettyCashs extends Controller
      */
     public function index()
     {
-        $transactions =  PettyCash::all() ;
+        
+        $transactions =   PettyCash::orderBy('transaction_date','DESC')->get();
         $balance = Petty::all();
         //This section gets the petty cash balance
         $current_balance = 0;
@@ -69,11 +70,111 @@ class PettyCashs extends Controller
             $current_balance = $bal->balance;
         }
         $input['balance'] =  $current_balance;
-        PettyCash::create($input);
-        if(session('success_message')) {
-                Alert::success('Success', 'Transaction Successfully Saved');
+
+        $id = PettyCash::create($input)->transactionid;
+
+
+        if($input['transactiontype'] == 'Deposit'){
+            return back()->withSuccessMessage('Successfully Added');
+        }else{
+    
+            return view('pettycash.pettycashreceipt',compact('id'));
         }
-        return back()->withSuccessMessage('Successfully Added');
+      
+        
+    }
+
+    public function reprintReceipt($id){
+
+        return view('pettycash.reprintpettycash',compact('id'));
+
+    }
+
+    public function printPettyReceipt($id){
+        $transaction = PettyCash::find($id);
+        $pdf = new PettyCashReceipt();
+        $pdf->AddPage();
+        $pdf->SetFont('Times','',12);
+        //Table with 20 rows and 4 columns
+        $pdf->SetX(5);
+        $pdf->SetFillColor(237, 228, 226);
+        
+        $pdf->Ln();
+
+        $pdf->SetFillColor(224, 235, 255);
+        $pdf->setXY(5, 40);
+        $pdf-> Cell(200, 8, "PETTY CASH RECEIPT",1, 0, 'C', 1, '');
+
+        //DRAW AN OUTER BOX
+$pdf->Line(5, 5, 205, 5); //TOP
+$pdf->Line(5, 5, 205, 5);//TOP
+
+
+$pdf->Line(5, 5, 5, 125); //SID1
+$pdf->Line(5, 5, 5, 125);//SIDE1
+
+$pdf->Line(205, 5, 205, 125); //SID2
+$pdf->Line(205, 5, 205, 125);//SIDE2
+
+$pdf->Line(5, 125, 205, 125); //bTOP
+$pdf->Line(5, 125, 205, 125);//bTOP
+       
+      
+                //table header
+$pdf->SetFillColor(157, 245, 183);
+$pdf->setFont("times", "", "11");
+$pdf->setXY(10, 51);
+$pdf->Cell(170, 7, "Transaction Details", 1, 0, "L", 1);
+$pdf->Ln();
+$pdf->Cell(40, 7, "Issued to :", 1, 0, "L", 0);
+$pdf->Cell(130, 7,  $transaction->issuedto, 1, 0, "L", 0);
+$pdf->Ln();
+$pdf->Cell(40, 7, "Transaction Date :", 1, 0, "L", 0);
+$pdf->Cell(130, 7, date_format(date_create($transaction ->transaction_date),"d-M-Y"), 1, 0, "L", 0);
+$pdf->Ln();
+$pdf->Cell(40, 7, "Amount :", 1, 0, "L", 0);
+$pdf->Cell(130, 7, $transaction->amount, 1, 0, "L", 0);
+$pdf->Ln();
+
+
+
+$pdf->SetWidths(array(40,130));
+$aligns = array('L','L');
+$pdf->SetAligns($aligns );
+$pdf->SetFillColor(224, 235, 255);
+
+
+    $fill = 1 ;
+
+    $fill =  !$fill;
+    $pdf->Row(array("Narration :",$transaction->description),  $fill);
+
+      
+        $pdf->Ln();
+
+        $pdf->Cell(20, 7, "Issued By :", 0, 0, "L", 0);
+        $pdf->Cell(90, 7,  "__________________________________________", 0, 0, "L", 0);
+        $pdf->Cell(20, 7, "Date & Sign : ", 0, 0, "L", 0);
+        $pdf->Cell(30, 7,  " _________________________", 0, 0, "L", 0);
+        $pdf->Ln();
+        $pdf->Ln();
+        $pdf->Cell(20, 7, "Received By :", 0, 0, "L", 0);
+        $pdf->Cell(90, 7,  "__________________________________________", 0, 0, "L", 0);
+        $pdf->Cell(20, 7, "Date & Sign : ", 0, 0, "L", 0);
+        $pdf->Cell(30, 7,  " _________________________", 0, 0, "L", 0);
+
+        $pdf->Line(5, 125, 205, 125); //bTOP
+
+
+
+        $pdf->setXY(5, 120);
+        $pdf-> Cell(200, 5, "",1, 0, 'C', 1, '');
+        $pdf->Output();
+        exit;
+
+
+
+
     }
 
     /**
@@ -96,6 +197,7 @@ class PettyCashs extends Controller
     public function edit($id)
     {
         $transaction =  PettyCash::find($id) ;
+
 
         
         
@@ -137,8 +239,27 @@ class PettyCashs extends Controller
     }
 
 
-    public function printReport(){
-        $transactions =  PettyCash::all() ;
+    public function report1(Request $request){
+        $input = $request->all();
+        $startdate =   date('Y-m-d',strtotime( $input['start']));
+        $enddate =   date('Y-m-d',strtotime( $input['end']));
+        $input['start'] = $startdate;
+        $input['end'] = $enddate;
+        return view('pettycash.openreport',compact('input'));
+
+    }
+
+
+    public function printReport($start,$end){
+        $startdate =   date('Y-m-d',strtotime( $start));
+        $enddate   =   date('Y-m-d',strtotime( $end));
+
+        $transactions =  PettyCash::orderBy('transaction_date','DESC')
+        ->where('transaction_date', '>=', $startdate)
+        ->where('transaction_date', '<=', $enddate)
+        ->get();
+
+
         $balance = Petty::all();
         //This section gets the petty cash balance
         $current_balance = 0;
@@ -146,14 +267,15 @@ class PettyCashs extends Controller
             $current_balance = $bal->balance;
         }
   
-       $pdf = new MyPDF();
+        $pdf = new MyPDFPortrait();
         $pdf->AddPage();
         $pdf->SetFont('Arial','',14);
         //Table with 20 rows and 4 columns
         $pdf->SetX(5);
         $pdf->SetFillColor(237, 228, 226);
+        
         $pdf->Ln(7);
-        $pdf-> Cell(195, 10, "Petty Cash Transactions",0, 0, 'C', 1, '');
+        $pdf-> Cell(195, 10, "Petty Cash Transactions between ".date('d-m-Y',strtotime( $start))." and ".date('d-m-Y',strtotime( $end)),0, 0, 'C', 1, '');
         $pdf->Ln(15);
         $pdf->SetX(10);
         $pdf->SetFont('Times','',12);
@@ -169,13 +291,14 @@ class PettyCashs extends Controller
         $pdf->SetWidths(array(10,65,35,45,10,30));
         $aligns = array('L','L','C','L','C','R');
         $pdf->SetAligns($aligns );
-        $pdf->SetFillColor(245, 241, 216 );
+        $pdf->SetFillColor(224, 235, 255);
         
       
-
+        $fill = 1 ;
         foreach($transactions as $transaction){
+            $fill =  !$fill;
             $pdf->Row(array( $counter,$transaction->description, date_format(date_create($transaction ->transaction_date),"d-M-Y") ,
-            $transaction -> issuedto, substr($transaction ->transactiontype, 0, 1) , number_format($transaction -> amount,2)));
+            $transaction->issuedto, substr($transaction ->transactiontype, 0, 1) , number_format($transaction->amount,2)), $fill);
             $counter++;
             
         }

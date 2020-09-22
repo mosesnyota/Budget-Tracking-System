@@ -78,7 +78,7 @@ Route::post('/disbursment/uploadexcel','DisbursmentController@uploadexcel');
 Route::get('/viewproject/disbursment/destroy/{id}','DisbursmentController@destroy')->name('disbursment.destroy');
 
 Route::get('/downloadPDF/{project}','ProjectsController@printPdfReport');
-Route::get('/pettycashreport','PettyCashs@printReport');
+
 Route::post('/activity/store','ActivitiesController@store');
 Route::post('/activity/update/{activity}','ActivitiesController@update');
 
@@ -103,9 +103,7 @@ Route::post('/funds/store','FundingController@store');
 Route::get('/funds/{fund}/edit','FundingController@edit');
 Route::post('/funds/{fund}/update','FundingController@update');
 Route::get('/funds/{fund}/destroy','FundingController@destroy');
-
 Route::get('/funds/report/{start}/{end}','FundingController@report');
-
 Route::post('/funds/report1','FundingController@report1');
 
 
@@ -113,3 +111,17 @@ Route::post('/funds/report1','FundingController@report1');
 
 Route::get('/pettycash/{petty}/destroy','PettyCashs@destroy');
 Route::get('/pettycash/{petty}/edit','PettyCashs@edit');
+Route::post('/pettycash/report1','PettyCashs@report1');
+Route::get('/pettycash/pettycashreport/{start}/{end}','PettyCashs@printReport');
+Route::get('pettycash/pettycashreceiptprint/{petty}/print','PettyCashs@printPettyReceipt');
+Route::get('pettycash/reprintreceipt/{petty}/print','PettyCashs@reprintReceipt');
+
+
+
+Route::get('/expense','ExpensesController@index');
+Route::post('/expense/store','ExpensesController@store');
+Route::get('/expense/{fund}/edit','ExpensesController@edit');
+Route::post('/expense/{fund}/update','ExpensesController@update');
+Route::get('/expense/{fund}/destroy','ExpensesController@destroy');
+Route::get('/expense/report/{start}/{end}','ExpensesController@report');
+Route::post('/expense/report1','ExpensesController@report1');

@@ -98,7 +98,7 @@
                         <div class="modal-footer justify-content-between">
                         <input type="hidden" name="start" value="{{$input['start']}}">
                         <input type="hidden" name="end" value="{{$input['end']}}">
-                        <a class="btn btn-warning btn-lg" href="report/{{$input['start']}}/{{$input['end']}}"  target="_blank"><i class="fa fa-print">DOWNLOAD REPORT REPORT</i></a>
+                        <a class="btn btn-warning btn-lg" href="report/{{$input['start']}}/{{$input['end']}}"  target="_blank"><i class="fa fa-print">DOWNLOAD FUNDS REPORT</i></a>
                        
                         
                         </div>

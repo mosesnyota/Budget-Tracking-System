@@ -40,6 +40,14 @@
                     </ul>
                 </li>
 
+                <li class="has_sub">
+                    <a href="javascript:void(0);" class="waves-effect"><i class="fas fa-money-check-alt"></i> <span> Expenses </span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
+                    <ul class="list-unstyled">
+                        <li><a href="/finance/public/expense"><b class="fas fa-money-check-alt" aria-hidden="true"> Manage Expenses </b></a></li>
+                    </ul>
+                </li>
+
+
 
                 <li class="has_sub">
                     <a href="javascript:void(0);" class="waves-effect"><i class="dripicons-user"></i> <span> Staff </span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>

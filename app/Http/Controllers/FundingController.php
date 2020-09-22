@@ -29,6 +29,7 @@ class FundingController extends Controller
         $curyearfunds =  DB::table('fundings')
         ->select(DB::raw('sum(final_amount) as total'))
         ->whereRAW('YEAR(funding_date) =?', [ date("Y")])
+        ->where('deleted_at', '=', NULL)
         ->get();
 
         foreach ($curyearfunds as $totald){ 
@@ -38,6 +39,7 @@ class FundingController extends Controller
         $curmonth =  DB::table('fundings')
         ->select(DB::raw('sum(final_amount) as total'))
         ->whereRAW('month(funding_date) = ?', [ date("m")])
+        ->where('deleted_at', '=', NULL)
         ->get();
 
         foreach ($curmonth as $totalds){ 
@@ -64,13 +66,13 @@ class FundingController extends Controller
         $input['end'] = $enddate;
         return view('funds.openreport',compact('input'));
 
-    }
+    } 
 
     public function report($start,$end){
 
         
         $startdate =   date('Y-m-d',strtotime( $start));
-        $enddate =   date('Y-m-d',strtotime( $end));
+        $enddate   =   date('Y-m-d',strtotime( $end));
        
        
         
@@ -79,6 +81,7 @@ class FundingController extends Controller
         ->select(DB::raw('fundings.*, sponsornames'))
         ->where('fundings.funding_date', '>=', $startdate)
         ->where('fundings.funding_date', '<=', $enddate)
+        ->where('deleted_at', '=', NULL)
         ->get();
 
         $pdf = new MyPDF();

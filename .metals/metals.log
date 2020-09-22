@@ -46,3 +46,6 @@ INFO: Unsupported notification method: $/setTraceNotification
 2020.09.19 10:06:53 INFO  time: initialize in 4.73s
 2020.09.19 10:07:16 WARN  no build tool detected in workspace 'C:\wamp64\www\finance'. The most common cause for this problem is that the editor was opened in the wrong working directory, for example if you use sbt then the workspace directory should contain build.sbt. 
 2020.09.19 10:11:47 INFO  shutting down Metals
+2020.09.22 09:53:10 INFO  started: Metals version 0.9.3 in workspace 'C:\wamp64\www\finance' for client vscode.
+2020.09.22 09:53:12 INFO  time: initialize in 1.83s
+2020.09.22 09:53:19 WARN  no build tool detected in workspace 'C:\wamp64\www\finance'. The most common cause for this problem is that the editor was opened in the wrong working directory, for example if you use sbt then the workspace directory should contain build.sbt. 

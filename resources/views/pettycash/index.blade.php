@@ -26,9 +26,9 @@
                                 <div class="col-md-6">
                                     
                                   
-                                    <a href="/finance/public/pettycashreport" target="_blank"
-                                        class="btn btn-info btn-md float-right mr-1" role="button"><b
-                                            class="fa fa-file-pdf-o"> Print Report </b></a>
+                                
+                                            <button type="button"  class="btn btn-info btn-md float-right mr-1"  target="_blank"  data-toggle="modal" data-target="#modal-pettycashreport" data-backdrop="static" data-keyboard="false" href="#"> <b class="mdi mdi-file-pdf" aria-hidden="true"> Print Report </b></button>
+
                                     <button type="button" class="btn btn-warning btn-md float-right mr-1"
                                         data-toggle="modal" data-target="#modal-issuefunds" data-backdrop="static"
                                         data-keyboard="false" href="#"> <b class="fa fa-minus-circle"> Issue Cash
@@ -74,7 +74,7 @@
                                     </thead>
                                     <tbody>
                                         <?php $counter = 1; ?>
-                                        @if (count($transactions) > 0)
+                                       
                                             @foreach ($transactions as $transaction)
                                                 <tr>
                                                     <td>{{ $counter }}</td>
@@ -92,14 +92,14 @@
                                                     <td>
                                                                 <a class="btn btn-primary btn-sm" href="pettycash/{{$transaction->transactionid}}/edit"><i class="fas fa-edit"></i></a>
                                                                 <button type="button" class="btn btn-danger btn-sm mr-1 delete-confirm"  href="pettycash/{{$transaction->transactionid}}/destroy"> <a  data-role="deletepetty"> <i class="fa fa-trash" > </i></a>  </button>  
-                                                                <button type="button" class="btn btn-success btn-sm mr-1"> <a> <i class="fa fa-eye" > </i></a>  </button>  </td>
-                                                           
+                                                               
+                                                                <a class="btn btn-warning btn-sm" href="pettycash/reprintreceipt/{{$transaction->transactionid}}/print" target="_blank"><i class="fa fa-print"></i></a>
                       
 
                                                     <?php $counter += 1; ?>
                                                 </tr>
                                             @endforeach
-                                        @endif
+                                      
                                     </tbody>
 
                                 </table>
@@ -118,6 +118,7 @@
         </div> <!-- Page content Wrapper -->
 
     </div> <!-- content -->
+
 
 @include('pettycash.pettymodals')
     <!-- End Right content here -->
