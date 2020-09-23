@@ -128,9 +128,8 @@ Route::get('/expense/report/{start}/{end}','ExpensesController@report');
 Route::post('/expense/report1','ExpensesController@report1');
 
 
-
-
-
-
 Route::get('/viewproject/comment/{project}/edit','ProjectsController@comment');
 Route::post('/viewproject/comment/{project}/save','ProjectsController@savecomment');
+
+
+Route::get('/expenseanalytics','AnalyticsController@index');

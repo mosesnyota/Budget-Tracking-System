@@ -34,7 +34,7 @@
                 </li>
 
                 <li class="has_sub">
-                    <a href="javascript:void(0);" class="waves-effect"><i class="fas fa-money-check-alt"></i> <span> Funds </span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
+                    <a href="javascript:void(0);" class="waves-effect"><i class="fas fa-money-check-alt"></i> <span> Income </span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
                     <ul class="list-unstyled">
                         <li><a href="/finance/public/funds"><b class="fas fa-money-check-alt" aria-hidden="true"> Manage Funds </b></a></li>
                     </ul>
@@ -58,7 +58,7 @@
                 </li>
 
                 <li class="has_sub">
-                    <a href="javascript:void(0);" class="waves-effect"><i class="fa fa-users"></i> <span> Sponsors </span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
+                    <a href="javascript:void(0);" class="waves-effect"><i class="fa fa-users"></i> <span> Donors </span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
                     
                     <ul class="list-unstyled">
                         
@@ -77,28 +77,26 @@
                 </li>
 
                 <li class="has_sub">
-                    <a href="javascript:void(0);" class="waves-effect"><i class="dripicons-graph-bar"></i><span> Charts </span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
+                    <a href="javascript:void(0);" class="waves-effect"><i class="dripicons-graph-bar"></i><span> Analytics </span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
                     <ul class="list-unstyled">
-                        <li><a href="charts-morris.html">Financial Charts</a></li>
-                        <li><a href="charts-chartist.html">Projects Charts</a></li>
+                        <li><a href="expenseanalytics">Expenses Trends</a></li>
+                        <li><a href="incomeanalytics">Income Trends</a></li>
                     </ul>
                 </li>
 
                 <li class="has_sub">
                     <a href="javascript:void(0);" class="waves-effect"><i class="dripicons-view-thumb"></i><span> Finance </span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
                     <ul class="list-unstyled">
-                        <li><a href="">Record Expense</a></li>
-                        <li><a href="">Manage Expenses</a></li>
-                        <li><a href="">Record Income</a></li>
-                        <li><a href="">Manage Incomes</a></li>
-                        <li><a href="">Financial Reports</a></li>
+                        <li><a href="">Profit & Loss</a></li>
+                        <li><a href="">Ledger</a></li>
+   
                     </ul>
                 </li>
 
                 <li class="menu-title">Administrative</li>
 
                 <li class="has_sub">
-                    <a href="javascript:void(0);" class="waves-effect"><i class="dripicons-location"></i><span> System Users </span> <span class="badge badge-danger badge-pill float-right">2</span></a>
+                    <a href="javascript:void(0);" class="waves-effect"><i class="dripicons-location"></i><span> System Users </span> <span class="badge badge-danger badge-pill float-right"></span></a>
                     <ul class="list-unstyled">
                         <li><a href=""> Add User</a></li>
                         <li><a href=""> Manage Users</a></li>
@@ -113,9 +111,6 @@
                     </ul>
                 </li>
 
-                <li class="has_sub">
-                    <a href="javascript:void(0);" class="waves-effect"><i class="dripicons-medical"></i><span> END </span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
-                </li>
 
             </ul>
         </div>
