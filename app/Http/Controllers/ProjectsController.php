@@ -337,9 +337,8 @@ $pdf->Cell(90, 7, $project->project_name, 1, 0, "L", 0);
 
 
 
-$pdf->Ln();
-$pdf->Cell(40, 7, "Description :", 1, 0, "L", 0);
-$pdf->Cell(90, 7, strip_tags($project->details), 1, 0, "L", 0);
+
+
 $pdf->Ln();
 $pdf->Cell(40, 7, "Location :", 1, 0, "L", 0);
 $pdf->Cell(90, 7, strip_tags($project->location,'<p>'), 1, 0, "L", 0);
@@ -428,7 +427,6 @@ foreach ($voteheads as $votehead){
     $pdf->setXY($x, $y);
 }
 $pdf->Ln();
-
 $pdf->setXY($x, $y);
 $pdf->Ln();
 $pdf->SetFillColor(157, 245, 183);
@@ -453,9 +451,10 @@ $aligns = array('L','C','L','L','L','R');
 $pdf->SetAligns($aligns );
 $pdf->SetFillColor(245, 241, 216 );
 $fill = 0;
+$pdf->SetFillColor(224, 235, 255);
 foreach ($disbursments as $disbursment){ 
     
-    $pdf->SetFillColor(224, 235, 255);
+  
     $pdf->Row(array( "TRX0".$counter,
     date("d-m-Y", strtotime($disbursment ->voucherdate)), 
     $disbursment ->votehead_name ,
@@ -464,35 +463,19 @@ foreach ($disbursments as $disbursment){
     number_format($disbursment ->debit,2)),$fill);
     $counter++;
     $fill = !$fill;
-    if ($pdf->GetY() == 52) {
-        $pdf->AddPage('L');
-        $pdf->SetFillColor(224, 235, 255);
-        $pdf->setFont("times", "", "11");
-        $pdf->setXY(10, 45);
-        $pdf->Cell(20, 7, "#", 1, 0, "L", 1);
-        $pdf->Cell(40, 7, "Date", 1, 0, "C", 1);
-        $pdf->Cell(60, 7, "Vote Head", 1, 0, "C", 1);
-        $pdf->Cell(100, 7, "Narration", 1, 0, "C", 1);
-        $pdf->Cell(50, 7, "Paid To", 1, 0, "C", 1);
-        $pdf->Cell(50, 7, "Amount", 1, 0, "C", 1);
-        $pdf->Ln();
-        $y += 7;
-    }
-
-  
-    
-  
    
 }
 
 
 
-
+$pdf->Ln();
 $y = $pdf->GetY();
 $pdf->setXY($x, $y);
 $pdf->Ln();
+$pdf->Cell(105, 7, "", 0, 0, "C", 0);
+$pdf->Ln();
 $pdf->SetFillColor(157, 245, 183);
-$pdf->Cell(105, 7, "CRITICAL MILESTONES", 1, 0, "C", 1);
+$pdf->Cell(105, 7, "CRITICAL MILESTONES : Y = ". $y, 1, 0, "C", 1);
 $pdf->SetFillColor(224, 235, 255);
 $pdf->Ln();
 $pdf->Cell(20, 7, "#", 1, 0, "L", 1);
@@ -501,7 +484,6 @@ $pdf->Cell(30, 7, "Start Date", 1, 0, "C", 1);
 $pdf->Cell(30, 7, "Deadline", 1, 0, "C", 1);
 $pdf->Cell(40, 7, "Current Status", 1, 0, "C", 1);
 $y += 7;
-$pdf->setXY($x, $y);
 $pdf->Ln();
 $counter = 1;
 foreach ($activities as $activity){ 
@@ -519,17 +501,15 @@ foreach ($activities as $activity){
         $pdf->SetFillColor(247, 219, 134);
         $pdf->Cell(40, 7, "Ongoing", 1, 0, "L", 1);
     }
-    
     $counter++;
-    
     $y += 7;
     $fill = !$fill;
+    $y = $pdf->GetY();
     if ($y > 150) {
         $pdf->AddPage('L');
         $pdf->SetFillColor(128, 128, 128); //gray
         $pdf->setFont("times", "", "11");
         $pdf->setXY(10, 45);
-
         $pdf->Cell(20, 7, "#", 1, 0, "L", 1);
         $pdf->Cell(55, 7, "Activity Name", 1, 0, "C", 1);
         $pdf->Cell(40, 7, "Start Date", 1, 0, "C", 1);
@@ -538,17 +518,29 @@ foreach ($activities as $activity){
         $pdf->Ln();
         $y = 52;
     }
-
     $pdf->Ln();
-    $pdf->SetFillColor(224, 235, 255);
-    $pdf->setXY($x, $y);
-   
+    $pdf->SetFillColor(224, 235, 255);  
+    
 }
+        $pdf->setX(40);
+        $pdf->Ln();
+        $pdf->Cell(200, 10, "COMMENTS", 1, 0, "C", 1);
+       
 
+        $pdf->SetWidths(array(200));
+      
+        $aligns = array('L');
+        $pdf->SetAligns($aligns );
+        $pdf->SetFillColor(245, 241, 216 );
+        $fill = 0;
+        $pdf->SetFillColor(224, 235, 255);
+        $pdf->Ln();
+        $pdf->Row(array(strip_tags($project->details)),$fill);
+        $pdf->Ln();
 
         $pdf->Output();
         exit;
-    }
+     }
 
 
     /**

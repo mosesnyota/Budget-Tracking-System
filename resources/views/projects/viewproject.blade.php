@@ -20,25 +20,10 @@
                                   <h4 class="page-title m-0">PROJECT: {{ $project->project_name }}</h4>
                               </div>
                               <div class="col-md-6">
-                                
-                                  <div class="float-right d-none d-md-block">
-                                      <div class="dropdown">
-                                          <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                              <i class="ti-settings mr-1"></i> Options
-                                          </button>
-                                          <div class="dropdown-menu dropdown-menu-right dropdown-menu-animated">
-                                              <a class="dropdown-item" href="comment/{{$project ->project_id}}/edit" target="_blank" ><b class="ti-import"> Comment on Project Report </b></a>
-                
-                                          </div>
-                                      </div>
-                                  </div>
-                                  <a href="/finance/public/deleteproject/{{$project ->project_id}}" class="btn btn-danger btn-md float-right mr-1 delete-confirm"    role="button" data-role="deleteproject"  data-id="{{$project ->project_id}}"><b class="fa fa-trash"> Delete Project</b></a>
-                                  
-                                  <a href="/finance/public/editproject/{{$project ->project_id}}" class="btn btn-success btn-md float-right mr-1"   role="button"><b class="fa fa-edit"> Edit Project </b></a>
-                                  
-                                  <a href="/finance/public/downloadPDF/{{$project ->project_id}}" class="btn btn-warning btn-md float-right mr-1" target="_blank"  role="button"><b class="ti-import"> Print Report </b></a>
-                                 
-                                  
+                                  <a href="deleteproject/{{$project ->project_id}}/delete" class="btn btn-danger btn-md float-right mr-1 delete-confirm"    role="button" data-role="deleteproject"  data-id="{{$project ->project_id}}"><b class="fa fa-trash"></b></a>
+                                  <a href="comment/{{$project ->project_id}}/edit" class="btn btn-info btn-md float-right mr-1" target="_blank"  role="button"><b class="ti-settings mr-1"> Write Comment </b></a>
+                                  <a href="editproject/{{$project ->project_id}}/edit" class="btn btn-success btn-md float-right mr-1"   role="button"><b class="fa fa-edit"> Edit Project </b></a>
+                                  <a href="downloadPDF/{{$project ->project_id}}/download" class="btn btn-warning btn-md float-right mr-1" target="_blank"  role="button"><b class="ti-import"> Print Report </b></a>
                               </div>
                               <!-- end col -->
                           </div>

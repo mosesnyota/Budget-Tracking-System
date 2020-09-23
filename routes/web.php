@@ -52,7 +52,7 @@ Route::get('/viewsponsor/printsponsorfundings/{sponsor}/print','SponsorsControll
 Route::get('/projects','ProjectsController@index');
 Route::post('/savenewproject','ProjectsController@store');
 Route::post('/editproject/saveupdatedproject/{project}','ProjectsController@update');
-Route::get('/editproject/{project}','ProjectsController@edit');
+Route::get('/viewproject/editproject/{project}/edit','ProjectsController@edit');
 Route::get('/newproject','ProjectsController@create');
 Route::get('/viewproject/{project}','ProjectsController@show');
 
@@ -65,9 +65,9 @@ Route::post('/viewproject/editdisbursment/saveediteddisbursement/{project}','Dis
 Route::post('viewproject/updatevoteheads/{votehead}','VoteheadController@updatevoteheads');
 
 
-Route::get('/projectreport/{project}','ProjectsController@printreport');
+Route::get('/viewproject/projectreport/{project}/download','ProjectsController@printreport');
 
-Route::get('/deleteproject/{project}','ProjectsController@destroy');
+Route::get('/viewproject/deleteproject/{project}/delete','ProjectsController@destroy');
 
 Route::post('/votehead/store','VoteheadController@store');
 Route::post('/disbursment/store','DisbursmentController@store');
@@ -76,7 +76,7 @@ Route::post('/disbursment/uploadexcel','DisbursmentController@uploadexcel');
 
 Route::get('/viewproject/disbursment/destroy/{id}','DisbursmentController@destroy')->name('disbursment.destroy');
 
-Route::get('/downloadPDF/{project}','ProjectsController@printPdfReport');
+Route::get('/viewproject/downloadPDF/{project}/download','ProjectsController@printPdfReport');
 
 Route::post('/activity/store','ActivitiesController@store');
 Route::post('/activity/update/{activity}','ActivitiesController@update');
