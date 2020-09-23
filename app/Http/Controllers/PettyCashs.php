@@ -7,6 +7,7 @@ use App\PettyCash;
 use App\Petty;
 use DB;
 use App\PettyCashReceipt;
+use App\PettyCashPDF;
 
 
 class PettyCashs extends Controller
@@ -197,10 +198,8 @@ $pdf->SetFillColor(224, 235, 255);
     public function edit($id)
     {
         $transaction =  PettyCash::find($id) ;
-
-
-        
-        
+        $transaction->transaction_date  =  date('m/d/Y', strtotime($transaction->transaction_date) );
+        return view('pettycash.edittransaction', compact('transaction'));
     }
 
     /**
@@ -212,7 +211,19 @@ $pdf->SetFillColor(224, 235, 255);
      */
     public function update(Request $request, $id)
     {
-        //
+        $transaction = PettyCash::find($id) ;
+        $input = $request->all();
+        $input['transaction_date']  =  date('Y-m-d', strtotime($input['transaction_date']));
+        $transaction ->transactiontype = $input['transactiontype'];
+        $transaction ->issuedto = $input['issuedto'];
+        $transaction ->amount = $input['amount'];
+        $transaction ->description = $input['description'];
+       
+        $transaction->save();
+      
+        return redirect()->action(
+            'PettyCashs@index'
+        );
     }
 
     /**
@@ -267,7 +278,7 @@ $pdf->SetFillColor(224, 235, 255);
             $current_balance = $bal->balance;
         }
   
-        $pdf = new MyPDFPortrait();
+        $pdf = new PettyCashPDF();
         $pdf->AddPage();
         $pdf->SetFont('Arial','',14);
         //Table with 20 rows and 4 columns

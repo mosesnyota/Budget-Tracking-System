@@ -2,7 +2,7 @@
 namespace App;
 use Codedge\Fpdf\Fpdf\Fpdf;
 
-class MyPDFPortrait extends FPDF
+class PettyCashPDF extends FPDF
 {
 var $widths;
 var $aligns;
@@ -97,6 +97,17 @@ function CheckPageBreak($h)
 		{
 			$this->AddPage($this->CurOrientation);
 			$this->SetXY(10,45);
+
+			
+			
+			$this-> Cell(10, 10, "#",1, 0, 'C', 1, '');
+			$this-> Cell(65, 10, "Description",1, 0, 'C', 1, '');
+			$this-> Cell(35, 10, "Date",1, 0, 'C', 1, '');
+			$this-> Cell(45, 10, "To",1, 0, 'C', 1, '');
+			$this-> Cell(10, 10, "Txt",1, 0, 'C', 1, '');
+			$this-> Cell(30, 10, "Amount",1, 0, 'C', 1, '');
+			$this->Ln();
+
 		}
 }
 

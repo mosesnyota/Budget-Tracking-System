@@ -125,3 +125,7 @@ Route::post('/expense/{fund}/update','ExpensesController@update');
 Route::get('/expense/{fund}/destroy','ExpensesController@destroy');
 Route::get('/expense/report/{start}/{end}','ExpensesController@report');
 Route::post('/expense/report1','ExpensesController@report1');
+
+
+
+Route::post('/pettycash/{petty}/update','PettyCashs@update');

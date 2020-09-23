@@ -29,7 +29,7 @@ class FundingController extends Controller
         $curyearfunds =  DB::table('fundings')
         ->select(DB::raw('sum(final_amount) as total'))
         ->whereRAW('YEAR(funding_date) =?', [ date("Y")])
-        ->where('deleted_at', '=', NULL)
+        ->where('fundings.deleted_at', '=', NULL)
         ->get();
 
         foreach ($curyearfunds as $totald){ 
@@ -39,7 +39,7 @@ class FundingController extends Controller
         $curmonth =  DB::table('fundings')
         ->select(DB::raw('sum(final_amount) as total'))
         ->whereRAW('month(funding_date) = ?', [ date("m")])
-        ->where('deleted_at', '=', NULL)
+        ->where('fundings.deleted_at', '=', NULL)
         ->get();
 
         foreach ($curmonth as $totalds){ 
@@ -81,7 +81,7 @@ class FundingController extends Controller
         ->select(DB::raw('fundings.*, sponsornames'))
         ->where('fundings.funding_date', '>=', $startdate)
         ->where('fundings.funding_date', '<=', $enddate)
-        ->where('deleted_at', '=', NULL)
+        ->where('fundings.deleted_at', '=', NULL)
         ->get();
 
         $pdf = new MyPDF();
@@ -101,7 +101,7 @@ class FundingController extends Controller
         $pdf->SetFillColor(157, 245, 183);
         $pdf->setFont("times", "", "11");
 
-        $pdf->Ln();
+    
         $pdf->Cell(105, 7, "RECEIVED FUNDS", 1, 0, "C", 1);
         $pdf->SetFillColor(224, 235, 255);
         $pdf->Ln();
@@ -121,7 +121,7 @@ class FundingController extends Controller
         
 foreach ($fundings as $funding){ 
     
-    $pdf->Cell(20, 7,"PRJ0".$counter, 1, 0, "L", $fill);
+    $pdf->Cell(20, 7,"TRX0".$counter, 1, 0, "L", $fill);
     $pdf->Cell(30, 7, date('d-m-Y',strtotime($funding ->funding_date)) , 1, 0, "L", $fill);
     $pdf->Cell(75, 7, $funding ->sponsornames, 1, 0, "L", $fill);
     $pdf->Cell(30, 7, $funding ->currency, 1, 0, "L", $fill);

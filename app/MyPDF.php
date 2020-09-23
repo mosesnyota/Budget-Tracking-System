@@ -96,7 +96,7 @@ function CheckPageBreak($h)
 	if($this->GetY()+$h>$this->PageBreakTrigger)
 		{
 			$this->AddPage($this->CurOrientation);
-			$this->SetXY(10,52);
+			$this->SetXY(10,45);
 		}
 }
 
