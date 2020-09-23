@@ -27,11 +27,7 @@
                                               <i class="ti-settings mr-1"></i> Options
                                           </button>
                                           <div class="dropdown-menu dropdown-menu-right dropdown-menu-animated">
-                                              <a class="dropdown-item" href="/finance/public//downloadPDF/{{$project ->project_id}}" target="_blank" ><b class="ti-import"> Download Project Report </b></a>
-                                              <a class="dropdown-item" href="/finance/public//downloadPDF/{{$project ->project_id}}" target="_blank" ><b class="ti-printer"> Print Cash Disbursments </b></a>
-                                              <a class="dropdown-item" href="/finance/public//downloadPDF/{{$project ->project_id}}" target="_blank" ><b class="ti-import"> Print Activities List </b></a>
-                                              <a class="dropdown-item" href="/finance/public/editproject/{{$project ->project_id}}"   ><b class="fa fa-edit"> Edit Project </b></a>
-                                              <a class="dropdown-item" href="/finance/public/deleteproject/{{$project ->project_id}}"   ><b class="fa fa-trash"> Delete Project </b></a>
+                                              <a class="dropdown-item" href="comment/{{$project ->project_id}}/edit" target="_blank" ><b class="ti-import"> Comment on Project Report </b></a>
                 
                                           </div>
                                       </div>
@@ -109,6 +105,9 @@
 
                 @php  
                 $days = $project->days;
+                if($days == 0 ){
+                    $days = 1;
+                }
                 $activityday = $completionStatus[$project->project_id];
                 $completeddays = ($activityday/$days) * 100;      
                @endphp

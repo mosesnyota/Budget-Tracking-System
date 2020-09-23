@@ -31,8 +31,7 @@ Route::post('/editstaff/update/{staff}','StaffsController@update');
 Route::get('/staff/destroy/{staff}','StaffsController@destroy');
 Route::get('/staff/{staff}/view','StaffsController@show');
 
-Route::get('/pettycash','PettyCashs@index');
-Route::post('/pettycash/store','PettyCashs@store');
+
 
 
 Route::get('/sponsors','SponsorsController@index');
@@ -115,7 +114,9 @@ Route::post('/pettycash/report1','PettyCashs@report1');
 Route::get('/pettycash/pettycashreport/{start}/{end}','PettyCashs@printReport');
 Route::get('pettycash/pettycashreceiptprint/{petty}/print','PettyCashs@printPettyReceipt');
 Route::get('pettycash/reprintreceipt/{petty}/print','PettyCashs@reprintReceipt');
-
+Route::post('/pettycash/{petty}/update','PettyCashs@update');
+Route::get('/pettycash','PettyCashs@index');
+Route::post('/pettycash/store','PettyCashs@store');
 
 
 Route::get('/expense','ExpensesController@index');
@@ -128,4 +129,8 @@ Route::post('/expense/report1','ExpensesController@report1');
 
 
 
-Route::post('/pettycash/{petty}/update','PettyCashs@update');
+
+
+
+Route::get('/viewproject/comment/{project}/edit','ProjectsController@comment');
+Route::post('/viewproject/comment/{project}/save','ProjectsController@savecomment');

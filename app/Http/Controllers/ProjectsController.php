@@ -100,6 +100,26 @@ class ProjectsController extends Controller
         
     }
 
+
+    public function comment($id){
+        $project =  Project::find($id) ;
+        return view('projects.comment', compact('project'));
+    }
+
+    public function savecomment(Request $request,$id){
+        $input = $request->all();
+        $project =  Project::find($id) ;
+        $project->details = $input['details'];
+       
+        
+       
+        $project->save();
+         return redirect()->action(
+             'ProjectsController@show',$project->project_id
+        );
+
+    }
+
     /**
      * Show the form for creating a new resource.
      *

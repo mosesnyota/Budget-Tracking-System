@@ -34,6 +34,7 @@
 
 
         <script src="{{asset('sweetaleart/sweetalert.min.js')}}"></script>
+        <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
 
 
         <link href="{{asset('sweetaleart/sweetalert.min.css')}}" rel="stylesheet" type="text/css">
@@ -851,6 +852,9 @@ $('.delete-confirm').on('click', function (event) {
             todayHighlight: true
         });
 </script>
+
+
+
 
     </body>
 </html>

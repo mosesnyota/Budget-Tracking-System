@@ -24,11 +24,9 @@
                                               <i class="ti-settings mr-1"></i> Options
                                           </button>
                                           <div class="dropdown-menu dropdown-menu-right dropdown-menu-animated">
-                                              <a class="dropdown-item" href="#">Print All Projects</a>
-                                              <a class="dropdown-item" href="#">Print Active Projects</a>
-                                              <a class="dropdown-item" href="#">View Closed Projects</a>
-                                              <div class="dropdown-divider"></div>
-                                              <a class="dropdown-item" href="#">View Pending Projects</a>
+                                              <a class="dropdown-item" href="#">TO DO</a>
+                                              
+                                             
                                           </div>
                                       </div>
 
@@ -62,7 +60,7 @@
                                       <th>Start</th>
                                       <th>Deadline</th>
                                       <th>Budget</th>
-                                      <th>Progress</th>
+                                      <th>Status</th>
                                       <th>Action</th>
                                   </tr>
                                   </thead>
@@ -93,7 +91,7 @@
                     }
               ?>
                                   <tr>
-                                      <th>{{$counter}}</th>
+                                      <td>{{$counter}}</td>
                                       <td>{{$project->project_name}}</td>
                                       <td>{{$project->location}}</td>
                                       <td>{{$project->start_date}}</td>
@@ -118,6 +116,9 @@
 
                         @php
                           $days = $project->days;
+                          if($days == 0){
+                            $days = 1;
+                          }
                           $activityday = $completionStatus[$project->project_id];
                           $completeddays = ($activityday/$days) * 100;      
                         @endphp
@@ -139,15 +140,11 @@
                           </small>
                       </td>
 
-
-                        
-
-
                         <td class="project-actions text-right">
                           <a class="btn btn-primary btn-sm" href="viewproject/{{$project ->project_id}}">
-                              <i class="fas fa-eye"></i> View</a>
+                              <i class="fas fa-eye"></i> Open</a>
 
-                              <a href="/finance/public/deleteproject/{{$project ->project_id}}" class="btn btn-danger btn-sm float-right mr-1 delete-confirm"    role="button" data-role="deleteproject"  data-id="{{$project ->project_id}}"><b class="fa fa-trash"></b></a>
+                              
                       </td>
                       <?php $counter += 1 ; ?>
 
