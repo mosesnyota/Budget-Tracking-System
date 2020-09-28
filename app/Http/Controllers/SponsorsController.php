@@ -47,8 +47,7 @@ class SponsorsController extends Controller
         $date = strtotime($input['startdate']); 
         $input['startdate']  =  date('Y-m-d', $date);
         Sponsor::create($input);
-       
-       return back()->withSuccessMessage('Successfully Added');
+        return back()->withSuccessMessage('Successfully Added');
     }
 
     /**

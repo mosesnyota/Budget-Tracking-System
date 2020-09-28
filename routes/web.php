@@ -133,3 +133,13 @@ Route::post('/viewproject/comment/{project}/save','ProjectsController@savecommen
 
 
 Route::get('/expenseanalytics','AnalyticsController@index');
+
+
+Route::get('/suppliers','SupplierController@index');
+Route::get('/suppliers/{supplier}/edit','SupplierController@edit');
+Route::post('/suppliers/store','SupplierController@store');
+Route::get('/editsupplier/{supplier}','SupplierController@edit');
+Route::post('/editsupplier/update/{supplier}','SupplierController@update');
+Route::get('/supplier/destroy/{supplier}','SupplierController@destroy');
+Route::get('/viewsupplier/{supplier}/view','SupplierController@show');
+Route::get('/viewsupplier/viewbills/{supplier}/view','SupplierController@viewBills');

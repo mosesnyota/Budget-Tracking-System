@@ -58,11 +58,18 @@
                 </li>
 
                 <li class="has_sub">
+                    <a href="javascript:void(0);" class="waves-effect"><i class="dripicons-user"></i> <span> Suppliers </span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
+                    <ul class="list-unstyled">
+                        
+                        <li><a href="/finance/public/suppliers"> <b class="fa fa-users" > Manage Suppliers </b></a></li>
+                    </ul>
+                </li>
+
+                <li class="has_sub">
                     <a href="javascript:void(0);" class="waves-effect"><i class="fa fa-users"></i> <span> Donors </span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
                     
                     <ul class="list-unstyled">
-                        
-                        <li><a href="/finance/public/sponsors"> <b class="dripicons-user" > Manage Sponsors </b></a></li>
+                        <li><a href="/finance/public/sponsors"> <b class="dripicons-user" > Manage Financiers </b></a></li>
                     </ul>
                 </li>
 
@@ -79,8 +86,8 @@
                 <li class="has_sub">
                     <a href="javascript:void(0);" class="waves-effect"><i class="dripicons-graph-bar"></i><span> Analytics </span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
                     <ul class="list-unstyled">
-                        <li><a href="expenseanalytics">Expenses Trends</a></li>
-                        <li><a href="incomeanalytics">Income Trends</a></li>
+                        <li><a href="/finance/public/expenseanalytics">Expenses Trends</a></li>
+                        <li><a href="/finance/public/incomeanalytics">Income Trends</a></li>
                     </ul>
                 </li>
 
