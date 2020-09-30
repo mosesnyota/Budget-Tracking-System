@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Bill;
-use DB;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 
-class BillsController extends Controller
+class RolesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +15,9 @@ class BillsController extends Controller
      */
     public function index()
     {
-        $bills =  Bill::all() ;
-        return view('bills.index')->with('bills',$bills);
+        $roles = Role::All();
+
+        return view('roles.index',compact('roles'));
     }
 
     /**
@@ -37,7 +38,9 @@ class BillsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $input = $request->all();
+        Role::create($input);
+        return back()->withSuccessMessage('Successfully Added');
     }
 
     /**

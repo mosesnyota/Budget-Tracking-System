@@ -149,8 +149,7 @@
                                             <h5 class="font-14 mb-5">Yearly Projects Report</h5>
 
                                             <div>
-                                                <h6 class="mb-3">2020 : Ksh. {{number_format($projects['totalbudget'],0)}}</h6>
-                                                <h5 class="mb-3">2019 : Ksh. {{number_format(0,0)}}</h5>
+                                                
                                                
                                                 <a href="#" class="btn btn-primary btn-sm">View All <i class="mdi mdi-chevron-right"></i></a>
                                             </div>

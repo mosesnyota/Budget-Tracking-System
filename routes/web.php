@@ -143,3 +143,12 @@ Route::post('/editsupplier/update/{supplier}','SupplierController@update');
 Route::get('/supplier/destroy/{supplier}','SupplierController@destroy');
 Route::get('/viewsupplier/{supplier}/view','SupplierController@show');
 Route::get('/viewsupplier/viewbills/{supplier}/view','SupplierController@viewBills');
+
+
+
+
+Route::get('/bills','BillsController@index');
+
+
+Route::get('/roles','RolesController@index');
+Route::post('/roles/store','RolesController@store');

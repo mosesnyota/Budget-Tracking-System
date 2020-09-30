@@ -11,6 +11,7 @@ use App\Votehead;
 use PDF;
 use DB;
 
+
 class MyController extends Controller
 {
     /**
@@ -30,6 +31,7 @@ class MyController extends Controller
      */
     public function index()
     {
+       
         //get details of all projects
         $projects =  array();
         $projectdetils =  Project::all()->where('cur_status', '=', 'Active');

@@ -44,6 +44,7 @@
                     <a href="javascript:void(0);" class="waves-effect"><i class="fas fa-money-check-alt"></i> <span> Expenses </span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
                     <ul class="list-unstyled">
                         <li><a href="/finance/public/expense"><b class="fas fa-money-check-alt" aria-hidden="true"> Manage Expenses </b></a></li>
+                        <li><a href="/finance/public/bills"><b class="fas fa-money-check-alt" aria-hidden="true"> Manage Bills </b></a></li>
                     </ul>
                 </li>
 
@@ -113,8 +114,8 @@
                 <li class="has_sub">
                     <a href="javascript:void(0);" class="waves-effect"><i class="dripicons-copy"></i><span> User Rights </span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
                     <ul class="list-unstyled">
-                        <li><a href="">Manage User Rights</a></li>
-                        
+                        <li><a href="/finance/public/roles">Manage Roles</a></li>
+                        <li><a href="/finance/public/permissions">Manage Permissions</a></li>
                     </ul>
                 </li>
 
