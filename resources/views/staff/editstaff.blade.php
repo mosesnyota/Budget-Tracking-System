@@ -59,11 +59,11 @@
                                 <div class="col-sm-10">
                                     <select class="form-control select2" name="staffcategory_id" style="width: 100%;"  required>
                                         <option value=""></option>
-                                        @foreach ($categories as $category)
-                                           @if( $staff->staffcategory_id ==  $category->staffcategory_id)
-                                           <option value="{{$category->staffcategory_id}}" selected>{{$category ->categoryname}}</option>
+                                        @foreach ($roles as $role)
+                                           @if( $staff->staffcategory_id ==  $role->id)
+                                           <option value="{{$role->id}}" selected>{{$role ->name}}</option>
                                            @else
-                                           <option value="{{$category->staffcategory_id}}">{{$category ->categoryname}}</option>
+                                           <option value="{{$role->id}}">{{$role ->name}}</option>
                                         
                                            @endif
                                          

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Staff;
 use App\User;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 use DB;
 
 use App\Http\Controllers\Controller;
@@ -26,18 +28,18 @@ class StaffsController extends Controller
     public function index()
     {
         $staffs= DB::table('staff')
-        ->leftJoin('staff_categories', 'staff.staffcategory_id', '=', 'staff_categories.staffcategory_id')
-        ->select(DB::raw('staff.*,categoryname'))
+        ->leftJoin('roles', 'staff.staffcategory_id', '=', 'roles.id')
+        ->select(DB::raw('staff.*,roles.name'))
         ->orderBy('firstname', 'ASC')
         ->get();
 
-        $categories= DB::table('staff_categories')
-        ->select('staff_categories.*')
-        ->orderBy('categoryname', 'ASC')
+        $roles= DB::table('roles')
+        ->select('roles.*')
+        ->orderBy('name', 'ASC')
         ->get();
      
 
-        return view('staff.index',compact('staffs','categories'));
+        return view('staff.index',compact('staffs','roles'));
     }
 
     /**
@@ -75,7 +77,9 @@ class StaffsController extends Controller
                 'email'    => $input['email'],
                 'password' => $hashedPassword );
         User::create($records);
-        
+        $user = User::where('email' , '=', $input['email'])->first();
+        $newrole = Role::findById($input['staffcategory_id']);
+        $user->assignRole($newrole);
        
 
        return back()->withSuccessMessage('Successfully Added');
@@ -119,8 +123,8 @@ class StaffsController extends Controller
        
        
         $staffd = DB::table('staff')
-            ->join('staff_categories', 'staff.staffcategory_id', '=', 'staff_categories.staffcategory_id')
-            ->select(DB::raw('staff.*,categoryname'))
+            ->join('roles', 'staff.staffcategory_id', '=', 'roles.id')
+            ->select(DB::raw('staff.*,roles.name'))
             ->where('staffid', '=', $id)
             ->get();
             $staff = $staffd->first();
@@ -135,12 +139,12 @@ class StaffsController extends Controller
      */
     public function edit($id)
     {
-        $categories= DB::table('staff_categories')
-        ->select('staff_categories.*')
-        ->orderBy('categoryname', 'ASC')
+        $roles= DB::table('roles')
+        ->select('roles.*')
+        ->orderBy('name', 'ASC')
         ->get();
         $staff =  Staff::find($id) ;
-        return view('staff.editstaff', compact('categories','staff'));
+        return view('staff.editstaff', compact('roles','staff'));
     }
 
     /**
@@ -154,9 +158,14 @@ class StaffsController extends Controller
     {
         $input = $request->all();
         $staff =  Staff::find($id) ;
+        $oldrole = Role::findById($staff->staffcategory_id);
+        $user = User::where('email' , '=', $staff->email)->first();
+        $user->removeRole($oldrole);
         $staff ->firstname = $input['firstname'];
         $staff ->othernames = $input['othernames'];
         $staff ->staffcategory_id = $input['staffcategory_id'];
+        $newrole = Role::findById($input['staffcategory_id']);
+        $user->assignRole($newrole);
         $staff ->phone = $input['phone'];
         $staff ->email = $input['email'];
         $staff->save();

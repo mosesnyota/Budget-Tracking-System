@@ -69,7 +69,7 @@
                             <tr>
                                 <td><a>Role</a></td>
                                
-                                <td><span class="badge badge-primary">{{$staff->categoryname}}</span></td>
+                                <td><span class="badge badge-primary">{{$staff->name}}</span></td>
                             </tr>
                            
                            
@@ -117,7 +117,7 @@
                         </tr>
                         <tr>
                           <td><a>Role</a></td>
-                          <td><a>{{$staff->categoryname}}</a></td>
+                          <td><a>{{$staff->name}}</a></td>
                           
                       </tr>
                        

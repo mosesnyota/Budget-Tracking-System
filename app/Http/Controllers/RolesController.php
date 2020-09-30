@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
+use DB;
 
+use Auth;
 class RolesController extends Controller
 {
     /**
@@ -16,10 +18,36 @@ class RolesController extends Controller
     public function index()
     {
         $roles = Role::All();
-
-        return view('roles.index',compact('roles'));
+        $user = Auth::user();
+        $myroles = $user->getRoleNames();
+        
+        return view('roles.index',compact('roles','myroles'));
     }
 
+    public function permissions(){
+        $permissions = Permission::All();
+        return view('roles.permissions',compact('permissions'));
+    }
+
+
+      
+    public function assignpermissions($id){
+        $role = Role::findById($id);
+        $permissions = Permission::All();
+
+        $assignedPerms =  DB::table('role_has_permissions')
+        ->select(DB::raw('role_has_permissions.*'))
+        ->where('role_id', '=', $id)
+        ->get();
+
+        $assignedpermissions = array();
+        foreach ($assignedPerms as $asg){ 
+            $assignedpermissions[$asg->permission_id] =  $asg->role_id;
+        }
+
+        return view('roles.assignpermissions',compact('permissions','role','assignedpermissions'));
+
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -42,6 +70,32 @@ class RolesController extends Controller
         Role::create($input);
         return back()->withSuccessMessage('Successfully Added');
     }
+
+    public function storepermission(Request $request){
+        $input = $request->all();
+        Permission::create($input);
+        return back()->withSuccessMessage('Successfully Added');
+    }
+
+
+
+    public function savepermissions(Request $request, $id){
+        $input = $request->all();
+       
+        $role = Role::findById($id);
+        $permissions = Permission::All();
+        foreach($permissions as $permission){
+
+            if($input[$permission->id] == 'allowed'){
+                $role->givePermissionTo($permission);
+            }else{
+                $role->revokePermissionTo($permission);
+            }
+        }
+
+        return back()->withSuccessMessage('Successfully Added');
+    }
+
 
     /**
      * Display the specified resource.

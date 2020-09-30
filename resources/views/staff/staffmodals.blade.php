@@ -29,12 +29,12 @@ aria-labelledby="myLargeModalLabel" aria-hidden="true">
                     </div>
 
                     <div class="form-group row">
-                        <label for="staffcategory_id" class="col-sm-2 col-form-label">Staff Category</label>
+                        <label for="staffcategory_id" class="col-sm-2 col-form-label">Staff Role</label>
                         <div class="col-sm-10">
                             <select class="form-control select2" name="staffcategory_id" style="width: 100%;"  required>
                                 <option value=""></option>
-                                @foreach ($categories as $category)
-                                  <option value="{{$category->staffcategory_id}}">{{$category ->categoryname}}</option>
+                                @foreach ($roles as $role)
+                                  <option value="{{$role->id}}">{{$role ->name}}</option>
                                 @endforeach
                                 
                             </select>

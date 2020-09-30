@@ -75,7 +75,7 @@
                                                 <tr>
                                                     <td>{{ $counter }}</td>
                                                     <td>{{ $staff->firstname.' '.$staff->othernames }}</td>
-                                                    <td>{{ $staff->categoryname }}</td>
+                                                    <td>{{ $staff->name }}</td>
                                                     <td>{{ $staff->phone }}</td>
                                                     <td>{{ $staff->email }}</td>
 

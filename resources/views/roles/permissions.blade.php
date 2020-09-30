@@ -19,7 +19,7 @@
                         <div class="page-title-box">
                             <div class="row align-items-center">
                                 <div class="col-md-6">
-                                    <h4 class="page-title m-0">USER ROLES</h4>
+                                    <h4 class="page-title m-0">DEFINED PERMISSIONS</h4>
                                 </div>
                                 <div class="col-md-6">
                                   
@@ -35,7 +35,7 @@
                                         </div>
                                     </div>
                                    
-                                    <button type="button"  class="btn btn-success btn-md float-right mr-1"  data-toggle="modal" data-target="#modal-createrole" data-backdrop="static" data-keyboard="false" href="#"> <b class="fa fa-plus-circle"> Add Role </b></button>
+                                    <button type="button"  class="btn btn-success btn-md float-right mr-1"  data-toggle="modal" data-target="#modal-createpermission" data-backdrop="static" data-keyboard="false" href="#"> <b class="fa fa-plus-circle"> Add Role </b></button>
                                   
                                     
                                 </div>
@@ -73,7 +73,7 @@
                               <tbody>
                                
                             <tr>
-                                <td>USER ROLES</td>
+                                <td>USER PERMISSIONS</td>
                                 
                                
                             </tr>
@@ -116,25 +116,28 @@
                                                                           <table id="example2" class="table table-striped table-bordered dt-responsive" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                                                             <thead>
                                                                             <tr>
+
                                                                               <th>#</th>
-                                                                              <th>Role</th>
+                                                                              <th>Permission</th>
                                                                               <th>Action</th>
-                                                                              
                                                                             </tr>
                                                                             </thead>
                                                                             <tbody>
                                                                               <?php $counter = 1 ; ?>
-                                                                          @foreach ($roles as $role)
+                                                                          @foreach ($permissions as $permission)
                                                                          
-                                                                            <tr id="{{$role ->id}}">
+                                                                            <tr id="{{$permission ->id}}">
                                                                               <td><a>{{$counter }}</a></td>
-                                                                            <td><a>{{$role ->name}}</a></td>
+                                                                            <td><a>{{$permission ->name}}</a></td>
                                                                              
                                                                               <td>
-                                                                                <a class="btn btn-primary btn-sm" href="roles/{{$role ->id}}/permissions"><i class="fas fa-check">Assign Permissions</i></a>
+                                                                                
+                                                                                <a class="btn btn-primary btn-sm" href="roles/{{$permission ->id}}/edit"><i class="fas fa-edit"></i></a>
+                                                                                <button type="button" class="btn btn-danger btn-sm mr-1 delete-confirm"  href="roles/{{$permission ->id}}/destroy/"> <a  data-role="deletedisburse"  > <i class="fa fa-trash" > </i></a>  </button>  
+                                                                                
+
                                                                               </td>  
  
-                                                                              
                                                                           </tr>
                                                                         
                                                                           <?php $counter += 1 ; ?>

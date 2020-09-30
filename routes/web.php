@@ -152,3 +152,9 @@ Route::get('/bills','BillsController@index');
 
 Route::get('/roles','RolesController@index');
 Route::post('/roles/store','RolesController@store');
+Route::get('/permissions','RolesController@permissions');
+Route::post('/permissions/store','RolesController@storepermission');
+
+Route::get('/roles/{role}/permissions','RolesController@assignpermissions');
+Route::POST('roles/savepermissions/{role}','RolesController@savepermissions');
+
