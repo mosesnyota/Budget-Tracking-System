@@ -24,6 +24,7 @@
                     </a>
                 </li>
 
+                @can('VIEW PROJECTS')
                 <li class="has_sub">
                     <a href="javascript:void(0);" class="waves-effect"><i class="dripicons-briefcase"></i> <span> Projects </span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
                     <ul class="list-unstyled">
@@ -32,92 +33,97 @@
                       
                     </ul>
                 </li>
+                @endcan
 
+                @can('VIEW INCOME')
                 <li class="has_sub">
                     <a href="javascript:void(0);" class="waves-effect"><i class="fas fa-money-check-alt"></i> <span> Income </span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
                     <ul class="list-unstyled">
                         <li><a href="/finance/public/funds"><b class="fas fa-money-check-alt" aria-hidden="true"> Manage Funds </b></a></li>
                     </ul>
                 </li>
+                @endcan
 
-                <li class="has_sub">
+                @can('VIEW EXPENSES')<li class="has_sub">
                     <a href="javascript:void(0);" class="waves-effect"><i class="fas fa-money-check-alt"></i> <span> Expenses </span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
                     <ul class="list-unstyled">
                         <li><a href="/finance/public/expense"><b class="fas fa-money-check-alt" aria-hidden="true"> Manage Expenses </b></a></li>
                         <li><a href="/finance/public/bills"><b class="fas fa-money-check-alt" aria-hidden="true"> Manage Bills </b></a></li>
                     </ul>
                 </li>
+                @endcan
 
 
-
-                <li class="has_sub">
+                @can('VIEW STAFF')<li class="has_sub">
                     <a href="javascript:void(0);" class="waves-effect"><i class="dripicons-user"></i> <span> Staff </span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
                     <ul class="list-unstyled">
                         
                         <li><a href="/finance/public/staff"> <b class="fa fa-users" > Manage Staff </b></a></li>
                     </ul>
-                </li>
+                </li> @endcan
 
-                <li class="has_sub">
+                @can('VIEW SUPPLIERS')<li class="has_sub">
                     <a href="javascript:void(0);" class="waves-effect"><i class="dripicons-user"></i> <span> Suppliers </span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
                     <ul class="list-unstyled">
                         
                         <li><a href="/finance/public/suppliers"> <b class="fa fa-users" > Manage Suppliers </b></a></li>
                     </ul>
-                </li>
+                </li> @endcan
 
-                <li class="has_sub">
+                @can('VIEW DONORS')<li class="has_sub">
                     <a href="javascript:void(0);" class="waves-effect"><i class="fa fa-users"></i> <span> Donors </span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
                     
                     <ul class="list-unstyled">
                         <li><a href="/finance/public/sponsors"> <b class="dripicons-user" > Manage Financiers </b></a></li>
                     </ul>
-                </li>
+                </li> @endcan
 
                
 
-                <li class="has_sub">
+                @can('VIEW PETTY CASH')<li class="has_sub">
                     <a href="javascript:void(0);" class="waves-effect"><i class="fas fa-dollar-sign"></i> <span> Petty Cash </span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
                     <ul class="list-unstyled">
                         
                         <li><a href="/finance/public/pettycash"> <b class="fas fa-dollar-sign" > Manage Transactions </b></a></li>
                     </ul>
-                </li>
+                </li> @endcan
 
-                <li class="has_sub">
+                @can('VIEW ANALYTICS') <li class="has_sub">
                     <a href="javascript:void(0);" class="waves-effect"><i class="dripicons-graph-bar"></i><span> Analytics </span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
                     <ul class="list-unstyled">
                         <li><a href="/finance/public/expenseanalytics">Expenses Trends</a></li>
                         <li><a href="/finance/public/incomeanalytics">Income Trends</a></li>
                     </ul>
-                </li>
+                </li> @endcan
 
-                <li class="has_sub">
+                @can('VIEW FINANCE')<li class="has_sub">
                     <a href="javascript:void(0);" class="waves-effect"><i class="dripicons-view-thumb"></i><span> Finance </span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
                     <ul class="list-unstyled">
                         <li><a href="">Profit & Loss</a></li>
                         <li><a href="">Ledger</a></li>
    
                     </ul>
-                </li>
+                </li> @endcan
 
+               
+
+                @can('IS ADMINISTRATOR')
                 <li class="menu-title">Administrative</li>
-
                 <li class="has_sub">
                     <a href="javascript:void(0);" class="waves-effect"><i class="dripicons-location"></i><span> System Users </span> <span class="badge badge-danger badge-pill float-right"></span></a>
                     <ul class="list-unstyled">
                         <li><a href=""> Add User</a></li>
                         <li><a href=""> Manage Users</a></li>
                     </ul>
-                </li>
+                </li> @endcan
 
-                <li class="has_sub">
+                @can('IS ADMINISTRATOR')<li class="has_sub">
                     <a href="javascript:void(0);" class="waves-effect"><i class="dripicons-copy"></i><span> User Rights </span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
                     <ul class="list-unstyled">
                         <li><a href="/finance/public/roles">Manage Roles</a></li>
                         <li><a href="/finance/public/permissions">Manage Permissions</a></li>
                     </ul>
-                </li>
+                </li> @endcan
 
 
             </ul>

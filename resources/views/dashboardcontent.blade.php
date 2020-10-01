@@ -169,7 +169,7 @@
                     </div>
                 </div>
                 <!-- end row -->
-
+                @can('VIEW PROJECTS')
                 <div class="row">
                     <div class="col-xl-6">
                     
@@ -339,7 +339,7 @@
                 </div>
                 </div>
                 <!-- end row -->
-
+@endcan
                 
                <!-- end row -->
 
