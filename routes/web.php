@@ -158,3 +158,19 @@ Route::post('/permissions/store','RolesController@storepermission');
 Route::get('/roles/{role}/permissions','RolesController@assignpermissions');
 Route::POST('roles/savepermissions/{role}','RolesController@savepermissions');
 
+
+Route::get('/roles/{role}/permissions','RolesController@assignpermissions');
+
+Route::get('/viewproject/budgetstatement/{project}/statement','ProjectsController@budgetstatement');
+
+
+
+Route::post('/budget/store/{project}','ProjectsController@updatebudget');
+
+Route::get('/viewproject/export/{votehead}','DisbursmentController@exportDisbursementVotehead');
+
+
+
+
+Route::get('/pettycash/pushtoproject/{transaction}/push','PettyCashs@pushtoproject');
+Route::post('/pettycash/pushtransaction/{transaction}/push','PettyCashs@savepushedtransaction');

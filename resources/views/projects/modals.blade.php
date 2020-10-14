@@ -379,3 +379,54 @@
 
 
   
+  <div class="modal fade bs-example-modal-lg" id="modal-addfunds" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">ADD BUDGET TO PROJECT</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+            <form role="form" method="post" action="/finance/public/budget/store/{{$project->project_id}}" enctype="multipart/form-data" >
+                    {{ csrf_field() }} 
+                    <div class="box-body"> 
+                        
+  
+
+                        <div class="form-group row">
+                            <label for="debit" class="col-sm-2 col-form-label">Amount</label>
+                            <div class="col-sm-10">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fas fa-dollar"></i></span>
+                                    </div>
+                                    <input type="number" name="amount" id="debit" class="form-control" placeholder="Amount">
+                                </div>
+                            </div>
+                        </div>
+
+  
+        
+                    <div class="form-group row">
+                            <label for="narration" class="col-sm-2 col-form-label">Narration</label>
+                            <div class="col-sm-10">
+                              <input type="text" class="form-control" id="narration" name="narration" placeholder="Narration" required>
+                            </div>
+                        </div> 
+                    </div>
+                    <!-- /.card-body -->
+                    <div class="modal-footer justify-content-between">
+                    <input type="hidden" name="project_id" value="{{$project->project_id}}" >
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </form>           
+            </div>
+  
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>

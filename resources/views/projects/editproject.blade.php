@@ -34,7 +34,7 @@
             <div class="col-12">
                 <div class="card m-b-30">
                     <div class="card-body">
-                        <form class="form-horizontal" method="post" action="saveupdatedproject/{{$project->project_id}}" enctype="multipart/form-data" >
+                        <form class="form-horizontal" method="post" action="../../../editproject/saveupdatedproject/{{$project->project_id}}" enctype="multipart/form-data" >
                             {{ csrf_field() }}
                           <div class="card-body">
                             <div class="form-group row">

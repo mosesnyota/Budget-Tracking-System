@@ -8,6 +8,7 @@ use App\Petty;
 use DB;
 use App\PettyCashReceipt;
 use App\PettyCashPDF;
+use App\DisbursmentNew;
 
 
 class PettyCashs extends Controller
@@ -33,6 +34,36 @@ class PettyCashs extends Controller
         }
         return view('pettycash.index', compact('transactions','current_balance'));
         
+    }
+
+
+    public function pushtoproject($id){
+        $projects =  DB::table('projects')
+        ->select(DB::raw('project_id,project_name'))
+        ->where('cur_status', '=', 'ongoing')
+        ->orWhere('cur_status', '=', 'Active')
+        ->where('deleted_at', '=', NULL)
+        ->get();
+        $transaction = PettyCash::find($id);
+   
+        $budgetlines =  DB::table('voteheads')
+        ->select(DB::raw('votehead_id, project_id, votehead_name'))
+        ->where('deleted_at', '=', NULL)
+        ->get();
+        return view('pettycash.push',compact('projects','budgetlines','transaction'));
+    }
+
+    public function savepushedtransaction(Request $request, $id){
+        $input = $request->all();
+        $transaction = PettyCash::find($id);
+        $input['voucherdate']  = $transaction->transaction_date ;
+        $input['debit']  = $transaction->amount;
+        $input['paid_to']  = $transaction->issuedto;
+        $input['narration']  = $transaction->description;
+        DisbursmentNew::create($input);
+        return redirect()->action(
+            'PettyCashs@index'
+        );
     }
 
     /**

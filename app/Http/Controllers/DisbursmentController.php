@@ -1,11 +1,13 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
 use App\DisbursmentNew;
 use App\Imports\DisbursmentsImport;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\DisbursmentsExport;
+
+
 
 use SweetAlert;
 
@@ -30,6 +32,10 @@ class DisbursmentController extends Controller
     public function create()
     {
         //
+    }
+
+    public function exportDisbursementVotehead($id){
+        return Excel::download(new DisbursmentsExport($id), 'Disbursments_BudgetLine.xlsx');
     }
 
     /**

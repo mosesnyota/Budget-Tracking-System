@@ -1,29 +1,23 @@
 @extends('layouts.design')
 @section('content')
-
   <!-- Start content -->
   <div class="content">
-
-
-    
       <!-- Top Bar End -->
-
       <div class="page-content-wrapper ">
-
           <div class="container-fluid">
-
               <div class="row">
                   <div class="col-sm-12">
                       <div class="page-title-box">
                           <div class="row align-items-center">
-                              <div class="col-md-6">
+                              <div class="col-md-5">
                                   <h4 class="page-title m-0">PROJECT: {{ $project->project_name }}</h4>
                               </div>
-                              <div class="col-md-6">
-                                  <a href="deleteproject/{{$project ->project_id}}/delete" class="btn btn-danger btn-md float-right mr-1 delete-confirm"    role="button" data-role="deleteproject"  data-id="{{$project ->project_id}}"><b class="fa fa-trash"></b></a>
+                              <div class="col-md-7">
+                                  <button type="button"  class="btn btn-success btn-md float-right mr-1"  data-toggle="modal" data-target="#modal-addfunds" data-backdrop="static" data-keyboard="false" href="#"> <b class="fa fa-plus-circle"> Add Budget </b></button>
                                   <a href="comment/{{$project ->project_id}}/edit" class="btn btn-info btn-md float-right mr-1" target="_blank"  role="button"><b class="ti-settings mr-1"> Write Comment </b></a>
                                   <a href="editproject/{{$project ->project_id}}/edit" class="btn btn-success btn-md float-right mr-1"   role="button"><b class="fa fa-edit"> Edit Project </b></a>
                                   <a href="downloadPDF/{{$project ->project_id}}/download" class="btn btn-warning btn-md float-right mr-1" target="_blank"  role="button"><b class="ti-import"> Print Report </b></a>
+ 
                               </div>
                               <!-- end col -->
                           </div>
@@ -32,7 +26,6 @@
                       <!-- end page-title-box -->
                   </div>
               </div> 
-
               <div class="row">
                 <div class="col-xl-3 col-md-6">
                     <div class="card bg-primary mini-stat text-white">
@@ -41,8 +34,6 @@
                                 <h6 class="text-uppercase mt-0 float-left text-white-50">BUDGET</h6>
                                 <h4 class="mb-3 mt-0 float-right">{{number_format(($project ->budget),2)}}</h4>
                             </div>
-                           
-                            
                         </div>
                         <div class="p-3">
                             <div class="float-right">
@@ -52,7 +43,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="col-xl-3 col-md-6">
                     <div class="card bg-info mini-stat text-white">
                         <div class="p-3 mini-stat-desc">
@@ -60,7 +50,6 @@
                                 <h6 class="text-uppercase mt-0 float-left text-white-50">Amount Used</h6>
                                 <h4 class="mb-3 mt-0 float-right">{{number_format($totalAmountUsed,0)}}</h4>
                             </div>
-                           
                         </div>
                         <div class="p-3">
                             <div class="float-right">
@@ -77,7 +66,6 @@
                                 <h6 class="text-uppercase mt-0 float-left text-white-50">Balance</h6>
                                 <h4 class="mb-3 mt-0 float-right">{{number_format(($project ->budget - $totalAmountUsed),2)}}</h4>
                             </div>
-                           
                         </div>
                         <div class="p-3">
                             <div class="float-right">
@@ -139,35 +127,21 @@
                                                                        <span class="d-none d-md-block">CRITICAL MILESTONES</span><span class="d-block d-md-none"><i class="mdi mdi-email h5"></i></span>
                                                                    </a>
                                                                </li>
-                                                             
-                                                               
                                                            </ul>
-                           
                                                            <!-- Tab panes -->
                                                            <div class="tab-content">
-                                                               
-                                                     
-                                                            
-                                                            
                                                             <div class="tab-pane active p-3" id="home-1" role="tabpanel">
-                                                                  
                                                                 <div class="row"> <div class="col-12 col-sm-12">
-                                                                
                                                                     <button type="button"  class="btn btn-warning btn-md float-right mr-1"  data-toggle="modal" data-target="#modal-uploadexcel" data-backdrop="static" data-keyboard="false" href="#"> <b class="fa fa-plus-circle"> Upload Excel </b></button>
-                                                
                                                                     <button type="button"  class="btn btn-success btn-md float-right mr-1"  data-toggle="modal" data-target="#modal-dispersfunds" data-backdrop="static" data-keyboard="false" href="#"> <b class="fa fa-plus-circle"> Record Transaction </b></button>
-                                                                   
                                                                 </div></div>
                                                                 <div class="row">  <div class="col-12 col-sm-12"> </div></div>
-
                                                                 <div></div>
                                                                 <div class="row"><div class="col-12 col-sm-12">
                                                                     <div class="card">
-                                                                    
                                                                 <table id="nobuttonstable" class="table table-striped table-bordered dt-responsive" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                                                     <thead>
                                                                     <tr>
-                                                                      
                                                                       <th style="width: 10%;">Code</th>
                                                                       <th style="width: 20%;">Budget Line</th>
                                                                       <th style="width: 30%;">Narration</th>
@@ -192,7 +166,7 @@
                                                                                   <td>
                                                                                     <a class="btn btn-primary btn-sm" href="editdisbursment/{{$disbursment ->disbursment_id}}"><i class="fas fa-edit"></i></a>
                                                                                     <button type="button" class="btn btn-danger btn-sm mr-1 delete-confirm"  href="disbursment/destroy/{{$disbursment ->disbursment_id}}"> <a  data-role="deletedisburse"  data-id="{{$disbursment ->disbursment_id}}"> <i class="fa fa-trash" > </i></a>  </button>  
-                                                                                    <button type="button" class="btn btn-success btn-sm mr-1"> <a  data-role="updatedispersementvotehead"  data-id="{{$disbursment ->disbursment_id}}"> <i class="fa fa-eye" > Budget </i></a>  </button>  
+                                                                                    <button type="button" class="btn btn-success btn-sm mr-1"> <a  data-role="updatedispersementvotehead"  data-id="{{$disbursment ->disbursment_id}}"> <i class="fa fa-eye" > Assign </i></a>  </button>  
                                                                                
 
                                                                                   </td>  
@@ -268,7 +242,9 @@
                                                                              <td>
                                                                                 <a class="btn btn-primary btn-sm" href="editvotehead/{{$votehead ->votehead_id}}"><i class="fas fa-edit"></i></a>
                                                                                 <a class="btn btn-danger btn-sm delete-confirm" href="deletevotehead/{{$votehead ->votehead_id}}"><i class="fas fa-trash"></i></a>
-                                                                                <button type="button" class="btn btn-warning btn-sm mr-1"><i class="fa fa-file-pdf-o"> Statement </i></button></td>
+                                                                                <a class="btn btn-warning btn-sm" href="budgetstatement/{{$votehead ->votehead_id}}/statement" target="_blank"><i class="fas fa-file-pdf">PDF</i></a>
+                                                                                <a class="btn btn-success btn-sm" href="export/{{$votehead ->votehead_id}}" target="_blank"><i class="fas fa-file-csv">Excel</i></a>
+                                                                     
                                                                             </tr>
                                                                             <?php $counter += 1 ; ?>
                                                                             @endforeach

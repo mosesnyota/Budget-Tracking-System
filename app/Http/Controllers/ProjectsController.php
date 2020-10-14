@@ -12,7 +12,10 @@ use App\DisbursmentNew;
 use PDF;
 use DB;
 use App\MyPDF;
+use App\PettyCashPDF;
+
 use SweetAlert;
+
 
 class ProjectsController extends Controller
 {
@@ -101,9 +104,87 @@ class ProjectsController extends Controller
     }
 
 
+
+    public function budgetstatement($id){
+        $disbursments = DB::table('disbursment_news')
+            ->select('disbursment_news.*')
+            ->where('disbursment_news.votehead_id', '=', $id)
+            ->where('disbursment_news.deleted_at', '=', NULL)
+            ->orderBy('disbursment_news.created_at', 'DESC')
+            ->get();
+
+            $votehead =  Votehead::find($id); 
+
+
+            $pdf = new MyPDF();
+        $pdf->AddPage('L');
+        $pdf->SetFont('Arial','',14);
+        //Table with 20 rows and 4 columns
+        $pdf->SetX(5);
+        $pdf->SetFillColor(237, 228, 226);
+
+        $pdf->Ln(7);
+        $pdf-> Cell(280, 10, "Budget Line:  ".$votehead->votehead_name,0, 0, 'C', 1, '');
+        $pdf->Ln(15);
+        $pdf->SetX(10);
+        $pdf->SetFont('Times','',12);
+        $pdf-> Cell(40, 10, "Code",1, 0, 'C', 1, '');
+        $pdf-> Cell(35, 10, "Date",1, 0, 'C', 1, '');
+        $pdf-> Cell(105, 10, "Narration",1, 0, 'C', 1, '');
+        $pdf-> Cell(60, 10, "Paid To",1, 0, 'C', 1, '');
+        $pdf-> Cell(40, 10, "Amount",1, 0, 'C', 1, '');
+       
+        $pdf->Ln();
+
+        
+        $pdf->SetWidths(array(40,35,105,60,40));
+        $aligns = array('C','C','L','L','R');
+        $pdf->SetAligns($aligns );
+        $pdf->SetFillColor(224, 235, 255);
+        
+      
+        $fill = 1 ;
+        $current_balance = 0;
+        foreach($disbursments as $transaction){
+            $fill =  !$fill;
+            $current_balance += $transaction->debit;
+            $pdf->Row(array( 
+                $transaction->voucherno,
+                date_format(date_create($transaction ->voucherdate),"d-M-Y") ,
+                $transaction->narration, 
+                $transaction->paid_to, 
+                number_format($transaction->debit,2)), $fill);
+        }
+
+       
+   
+        $pdf-> Cell(240, 10, "Total :",1, 0, 'C', 1, '');
+        $pdf-> Cell(40, 10,  number_format($current_balance,2),1, 0, 'R', 1, '');
+        $pdf->Output();
+        exit;
+
+
+
+
+
+    }
+
     public function comment($id){
         $project =  Project::find($id) ;
         return view('projects.comment', compact('project'));
+    }
+
+    public function updatebudget(Request $request, $id){
+        $input = $request->all();
+        $project = Project::find($id);
+        $project ->budget += $input['amount'];
+        
+        $project->save();
+        alert()->success('Success', 'Projects Successfully Saved');
+        return redirect()->action(
+            'ProjectsController@show',$project->project_id
+        );
+
     }
 
     public function savecomment(Request $request,$id){
@@ -311,8 +392,8 @@ class ProjectsController extends Controller
         foreach ($totalused as $totald){ 
             $totalAmountUsed = $totald->total;
         }
-       $pdf = new MyPDF();
-       $pdf-> SetWidths(7);
+        $pdf = new MyPDF();
+        $pdf-> SetWidths(7);
         $pdf->AddPage('L');
         $pdf->SetFont('Arial','',14);
         //Table with 20 rows and 4 columns

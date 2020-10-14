@@ -95,6 +95,8 @@
                                                                
                                                                 <a class="btn btn-warning btn-sm" href="pettycash/reprintreceipt/{{$transaction->transactionid}}/print" target="_blank"><i class="fa fa-print"></i></a>
                       
+                                                                <a class="btn btn-success btn-sm" href="pettycash/pushtoproject/{{$transaction->transactionid}}/push" target="_blank"><i class="fa fa-arrow-right"></i></a>
+
 
                                                     <?php $counter += 1; ?>
                                                 </tr>

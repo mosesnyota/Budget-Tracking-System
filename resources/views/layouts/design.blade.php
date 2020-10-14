@@ -851,6 +851,8 @@ $('.delete-confirm').on('click', function (event) {
             autoclose: true,
             todayHighlight: true
         });
+
+      
 </script>
 
 
