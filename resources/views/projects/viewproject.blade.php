@@ -26,6 +26,8 @@
                                         <div class="dropdown-menu dropdown-menu-right dropdown-menu-animated">
                                             <a class="dropdown-item" target="_blank" href="downloadPDF/{{$project ->project_id}}/download"><b class="fa fa-file-pdf">Get PDF Report</b></a>
                                             <a class="dropdown-item" target="_blank" href="downloadPDF/{{$project ->project_id}}/download"><b class="fa fa-file-csv">Get Excel Report</b></a>
+                                            <a class="dropdown-item" target="_blank" href="setcurrency/{{$project ->project_id}}/currency"><b class="ti-settings">Set  Curreny</b></a>
+                                            <a class="dropdown-item" target="_blank" href="setexchagerate/{{$project ->project_id}}/currency"><b class="ti-settings">Exchange Rate</b></a>
                                         </div>
                                     </div>
 

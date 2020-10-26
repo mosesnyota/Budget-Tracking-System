@@ -165,14 +165,13 @@ Route::get('/roles/{role}/permissions','RolesController@assignpermissions');
 
 Route::get('/viewproject/budgetstatement/{project}/statement','ProjectsController@budgetstatement');
 
-
-
 Route::post('/budget/store/{project}','ProjectsController@updatebudget');
-
 Route::get('/viewproject/export/{votehead}','DisbursmentController@exportDisbursementVotehead');
-
-
 
 
 Route::get('/pettycash/pushtoproject/{transaction}/push','PettyCashs@pushtoproject');
 Route::post('/pettycash/pushtransaction/{transaction}/push','PettyCashs@savepushedtransaction');
+
+
+Route::get('/viewproject/setexchagerate/{project}/currency','ProjectsController@setExchangeRate');
+Route::get('/viewproject/setcurrency/{project}/currency','ProjectsController@setCurrency');
