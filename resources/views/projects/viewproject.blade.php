@@ -16,8 +16,22 @@
                                   <button type="button"  class="btn btn-success btn-md float-right mr-1"  data-toggle="modal" data-target="#modal-addfunds" data-backdrop="static" data-keyboard="false" href="#"> <b class="fa fa-plus-circle"> Add Budget </b></button>
                                   <a href="comment/{{$project ->project_id}}/edit" class="btn btn-info btn-md float-right mr-1" target="_blank"  role="button"><b class="ti-settings mr-1"> Write Comment </b></a>
                                   <a href="editproject/{{$project ->project_id}}/edit" class="btn btn-success btn-md float-right mr-1"   role="button"><b class="fa fa-edit"> Edit Project </b></a>
-                                  <a href="downloadPDF/{{$project ->project_id}}/download" class="btn btn-warning btn-md float-right mr-1" target="_blank"  role="button"><b class="ti-import"> Print Report </b></a>
+                                 
  
+                                  <div class="float-right d-md-block">
+                                    <div class="dropdown">
+                                        <button class="btn btn-warning dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="ti-import mr-1"></i> Report
+                                        </button>
+                                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-animated">
+                                            <a class="dropdown-item" target="_blank" href="downloadPDF/{{$project ->project_id}}/download"><b class="fa fa-file-pdf">Get PDF Report</b></a>
+                                            <a class="dropdown-item" target="_blank" href="downloadPDF/{{$project ->project_id}}/download"><b class="fa fa-file-csv">Get Excel Report</b></a>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                              
                               </div>
                               <!-- end col -->
                           </div>
@@ -234,9 +248,6 @@
                                                                             @else
                                                                             <td><span class="badge badge-success">{{number_format(0,2)}}</span></td>
                                                                             <td><span class="badge badge-warning">{{number_format(($votehead ->amount_allocated - 0),2)}}</span></td>
-                                                                               
-                                                                                
-                                                                            
                                                                              @endif   
                                                                              
                                                                              <td>

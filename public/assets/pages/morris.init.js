@@ -110,7 +110,7 @@
         });
     },
     MorrisCharts.prototype.init = function() {
-
+ 
         //create line chart
         var $data  = [
             { y: '2009', a: 100, b: 90 },
@@ -168,17 +168,17 @@
 
         //creating donut chart
         var $donutData = [
-            {label: "Download Sales", value: 12},
-            {label: "In-Store Sales", value: 30},
-            {label: "Mail-Order Sales", value: 20}
+            {label: "Balance", value: 12},
+            {label: "Released", value: 30},
+            {label: "Available", value: 20}
         ];
         this.createDonutChart('morris-donut-example', $donutData, ['#4bbbce', '#5985ee', '#46cd93']);
 
         //creating donut chart Dark
         var $donutData1 = [
-            {label: "Download Sales", value: 12},
-            {label: "In-Store Sales", value: 30},
-            {label: "Mail-Order Sales", value: 20}
+            {label: "Balance", value: 12},
+            {label: "Released", value: 30},
+            {label: "Available", value: 20}
         ];
         this.createDonutChart1('morris-donut-example-dark', $donutData1, ['#f0f1f4', '#f0f1f4', '#f0f1f4']);
 

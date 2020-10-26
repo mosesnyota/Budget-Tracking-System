@@ -831,32 +831,122 @@ $('.delete-confirm').on('click', function (event) {
 });
 </script>
 
+
 <script>
-      jQuery('#datepicker-deadline').datepicker({
-            autoclose: true,
-            todayHighlight: true
-        });
+  jQuery('#datepicker-deadline').datepicker({
+        autoclose: true,
+        todayHighlight: true
+    });
 
-        jQuery('#datepicker-startdate').datepicker({
-            autoclose: true,
-            todayHighlight: true
-        });
+    jQuery('#datepicker-startdate').datepicker({
+        autoclose: true,
+        todayHighlight: true
+    });
 
-        jQuery('#datepicker-projectstart').datepicker({
-            autoclose: true,
-            todayHighlight: true
-        });
+    jQuery('#datepicker-projectstart').datepicker({
+        autoclose: true,
+        todayHighlight: true
+    });
 
-        jQuery('#datepicker-projectdeadline').datepicker({
-            autoclose: true,
-            todayHighlight: true
-        });
+    jQuery('#datepicker-projectdeadline').datepicker({
+        autoclose: true,
+        todayHighlight: true
+    });
 
-      
+  
 </script>
 
+<script>
 
 
+!function($) {
+  "use strict";
+
+  var MorrisCharts = function() {};
+
+  //creates Donut chart
+  MorrisCharts.prototype.createDonutChart = function(element, data, colors) {
+      Morris.Donut({
+          element: element,
+          data: data,
+          resize: true,
+          colors: colors
+      });
+  },
+  //creates Donut chart Dark
+  MorrisCharts.prototype.createDonutChart1 = function(element, data, colors) {
+      Morris.Donut({
+          element: element,
+          data: data,
+          resize: true,
+          colors: colors,
+          labelColor: '#fff',
+          backgroundColor: '#4bbbce'
+      });
+  },
+  MorrisCharts.prototype.init = function() {
+
+    /**
+     * This section checks if the budget balances are set
+     * They are set if the page being visited is the dashboard
+     * if not the dashboard, just set default values.
+     * The goal is just to avoid errors when visiting other pages
+     * 
+     */
+
+   <?php  if(isset($projects['totalused'])){    ?>
+
+    var expense = <?php echo $projects['totalused']; ?>;
+    var blanace = <?php echo ($projects['totalbudget'] - $projects['totalused']); ?> ;
+
+    <?php }  else{  ?>
+
+
+    var expense = 30;
+    var blanace = 50 ;
+
+  <?php }  ?>
+     
+     
+
+      //creating donut chart
+      var $donutData = [
+         
+          {label: "Expenses", value: expense},
+          {label: "Balance", value: blanace}
+      ];
+      this.createDonutChart('morrisdonut1', $donutData, ['#4bbbce', '#5985ee', '#46cd93']);
+
+      //creating donut chart Dark
+      var $donutData1 = [
+          {label: "Expenses", value: expense},
+          {label: "Balance", value: blanace}
+      ];
+      this.createDonutChart1('morrisdonut2', $donutData1, ['#f0f1f4', '#f0f1f4', '#f0f1f4']);
+
+      //create line chart Dark
+      var $data1  = [
+          { y: '2009', a: 20, b: 5 },
+          { y: '2010', a: 45,  b: 35 },
+          { y: '2011', a: 50,  b: 40 },
+          { y: '2012', a: 75,  b: 65 },
+          { y: '2013', a: 50,  b: 40 },
+          { y: '2014', a: 75,  b: 65 },
+          { y: '2015', a: 100, b: 90 }
+      ];
+      this.createLineChart1('mymorrisdark', $data1, 'y', ['a', 'b'], ['Series A', 'Series B'], ['#5985ee', '#46cd93']);
+  },
+  //init
+  $.MorrisCharts = new MorrisCharts, $.MorrisCharts.Constructor = MorrisCharts
+}(window.jQuery),
+
+//initializing 
+function($) {
+  "use strict";
+  $.MorrisCharts.init();
+}(window.jQuery);
+
+</script>
 
     </body>
 </html>

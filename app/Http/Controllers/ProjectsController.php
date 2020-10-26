@@ -348,6 +348,53 @@ class ProjectsController extends Controller
     }
 
 
+    public function printExcel($id){
+        $project =  Project::find($id) ;
+        $time = strtotime($project ->start_date);
+        $project ->start_date = date('d-m-Y',$time);
+
+        $time2 = strtotime($project ->deadline);
+        $project ->deadline = date('d-m-Y',$time2);
+        $project ->budget2 = number_format($project ->budget,2);
+
+        $voteheads = Votehead::all()->where('project_id', '=', $id) ;
+        $activities = Activities::all()->where('project_id', '=', $id) ;
+
+        $disbursments= DB::table('disbursment_news')
+            ->leftJoin('voteheads', 'disbursment_news.votehead_id', '=', 'voteheads.votehead_id')
+            ->select('disbursment_news.*', 'voteheads.votehead_name')
+            ->where('disbursment_news.project_id', '=', $id)
+            ->where('disbursment_news.deleted_at', '=', NULL)
+            ->orderBy('disbursment_news.voucherdate', 'DESC')
+            ->get();
+
+        $voteheadtotals =  DB::table('disbursment_news')
+        ->select(DB::raw('votehead_id, SUM(debit) AS total'))
+        ->where('disbursment_news.project_id', '=', $id)
+        ->where('disbursment_news.deleted_at', '=', NULL)
+        ->groupBy('votehead_id')
+        ->get();
+
+        $mytotals = array();
+        foreach ($voteheadtotals as $totald){ 
+            $val = $totald->votehead_id;
+            $mytotals[$val] =  $totald->total;
+        }
+        $sponsor = Sponsor::find($project ->sponsor_id) ;
+        $staff =  Staff::find($project ->staff_id) ;
+        //get total budget expenditure for this project
+        $totalused =  DB::table('disbursment_news')
+        ->select(DB::raw('SUM(debit) AS total'))
+        ->where('disbursment_news.project_id', '=', $id)
+        ->where('disbursment_news.deleted_at', '=', NULL)
+        ->get();
+        $totalAmountUsed = 0;
+        foreach ($totalused as $totald){ 
+            $totalAmountUsed = $totald->total;
+        }
+
+        return Excel::download(new DisbursmentsExport($id), 'Disbursments_BudgetLine.xlsx');
+    }
     public function printPdfReport($id){
         $project =  Project::find($id) ;
         $time = strtotime($project ->start_date);

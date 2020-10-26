@@ -78,6 +78,8 @@ Route::get('/viewproject/disbursment/destroy/{id}','DisbursmentController@destro
 
 Route::get('/viewproject/downloadPDF/{project}/download','ProjectsController@printPdfReport');
 
+Route::get('/viewproject/downloadExcel/{project}/download','ProjectsController@printExcel');
+
 Route::post('/activity/store','ActivitiesController@store');
 Route::post('/activity/update/{activity}','ActivitiesController@update');
 

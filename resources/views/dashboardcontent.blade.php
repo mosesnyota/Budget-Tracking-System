@@ -163,7 +163,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <h4 class="mt-0 header-title">Budget Analytics</h4>
-                                <div id="morris-donut-example" class="morris-chart" style="height: 300px"></div>
+                                <div id="morrisdonut1" class="morris-chart" style="height: 300px"></div>
                             </div>
                         </div>
                     </div>
@@ -347,6 +347,8 @@
 
         </div> <!-- Page content Wrapper -->
   
+
+      
 
    
 
