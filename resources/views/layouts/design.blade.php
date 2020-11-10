@@ -139,8 +139,11 @@
                         </a>
                         <div class="dropdown-menu dropdown-menu-right dropdown-menu-animated profile-dropdown">
                             <a class="dropdown-item" href="#"><i class="dripicons-user text-muted"></i>Profile</a>
-                            <a class="dropdown-item" href="#"><i class="dripicons-gear text-muted"></i>Change Password</a>
-                            <a class="dropdown-item" href="#"><i class="dripicons-lock text-muted"></i>Lock screen</a>
+                            <button type="button" class="btn btn-info btn-md float-right mr-1"
+                                        data-toggle="modal" data-target="#modal-changepassword" data-backdrop="static"
+                                        data-keyboard="false" href="#"> <b class="fa fa-key"> Change Password
+                                        </b></button>
+                          
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="#"  onclick="event.preventDefault();document.getElementById('logout-form').submit();"><i class="dripicons-exit text-muted"></i> Logout</a>
 
@@ -948,5 +951,6 @@ function($) {
 
 </script>
 
+@include('layouts.passwordmodal')
     </body>
 </html>

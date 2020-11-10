@@ -62,10 +62,23 @@ class DisbursmentController extends Controller
          $filename =  $file->getClientOriginalName();
         $path = $file->storeAs('', $filename);
         $disimport = new DisbursmentsImport($project_id);
-        Excel::import($disimport, $file);
-        alert()->success('Successfully Imported Data from File.', '');
+        try {
+            // Some database actions
         
-        return back()->with('success', 'Successfully Imported Data from File');
+            // Send email
+        
+            Excel::import($disimport, $file);
+            alert()->success('Successfully Imported Data from File.', '');
+            
+            return back()->with('success', 'Successfully Imported Data from File');
+        } catch (\Exception $ex) {
+            
+            
+            alert()->error('Failed! The import file has errors. Requires data cleaning.', '');
+            
+            return back()->with('error', '  The import file has errors. Requires data cleaning.');
+        }
+       
     
     }
 
