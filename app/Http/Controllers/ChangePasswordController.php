@@ -7,7 +7,6 @@ use Auth;
 use SweetAlert;
 use Hash;
 use Illuminate\Support\Facades\Redirect;
-use Illuminate\Database\QueryException;
 class ChangePasswordController extends Controller
 {
     /**
