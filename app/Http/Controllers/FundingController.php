@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Funding;
 use App\Sponsor;
+use App\Project;
+
 
 use DB;
 use App\MyPDF;
@@ -24,6 +26,9 @@ class FundingController extends Controller
     {
         $fundings =  Funding::all() ;
         $sponsors = Sponsor::all();
+        $activeprojects = Project::where('cur_status','=','Active')->get();
+
+      
 
         $funds = array();
         $curyearfunds =  DB::table('fundings')
@@ -45,7 +50,7 @@ class FundingController extends Controller
         foreach ($curmonth as $totalds){ 
             $funds['thismonth'] =  $totalds->total;
         }
-        return view('funds.index',compact('fundings','sponsors','funds'));
+        return view('funds.index',compact('fundings','sponsors','funds','activeprojects'));
     }
 
     /**

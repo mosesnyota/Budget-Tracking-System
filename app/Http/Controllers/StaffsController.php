@@ -162,18 +162,19 @@ class StaffsController extends Controller
         $oldrole = Role::findById($staff->staffcategory_id);
         $user = User::where('email' , '=', $staff->email)->first();
         $user->removeRole($oldrole);
-
-
         $staff ->firstname = $input['firstname'];
         $staff ->othernames = $input['othernames'];
         $staff ->staffcategory_id = $input['staffcategory_id'];
         $newrole = Role::findById($input['staffcategory_id']);
         $user->assignRole($newrole);
+        $user->email = $input['email'];
+        $user->name = $input['firstname']." ".$input['othernames'];
         $staff ->phone = $input['phone'];
         $staff ->email = $input['email'];
 
 
         try {
+            $user->save();
             $staff->save();
             return redirect()->action(
                 'StaffsController@index'

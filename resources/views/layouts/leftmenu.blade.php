@@ -37,7 +37,7 @@
 
                 @can('VIEW INCOME')
                 <li class="has_sub">
-                    <a href="javascript:void(0);" class="waves-effect"><i class="fas fa-money-check-alt"></i> <span> Income </span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
+                    <a href="javascript:void(0);" class="waves-effect"><i class="fas fa-money-check-alt"></i> <span> Funds </span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
                     <ul class="list-unstyled">
                         <li><a href="/finance/public/funds"><b class="fas fa-money-check-alt" aria-hidden="true"> Manage Funds </b></a></li>
                     </ul>

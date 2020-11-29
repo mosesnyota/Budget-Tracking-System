@@ -48,7 +48,7 @@
                                   <option value="Euro">Euro</option>
                                   <option value="KSH">KSH</option>
                                   <option value="TSH">TSH</option>
-                                  <option value="$">$</option>
+                                 
                             </select>
                         </div>
                     </div>
@@ -78,7 +78,18 @@
                         </div>
                     </div>
 
-                   
+                    <div class="form-group row">
+                        <label for="project_id" class="col-sm-2 col-form-label">Project</label>
+                        <div class="col-sm-10">
+                            <select class="form-control select2" name="project_id" style="width: 100%;">
+                                <option value="">--SELECT PROJECT--</option>
+                                @foreach ($activeprojects as $project)
+                                  <option value="{{$project ->project_id}}">{{$project ->project_name}}</option>
+                                @endforeach
+                                
+                            </select>
+                        </div>
+                    </div>
                     </div>
                     <!-- /.card-body -->
                     <div class="modal-footer justify-content-between">

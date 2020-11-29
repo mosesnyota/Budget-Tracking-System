@@ -225,8 +225,8 @@ class ProjectsController extends Controller
         $date = strtotime($input['start_date']); 
         $input['start_date']  =  date('Y-m-d', $date);
         $input['deadline']  =  date('Y-m-d', strtotime($input['deadline']));
+        $input['budget'] = str_replace( ',', '', $input['budget'] );
         Project::create($input);
-        
         alert()->success('Success', 'Projects Successfully Saved');
         
         return redirect()->action(
@@ -338,7 +338,7 @@ class ProjectsController extends Controller
         $project ->deadline = $input['deadline'];
         $project ->sponsor_id = $input['sponsor_id'];
         $project ->staff_id = $input['staff_id'];
-        $project ->budget = $input['budget'];
+        $project ->budget =  str_replace( ',', '', $input['budget'] );
         $project ->details = $input['details'];
         $project->save();
         alert()->success('Success', 'Projects Successfully Saved');
