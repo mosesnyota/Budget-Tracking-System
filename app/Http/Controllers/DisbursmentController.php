@@ -62,10 +62,23 @@ class DisbursmentController extends Controller
          $filename =  $file->getClientOriginalName();
         $path = $file->storeAs('', $filename);
         $disimport = new DisbursmentsImport($project_id);
-        Excel::import($disimport, $file);
-        alert()->success('Successfully Imported Data from File.', '');
+        try {
+            // Some database actions
         
-        return back()->with('success', 'Successfully Imported Data from File');
+            // Send email
+        
+            Excel::import($disimport, $file);
+            alert()->success('Successfully Imported Data from File.', '');
+            
+            return back()->with('success', 'Successfully Imported Data from File');
+        } catch (\Exception $ex) {
+            
+            
+            alert()->error('Failed! The import file has errors. Requires data cleaning.', '');
+            
+            return back()->with('error', '  The import file has errors. Requires data cleaning.');
+        }
+       
     
     }
 
@@ -116,10 +129,17 @@ class DisbursmentController extends Controller
         $disburs ->paid_to = $input['paid_to'];
         $disburs ->chequeno = $input['chequeno'];
        
-        $disburs->save();
-        return redirect()->action(
-            'ProjectsController@show',$disburs->project_id
-        );
+        try {
+            $disburs->save();
+            return redirect()->action(
+                'ProjectsController@show',$disburs->project_id
+            );
+        } catch (\Exception $ex) {
+                alert()->error('Failed! An error occured! Try Again!.', '');
+                return back()->with('error', '  An Error Occured.');
+        }
+
+        
     }
 
     /**
@@ -130,7 +150,13 @@ class DisbursmentController extends Controller
      */
     public function destroy($id)
     {
-        DisbursmentNew::where('disbursment_id',$id)->delete();
-        return back();
+        try {
+            DisbursmentNew::where('disbursment_id',$id)->delete();
+            return back();
+        } catch (\Exception $ex) {
+                alert()->error('Failed! An error occured! Try Again!.', '');
+                return back()->with('error', '  An Error Occured.');
+        }
+       
     }
 }

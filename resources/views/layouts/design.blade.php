@@ -139,8 +139,11 @@
                         </a>
                         <div class="dropdown-menu dropdown-menu-right dropdown-menu-animated profile-dropdown">
                             <a class="dropdown-item" href="#"><i class="dripicons-user text-muted"></i>Profile</a>
-                            <a class="dropdown-item" href="#"><i class="dripicons-gear text-muted"></i>Change Password</a>
-                            <a class="dropdown-item" href="#"><i class="dripicons-lock text-muted"></i>Lock screen</a>
+                            <button type="button" class="btn btn-info btn-md float-right mr-1"
+                                        data-toggle="modal" data-target="#modal-changepassword" data-backdrop="static"
+                                        data-keyboard="false" href="#"> <b class="fa fa-key"> Change Password
+                                        </b></button>
+                          
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="#"  onclick="event.preventDefault();document.getElementById('logout-form').submit();"><i class="dripicons-exit text-muted"></i> Logout</a>
 
@@ -159,23 +162,9 @@
                             <i class="mdi mdi-menu"></i>
                         </button>
                     </li>
-                    <li class="list-inline-item dropdown notification-list d-none d-sm-inline-block">
-                        <a class="nav-link dropdown-toggle arrow-none waves-effect" data-toggle="dropdown" href="#" role="button"
-                        aria-haspopup="false" aria-expanded="false">
-                            Create New <i class="mdi mdi-plus"></i>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-animated">
-                            <a class="dropdown-item" href="#"> <i class="dripicons-graph-pie"></i> New Project</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#"> <i class="dripicons-user text-muted"></i> New Staff</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#"> <i class="dripicons-user-group text-muted"></i> New Financier</a>
-                        </div>
-                    </li>
+                    
                     <li class="list-inline-item notification-list d-none d-sm-inline-block">
-                        <a href="pettycash" class="nav-link waves-effect">
-                            Petty Cash
-                        </a>
+                         <a href="/finance/projects" class="btn btn-success btn-md"   role="button"><b class="fa fa-eye"> Projects </b></a>
                     </li>
 
                 </ul>
@@ -948,5 +937,6 @@ function($) {
 
 </script>
 
+@include('layouts.passwordmodal')
     </body>
 </html>

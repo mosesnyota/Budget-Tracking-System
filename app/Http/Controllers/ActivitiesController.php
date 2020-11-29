@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Activities;
+use Illuminate\Database\QueryException;
 
 class ActivitiesController extends Controller
 {
@@ -83,11 +84,17 @@ class ActivitiesController extends Controller
         $Activity->completion_date = date('Y-m-d', $date);
         $Activity->cur_status = $input['curstatus'];
         
-        $Activity->save();
+        try {
+            $Activity->save();
+            return redirect()->action(
+                'ProjectsController@show',$Activity->project_id
+            );
+        } catch (\Exception $ex) {
+            alert()->error('Failed! An error occured! Try Again!.', '');
+            return back()->with('error', '  An Error Occured.');
+        }
        
-        return redirect()->action(
-            'ProjectsController@show',$Activity->project_id
-        );
+        
     }
 
     public function saveupdated(Request $request, $id){
@@ -101,11 +108,17 @@ class ActivitiesController extends Controller
         $Activity->deadline_date = date('Y-m-d', $deadline);
         $Activity->activityname = $input['activityname'];
 
-        $Activity->save();
+        try {
+            $Activity->save();
 
-        return redirect()->action(
-            'ProjectsController@show',$Activity->project_id
-        );
+            return redirect()->action(
+                'ProjectsController@show',$Activity->project_id
+            );
+        } catch (\Exception $ex) {
+                alert()->error('Failed! An error occured! Try Again!.', '');
+                return back()->with('error', '  An Error Occured.');
+        }
+       
 
     }
 
@@ -119,9 +132,15 @@ class ActivitiesController extends Controller
     {
         $Activity = Activities::find($id);
         $project_id = $Activity->project_id;
-        Activities::where('activity_id',$id)->delete();
+        try {
+            Activities::where('activity_id',$id)->delete();
         return redirect()->action(
             'ProjectsController@show',$project_id
         );
+        } catch (\Exception $ex) {
+                alert()->error('Failed! An error occured! Try Again!.', '');
+                return back()->with('error', '  An Error Occured.');
+        }
+      
     }
 }

@@ -299,7 +299,7 @@ class ProjectsController extends Controller
             ->select('disbursment_news.*', 'voteheads.votehead_name')
             ->where('disbursment_news.project_id', '=', $id)
             ->where('disbursment_news.deleted_at', '=', NULL)
-            ->orderBy('disbursment_news.created_at', 'DESC')
+            ->orderBy('voucherdate', 'desc')
             ->get();
         return view('projects.viewproject', compact('disbursments','completionStatus','activities','project','staff','sponsor','voteheads','mytotals','totalAmountUsed'));
     }

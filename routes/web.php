@@ -175,3 +175,5 @@ Route::post('/pettycash/pushtransaction/{transaction}/push','PettyCashs@savepush
 
 Route::get('/viewproject/setexchagerate/{project}/currency','ProjectsController@setExchangeRate');
 Route::get('/viewproject/setcurrency/{project}/currency','ProjectsController@setCurrency');
+
+Route::post('/password/change','ChangePasswordController@store');

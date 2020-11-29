@@ -220,11 +220,19 @@ exit;
         $expenses ->narration = $input['narration'];
         $expenses ->paidto = $input['paidto'];
         $expenses ->trasnref = $input['trasnref']; 
-        $expenses->save();
+
+        try {
+            $expenses->save();
       
-        return redirect()->action(
-            'ExpensesController@index'
-        );
+            return redirect()->action(
+                'ExpensesController@index'
+            );
+        } catch (\Exception $ex) {
+                alert()->error('Failed! An error occured! Try Again!.', '');
+                return back()->with('error', '  An Error Occured.');
+        }
+
+        
 
     }
 

@@ -243,12 +243,24 @@ $pdf->SetFillColor(224, 235, 255);
     public function update(Request $request, $id)
     {
         $transaction = PettyCash::find($id) ;
+        if($transaction ->transactiontype == 'Deposit'){
+            DB::statement("UPDATE petties SET balance = balance -   $transaction->amount ");
+        }else{
+            DB::statement("UPDATE petties SET balance = balance +  $transaction->amount ");
+        }
+
         $input = $request->all();
         $input['transaction_date']  =  date('Y-m-d', strtotime($input['transaction_date']));
         $transaction ->transactiontype = $input['transactiontype'];
         $transaction ->issuedto = $input['issuedto'];
         $transaction ->amount = $input['amount'];
         $transaction ->description = $input['description'];
+
+        if($transaction ->transactiontype == 'Deposit'){
+            DB::statement("UPDATE petties SET balance = balance +   $transaction->amount ");
+        }else{
+            DB::statement("UPDATE petties SET balance = balance -  $transaction->amount ");
+        }
        
         $transaction->save();
       

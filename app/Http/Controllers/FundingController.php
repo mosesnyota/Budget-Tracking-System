@@ -228,13 +228,20 @@ exit;
         $funding ->original_amount = $input['original_amount'];
         $funding ->exchangerate = $input['exchangerate'];
         $funding ->final_amount =  $final_amount ;
-        $funding->save();
-        alert()->success('Success', 'Created Successfully');
-      
-        return redirect()->action(
-            'FundingController@index'
-        );
 
+        try {
+            $funding->save();
+            alert()->success('Success', 'Created Successfully');
+          
+            return redirect()->action(
+                'FundingController@index'
+            );
+    
+        } catch (\Exception $ex) {
+                alert()->error('Failed! An error occured! Try Again!.', '');
+                return back()->with('error', '  An Error Occured.');
+        }
+        
     }
 
     /**

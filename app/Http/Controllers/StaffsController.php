@@ -30,6 +30,7 @@ class StaffsController extends Controller
         $staffs= DB::table('staff')
         ->leftJoin('roles', 'staff.staffcategory_id', '=', 'roles.id')
         ->select(DB::raw('staff.*,roles.name'))
+		->where('deleted_at','=',null)
         ->orderBy('firstname', 'ASC')
         ->get();
 
@@ -161,6 +162,8 @@ class StaffsController extends Controller
         $oldrole = Role::findById($staff->staffcategory_id);
         $user = User::where('email' , '=', $staff->email)->first();
         $user->removeRole($oldrole);
+
+
         $staff ->firstname = $input['firstname'];
         $staff ->othernames = $input['othernames'];
         $staff ->staffcategory_id = $input['staffcategory_id'];
@@ -168,10 +171,18 @@ class StaffsController extends Controller
         $user->assignRole($newrole);
         $staff ->phone = $input['phone'];
         $staff ->email = $input['email'];
-        $staff->save();
-        return redirect()->action(
-            'StaffsController@index'
-        );
+
+
+        try {
+            $staff->save();
+            return redirect()->action(
+                'StaffsController@index'
+            );
+        } catch (\Exception $ex) {
+                alert()->error('Failed! An error occured! Try Again!.', '');
+                return back()->with('error', '  An Error Occured.');
+        }
+        
 
     }
 
@@ -183,9 +194,16 @@ class StaffsController extends Controller
      */
     public function destroy($id)
     {
-        Staff::where('staffid',$id)->delete();
+
+        try {
+            Staff::where('staffid',$id)->delete();
         return redirect()->action(
             'StaffsController@index'
         );
+        } catch (\Exception $ex) {
+                alert()->error('Failed! An error occured! Try Again!.', '');
+                return back()->with('error', '  An Error Occured.');
+        }
+       
     }
 }

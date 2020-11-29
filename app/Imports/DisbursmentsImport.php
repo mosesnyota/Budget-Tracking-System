@@ -32,8 +32,16 @@ class DisbursmentsImport implements ToModel
             $debit = $row[5];
         }
 
-
         $credit = 0.0;
+     
+        if($row[6] == 0){
+            $credit = 0.0;
+        }else{
+            $credit = $row[6];
+        }
+
+
+        
        
 
         return new DisbursmentNew([
