@@ -90,7 +90,8 @@ class FundingController extends Controller
         
         $fundings =  DB::table('fundings')
         ->leftJoin('sponsors', 'sponsors.sponsor_id', '=', 'fundings.sponsor_id')
-        ->select(DB::raw('fundings.*, sponsornames'))
+        ->leftJoin('projects', 'projects.project_id', '=', 'fundings.project_id')
+        ->select(DB::raw('fundings.*, sponsornames,project_name'))
         ->where('fundings.funding_date', '>=', $startdate)
         ->where('fundings.funding_date', '<=', $enddate)
         ->where('fundings.deleted_at', '=', NULL)
@@ -119,62 +120,41 @@ class FundingController extends Controller
         $pdf->Ln();
         $pdf->Cell(20, 7, "#", 1, 0, "L", 1);
         $pdf->Cell(30, 7, "Date", 1, 0, "C", 1);
-        $pdf->Cell(75, 7, "Financier", 1, 0, "C", 1);
-        $pdf->Cell(30, 7, "Currency", 1, 0, "C", 1);
-        $pdf->Cell(40, 7, "Amount", 1, 0, "C", 1);
-        $pdf->Cell(40, 7, "Rate", 1, 0, "C", 1);
+        $pdf->Cell(63, 7, "Project", 1, 0, "C", 1);
+        $pdf->Cell(54, 7, "Financier", 1, 0, "C", 1);
+        $pdf->Cell(20, 7, "Currency", 1, 0, "C", 1);
+        $pdf->Cell(30, 7, "Amount", 1, 0, "C", 1);
+        $pdf->Cell(20, 7, "Rate", 1, 0, "C", 1);
         $pdf->Cell(40, 7, "Amount [Local Cur]", 1, 0, "C", 1);
         $pdf->Ln();
-        $counter = 1; 
-        $y = $pdf->GetY();
-        $x = 10;
-        $fill = 0;
-
-        
-foreach ($fundings as $funding){ 
-    
-    $pdf->Cell(20, 7,"TRX0".$counter, 1, 0, "L", $fill);
-    $pdf->Cell(30, 7, date('d-m-Y',strtotime($funding ->funding_date)) , 1, 0, "L", $fill);
-    $pdf->Cell(75, 7, $funding ->sponsornames, 1, 0, "L", $fill);
-    $pdf->Cell(30, 7, $funding ->currency, 1, 0, "L", $fill);
-    $pdf->Cell(40, 7, number_format($funding->original_amount,2), 1, 0, "R", $fill);
-    $pdf->Cell(40, 7, number_format($funding->exchangerate,2), 1, 0, "R", $fill);
-    $pdf->Cell(40, 7, number_format($funding ->final_amount,2), 1, 0, "R", $fill);
-    
-    $counter++;
-    
-    $y += 7;
-    $fill = !$fill;
-    if ($y > 160) {
-        $pdf->AddPage('L');
-        $pdf->SetFillColor(157, 245, 183);
-        $pdf->setFont("times", "", "11");
-        $pdf->setXY(10, 45);
-
-        $pdf->Cell(20, 7, "#", 1, 0, "L", 1);
-        $pdf->Cell(30, 7, "Date", 1, 0, "C", 1);
-        $pdf->Cell(75, 7, "Financier", 1, 0, "C", 1);
-        $pdf->Cell(30, 7, "Currency", 1, 0, "C", 1);
-        $pdf->Cell(40, 7, "Amount", 1, 0, "C", 1);
-        $pdf->Cell(40, 7, "Rate", 1, 0, "C", 1);
-        $pdf->Cell(40, 7, "Amount [Local Cur]", 1, 0, "C", 1);
-
-        $pdf->Ln();
-        $y = 52;
-    }
-
-    $pdf->Ln();
-    $pdf->SetFillColor(224, 235, 255);
-    $pdf->setXY($x, $y);
-}
-$pdf->Ln();
-
-$pdf->Output("Received Funds Report.pdf", "I");
-
-exit;
-
-
-
+     
+        $counter = 1;
+        $pdf->SetWidths(array(20,30,63,54,20,30,20,40));
+        $aligns = array('L','C','L','L','C','R','R','R');
+        $pdf->SetAligns($aligns );
+        $pdf->SetFillColor(224, 235, 255);
+        $current_balance = 0;
+      
+        $fill = 1 ;
+        foreach ($fundings as $funding){ 
+            $fill =  !$fill;
+            $pdf->Row(array( "TRX0".$counter,date('d-m-Y',
+            strtotime($funding ->funding_date)),
+            $funding ->project_name,
+            $funding ->sponsornames,
+            $funding ->currency,
+            number_format($funding->original_amount,2),
+            number_format($funding->exchangerate,2),
+            number_format($funding ->final_amount,2)), $fill);
+            $counter++;
+            $current_balance += $funding ->final_amount;
+            
+        }
+   
+        $pdf-> Cell(237, 10, "Total Received",1, 0, 'C', 1, '');
+        $pdf-> Cell(40, 10,  number_format($current_balance,2),1, 0, 'R', 1, '');
+        $pdf->Output("Received Funds Report.pdf", "I");
+        exit;
     }
 
     /**

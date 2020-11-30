@@ -53,13 +53,13 @@
 
                 <div class="row">
           
-                  <div class="col-3">
+                  <div class="col-2">
                     
                     <div class="card">
 
                        
 
-                        <img src="{{asset('images/funds3.png')}}" alt="LOGO"  width="100%" height="230" class="centre">
+                        <img src="{{asset('images/funds3.png')}}" alt="LOGO"  width="100%;" height="100%;" class="centre">
                         <!-- /.card-header -->
                      <div class="card-body p-0">
                         <!-- .table-responsive -->
@@ -75,7 +75,7 @@
                               <tbody>
                                
                             <tr>
-                                <td>Received This Year</td>
+                                <td>This Year</td>
                                 
                                 <td><span class="badge badge-success">{{number_format($funds['thisyear'],2)}}</span></td>
                             </tr>
@@ -107,7 +107,7 @@
                     <!-- /.card -->
                   </div>
 
-                  <div class="col-9">
+                  <div class="col-10">
 
                    <div class="card">
                     <!-- /.card-header -->
