@@ -24,11 +24,18 @@ class FundingController extends Controller
      */
     public function index()
     {
-        $fundings =  Funding::all() ;
+       
         $sponsors = Sponsor::all();
         $activeprojects = Project::where('cur_status','=','Active')->get();
 
       
+        $fundings = DB::table('fundings')
+        ->leftJoin('projects', 'fundings.project_id', '=', 'projects.project_id')
+        ->select('fundings.*', 'project_name')
+        ->where('fundings.deleted_at', '=', NULL)
+        ->orderBy('fundings.funding_date', 'DESC')
+        ->get();
+
 
         $funds = array();
         $curyearfunds =  DB::table('fundings')

@@ -119,9 +119,11 @@
                                                                             <thead>
                                                                             <tr>
 
-                                                                                <th>#</th>
+                                                                              <th>#</th>
+                                                                              <th>Project</th>
                                                                               <th>Date</th>
-                                                                              <th>Currency</th>
+                                                                             
+                                                                              <th>$</th>
                                                                               <th>Amount</th>
                                                                               <th>Rate</th>
                                                                               <th>Local Cur</th>
@@ -134,8 +136,9 @@
                                                                          
                                                                             <tr id="{{$funding ->funding_id}}">
                                                                               <td><a>TRX0{{$funding ->funding_id}}</a></td>
+                                                                              <td><a>{{$funding->project_name}}</a></td>
                                                                               <td>{{$funding->funding_date}}</td>
-                                                                              <td><h6 class="badge badge-success">{{$funding ->currency}}</h6></td>
+                                                                              <td style="width:10px;"><h6 class="badge badge-success">{{$funding ->currency}}</h6></td>
                                                                               <td>{{number_format($funding ->original_amount,2)}}</td>
                                                                               <td>{{number_format($funding ->exchangerate,2)}}</td>
                                                                               <td>{{number_format($funding ->final_amount,2)}}</td>
