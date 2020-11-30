@@ -62,12 +62,13 @@
                                     style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                     <thead>
                                         <tr>
-                                            <th width="10%">#</th>
-                                            <th  style="width: 30%">Description</th>
+                                            <th width="10px">#</th>
+                                            <th  style="width: 20%">Description</th>
+                                            <th  style="width: 20%">Project</th>
                                             <th>Date</th>
                                             <th>To</th>
                                             <th>Type</th>
-                                            <th>Project</th>
+                                          
                                             <th>Amount</th>
                                             <th></th>
                                            
@@ -80,6 +81,7 @@
                                                 <tr>
                                                     <td>{{ $counter }}</td>
                                                     <td>{{ $transaction->description }}</td>
+                                                    <td>{{ $transaction->project_name }}</td>
                                                     <td>{{ date('d-m-Y', strtotime($transaction->transaction_date)) }} </td>
                                                     <td>{{ $transaction->issuedto }}</td>
                                                     <td> <?php if ($transaction->transactiontype ==
@@ -90,7 +92,7 @@
                                                         <?php } ?>
                                                     </td>
                                                     <td>{{ number_format($transaction->amount, 2) }}</td>
-                                                    <td>{{ $transaction->issuedto }}</td>
+                                                   
                                                     <td>
                                                                 <a class="btn btn-primary btn-sm" href="pettycash/{{$transaction->transactionid}}/edit"><i class="fas fa-edit"></i></a>
                                                                 <button type="button" class="btn btn-danger btn-sm mr-1 delete-confirm"  href="pettycash/{{$transaction->transactionid}}/destroy"> <a  data-role="deletepetty"> <i class="fa fa-trash" > </i></a>  </button>  
