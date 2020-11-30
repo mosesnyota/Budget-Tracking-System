@@ -62,11 +62,13 @@
                                     style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                     <thead>
                                         <tr>
-                                            <th width="10%">#</th>
-                                            <th  style="width: 30%">Description</th>
+                                            <th width="10px">#</th>
+                                            <th  style="width: 20%">Description</th>
+                                            <th  style="width: 20%">Project</th>
                                             <th>Date</th>
                                             <th>To</th>
                                             <th>Type</th>
+                                          
                                             <th>Amount</th>
                                             <th></th>
                                            
@@ -79,6 +81,7 @@
                                                 <tr>
                                                     <td>{{ $counter }}</td>
                                                     <td>{{ $transaction->description }}</td>
+                                                    <td>{{ $transaction->project_name }}</td>
                                                     <td>{{ date('d-m-Y', strtotime($transaction->transaction_date)) }} </td>
                                                     <td>{{ $transaction->issuedto }}</td>
                                                     <td> <?php if ($transaction->transactiontype ==
@@ -89,15 +92,12 @@
                                                         <?php } ?>
                                                     </td>
                                                     <td>{{ number_format($transaction->amount, 2) }}</td>
+                                                   
                                                     <td>
                                                                 <a class="btn btn-primary btn-sm" href="pettycash/{{$transaction->transactionid}}/edit"><i class="fas fa-edit"></i></a>
                                                                 <button type="button" class="btn btn-danger btn-sm mr-1 delete-confirm"  href="pettycash/{{$transaction->transactionid}}/destroy"> <a  data-role="deletepetty"> <i class="fa fa-trash" > </i></a>  </button>  
-                                                               
                                                                 <a class="btn btn-warning btn-sm" href="pettycash/reprintreceipt/{{$transaction->transactionid}}/print" target="_blank"><i class="fa fa-print"></i></a>
-                      
                                                                 <a class="btn btn-success btn-sm" href="pettycash/pushtoproject/{{$transaction->transactionid}}/push" target="_blank"><i class="fa fa-arrow-right"></i></a>
-
-
                                                     <?php $counter += 1; ?>
                                                 </tr>
                                             @endforeach

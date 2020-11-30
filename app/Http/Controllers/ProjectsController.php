@@ -451,69 +451,56 @@ class ProjectsController extends Controller
         $pdf->Ln(15);
         $pdf->SetX(10);
         $pdf->SetFont('Times','',12);
-
-     
         //table header
-$pdf->SetFillColor(157, 245, 183);
-$pdf->setFont("times", "", "11");
-$pdf->setXY(10, 60);
-$pdf->Cell(130, 7, "PROJECT DETAILS", 1, 0, "L", 1);
-$pdf->Ln();
-$pdf->Cell(40, 7, "Project Name :", 1, 0, "L", 0);
-$pdf->Cell(90, 7, $project->project_name, 1, 0, "L", 0);
-
-
-
-
-
-
-$pdf->Ln();
-$pdf->Cell(40, 7, "Location :", 1, 0, "L", 0);
-$pdf->Cell(90, 7, strip_tags($project->location,'<p>'), 1, 0, "L", 0);
-$pdf->Ln();
-$pdf->Cell(40, 7, "Start Date :", 1, 0, "L", 0);
-$pdf->Cell(90, 7, $project->start_date, 1, 0, "L", 0);
-$pdf->Ln();
-$pdf->Cell(40, 7, "Deadline :", 1, 0, "L", 0);
-$pdf->Cell(90, 7, $project->deadline, 1, 0, "L", 0);
-$pdf->Ln();
-$pdf->Cell(40, 7, "Completed On :", 1, 0, "L", 0);
-$pdf->Cell(90, 7, $project->completed_on, 1, 0, "L", 0);
-$pdf->Ln();
-$pdf->Cell(40, 7, "Total Budget :", 1, 0, "L", 0);
-$pdf->Cell(90, 7, number_format($project->budget, 2), 1, 0, "L", 0);
-$pdf->Ln();
-$pdf->Cell(40, 7, "Disbursed Amount :", 1, 0, "L", 0);
-$pdf->Cell(90, 7,  number_format( $totalAmountUsed, 2), 1, 0, "L", 0);
-$pdf->Ln();
-$pdf->Cell(40, 7, "Balance :", 1, 0, "L", 0);
-$pdf->Cell(90, 7,  number_format($project->budget -  $totalAmountUsed, 2), 1, 0, "L", 0);
-$pdf->Ln();
-
-$pdf->Cell(40, 7, "Funded By :", 1, 0, "L", 0);
-$pdf->Cell(90, 7,  $sponsor->sponsornames, 1, 0, "L", 0);
-$pdf->Ln();
-
-$pdf->Cell(40, 7, "Assigned To :", 1, 0, "L", 0);
-$pdf->Cell(90, 7, $staff->firstname." ".$staff->othernames  , 1, 0, "L", 0);
-$pdf->Ln();
-
-
-
-$pdf->Ln();
-$pdf->Cell(105, 7, "BUDGET LINES", 1, 0, "C", 1);
-$pdf->SetFillColor(224, 235, 255);
-$pdf->Ln();
-$pdf->Cell(20, 7, "#", 1, 0, "L", 1);
-$pdf->Cell(55, 7, "Budget Line", 1, 0, "C", 1);
-$pdf->Cell(40, 7, "Total Allocation", 1, 0, "C", 1);
-$pdf->Cell(40, 7, "Paid Out", 1, 0, "C", 1);
-$pdf->Cell(40, 7, "Balance", 1, 0, "C", 1);
-$pdf->Ln();
-$counter = 1; 
-$y = $pdf->GetY();
-$x = 10;
-$fill = 0;
+        $pdf->SetFillColor(157, 245, 183);
+        $pdf->setFont("times", "", "11");
+        $pdf->setXY(10, 60);
+        $pdf->Cell(130, 7, "PROJECT DETAILS", 1, 0, "L", 1);
+        $pdf->Ln();
+        $pdf->Cell(40, 7, "Project Name :", 1, 0, "L", 0);
+        $pdf->Cell(90, 7, $project->project_name, 1, 0, "L", 0);
+        $pdf->Ln();
+        $pdf->Cell(40, 7, "Location :", 1, 0, "L", 0);
+        $pdf->Cell(90, 7, strip_tags($project->location,'<p>'), 1, 0, "L", 0);
+        $pdf->Ln();
+        $pdf->Cell(40, 7, "Start Date :", 1, 0, "L", 0);
+        $pdf->Cell(90, 7, $project->start_date, 1, 0, "L", 0);
+        $pdf->Ln();
+        $pdf->Cell(40, 7, "Deadline :", 1, 0, "L", 0);
+        $pdf->Cell(90, 7, $project->deadline, 1, 0, "L", 0);
+        $pdf->Ln();
+        $pdf->Cell(40, 7, "Completed On :", 1, 0, "L", 0);
+        $pdf->Cell(90, 7, $project->completed_on, 1, 0, "L", 0);
+        $pdf->Ln();
+        $pdf->Cell(40, 7, "Total Budget :", 1, 0, "L", 0);
+        $pdf->Cell(90, 7, number_format($project->budget, 2), 1, 0, "L", 0);
+        $pdf->Ln();
+        $pdf->Cell(40, 7, "Disbursed Amount :", 1, 0, "L", 0);
+        $pdf->Cell(90, 7,  number_format( $totalAmountUsed, 2), 1, 0, "L", 0);
+        $pdf->Ln();
+        $pdf->Cell(40, 7, "Balance :", 1, 0, "L", 0);
+        $pdf->Cell(90, 7,  number_format($project->budget -  $totalAmountUsed, 2), 1, 0, "L", 0);
+        $pdf->Ln();
+        $pdf->Cell(40, 7, "Funded By :", 1, 0, "L", 0);
+        $pdf->Cell(90, 7,  $sponsor->sponsornames, 1, 0, "L", 0);
+        $pdf->Ln();
+        $pdf->Cell(40, 7, "Assigned To :", 1, 0, "L", 0);
+        $pdf->Cell(90, 7, $staff->firstname." ".$staff->othernames  , 1, 0, "L", 0);
+        $pdf->Ln();
+        $pdf->Ln();
+        $pdf->Cell(105, 7, "BUDGET LINES", 1, 0, "C", 1);
+        $pdf->SetFillColor(224, 235, 255);
+        $pdf->Ln();
+        $pdf->Cell(20, 7, "#", 1, 0, "L", 1);
+        $pdf->Cell(55, 7, "Budget Line", 1, 0, "C", 1);
+        $pdf->Cell(40, 7, "Total Allocation", 1, 0, "C", 1);
+        $pdf->Cell(40, 7, "Paid Out", 1, 0, "C", 1);
+        $pdf->Cell(40, 7, "Balance", 1, 0, "C", 1);
+        $pdf->Ln();
+        $counter = 1; 
+        $y = $pdf->GetY();
+        $x = 10;
+        $fill = 0;
        
 
 foreach ($voteheads as $votehead){ 
