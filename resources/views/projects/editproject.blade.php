@@ -59,7 +59,7 @@
                                 <input type="text" class="form-control" value="{{ date('m/d/Y', strtotime( $project ->start_date)) }}" id="datepicker-startdate" name="start_date">
                                 <div class="input-group-append bg-custom b-0"><span class="input-group-text"><i class="mdi mdi-calendar"></i></span></div>
                             </div><!-- input-group -->
-                            </div>
+                            </div> 
                         </div>
                             
                         <div class="form-group row">
@@ -111,11 +111,38 @@
                           
                           
                           <div class="form-group row">
-                              <label for="budget" class="col-sm-2 col-form-label">Total Budget</label>
+                              <label for="budget" class="col-sm-2 col-form-label"> Budget (Original Currency)</label>
                               <div class="col-sm-10">
                                 <input type="text" class="form-control" id="budget" name="budget" value="{{$project ->budget}}">
                               </div>
                           </div>
+
+                          <div class="form-group row">
+                      <label for="staff_id" class="col-sm-2 col-form-label">Currency:</label>
+                      <div class="col-sm-10">
+                          <select class="form-control select2" name="currency_id" id="currency_id" style="width: 100%;" >
+                             
+                                          @foreach ($currencies as $currency)
+                                              @if ($currency->currency_id == $project ->currency_id)
+                                                <option selected value="{{$currency->currency_id}}">{{$currency -> currencyname}}</option>
+                                              @else
+                                              <option value="{{$currency -> currency_id}}">{{$currency -> currencyname}}</option>
+                                             @endif
+                                            
+                                          @endforeach
+                              
+                             
+                          </select>
+                      </div>
+                  </div>
+
+                  <div class="form-group row">
+                    <label for="budget" class="col-sm-2 col-form-label"Exchange> Rate:</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" id="exchange_rate" name="exchange_rate" value="{{$project ->exchange_rate}}"  required>
+                    </div>
+                </div>
+                
                           <div class="form-group row">
                               <label for="details" class="col-sm-2 col-form-label">Project Details</label>
                               <div class="col-sm-10">
