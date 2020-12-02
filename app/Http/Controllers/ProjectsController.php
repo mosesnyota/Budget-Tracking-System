@@ -13,6 +13,7 @@ use PDF;
 use DB;
 use App\MyPDF;
 use App\PettyCashPDF;
+use App\Currency;
 
 use SweetAlert;
 
@@ -210,7 +211,8 @@ class ProjectsController extends Controller
     {
         $staffs =  Staff::all() ;
         $sponsors =  Sponsor::all() ;
-        return view('projects.newp', compact('staffs','sponsors'));
+        $currencies = Currency::all();
+        return view('projects.newp', compact('staffs','sponsors','currencies'));
     }
 
     /**
