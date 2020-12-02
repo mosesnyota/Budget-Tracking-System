@@ -107,12 +107,26 @@
                           </select>
                       </div>
                   </div>
+
                 <div class="form-group row">
-                    <label for="budget" class="col-sm-2 col-form-label">Total Budget</label>
+                    <label for="budget" class="col-sm-2 col-form-label">Budget ($)</label>
                     <div class="col-sm-10">
-                      <input type="text" class="form-control" id="budget" name="budget" placeholder="Estimated Budget"  required>
+                      <input type="text" class="form-control" id="budget" name="budget" placeholder="Budget in Original Currency"  required>
                     </div>
                 </div>
+
+                <div class="form-group row">
+                      <label for="staff_id" class="col-sm-2 col-form-label">Currency:</label>
+                      <div class="col-sm-10">
+                          <select class="form-control select2" name="currency_id" id="currency_id" style="width: 100%;"  required>
+                              <option value="">----Select Currency-----</option>
+                              @foreach ($currencies as $currency)
+                                <option value="{{$currency -> currency_id}}">{{$currency ->currencyname}}</option>
+                              @endforeach
+                          </select>
+                      </div>
+                  </div>
+               
                 <div class="form-group row">
                     <label for="details" class="col-sm-2 col-form-label">Project Details</label>
                     <div class="col-sm-10">

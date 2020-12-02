@@ -167,6 +167,11 @@
                          <a href="/finance/projects" class="btn btn-success btn-md"   role="button"><b class="fa fa-eye"> Projects </b></a>
                     </li>
 
+                    @can('VIEW PETTY CASH')
+                    <li class="list-inline-item notification-list d-none d-sm-inline-block">
+                         <a href="/finance/pettycash" class="btn btn-info btn-md"   role="button"><b class="fas fa-dollar-sign"> Petty Cash </b></a>
+                    </li>
+                    @endcan
                 </ul>
 
 

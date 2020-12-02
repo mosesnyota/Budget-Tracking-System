@@ -27,7 +27,8 @@
                                     
                                   
                                 
-                                            <button type="button"  class="btn btn-info btn-md float-right mr-1"  target="_blank"  data-toggle="modal" data-target="#modal-pettycashreport" data-backdrop="static" data-keyboard="false" href="#"> <b class="mdi mdi-file-pdf" aria-hidden="true"> Print Report </b></button>
+                                            <button type="button"  class="btn btn-info btn-md float-right mr-1"  target="_blank"  data-toggle="modal" data-target="#modal-pettycashreport" data-backdrop="static" data-keyboard="false" href="#"> <b class="mdi mdi-file-pdf" aria-hidden="true"> Report </b></button>
+                                            <button type="button"  class="btn btn-info btn-md float-right mr-1"  target="_blank"  data-toggle="modal" data-target="#modal-pettycashreport2" data-backdrop="static" data-keyboard="false" href="#"> <b class="mdi mdi-file-pdf" aria-hidden="true"> Summary </b></button>
 
                                     <button type="button" class="btn btn-warning btn-md float-right mr-1"
                                         data-toggle="modal" data-target="#modal-issuefunds" data-backdrop="static"
@@ -64,8 +65,9 @@
                                         <tr>
                                             <th width="10px">#</th>
                                             <th  style="width: 20%">Description</th>
-                                            <th  style="width: 20%">Project</th>
+                                            
                                             <th>Date</th>
+                                            <th  style="width: 20%">Project</th>
                                             <th>To</th>
                                             <th>Type</th>
                                           
@@ -81,8 +83,9 @@
                                                 <tr>
                                                     <td>{{ $counter }}</td>
                                                     <td>{{ $transaction->description }}</td>
-                                                    <td>{{ $transaction->project_name }}</td>
+                                                   
                                                     <td>{{ date('d-m-Y', strtotime($transaction->transaction_date)) }} </td>
+                                                    <td>{{ $transaction->project_name }}</td>
                                                     <td>{{ $transaction->issuedto }}</td>
                                                     <td> <?php if ($transaction->transactiontype ==
                                                         'Deposit') { ?>
@@ -123,5 +126,6 @@
 
 
 @include('pettycash.pettymodals')
+@include('pettycash.modals')
     <!-- End Right content here -->
 @endsection

@@ -113,7 +113,20 @@
                         <div class="col-sm-10">
                             <input type="text" autocomplete="off" class="form-control" id="description" name="description" required>
                         </div>
-                    </div>
+                    </div> 
+
+                      <div class="form-group row">
+                                <label for="project_id" class="col-sm-2 col-form-label">Project</label>
+                                <div class="col-sm-10">
+                                    <select  class="form-control select2" name="project_id" style="width: 100%;"  required>
+                                        <option value="">----Select Project-----</option>
+                                        @foreach ($projects as $project)
+                                          <option value="{{$project ->project_id}}">{{$project ->project_name}}</option>
+                                        @endforeach
+                                        
+                                    </select>
+                                </div>
+                            </div>
 
 
                 </div>
@@ -178,5 +191,8 @@
     </div>
     <!-- /.modal-dialog -->
   </div>
+
+
+
 
 

@@ -52,6 +52,10 @@
             toggleActive: true
         });
 
+        jQuery('#date-range2').datepicker({
+            toggleActive: true
+        });
+
         //Bootstrap-MaxLength
         $('input#defaultconfig').maxlength({
             warningClass: "badge badge-info",

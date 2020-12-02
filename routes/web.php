@@ -113,7 +113,10 @@ Route::post('/funds/report1','FundingController@report1');
 Route::get('/pettycash/{petty}/destroy','PettyCashs@destroy');
 Route::get('/pettycash/{petty}/edit','PettyCashs@edit');
 Route::post('/pettycash/report1','PettyCashs@report1');
+Route::post('/pettycash/report2','PettyCashs@report2');
 Route::get('/pettycash/pettycashreport/{start}/{end}','PettyCashs@printReport');
+Route::get('/pettycash/pettycashsummaryreport/{start}/{end}','PettyCashs@opensummaryreport');
+
 Route::get('pettycash/pettycashreceiptprint/{petty}/print','PettyCashs@printPettyReceipt');
 Route::get('pettycash/reprintreceipt/{petty}/print','PettyCashs@reprintReceipt');
 Route::post('/pettycash/{petty}/update','PettyCashs@update');
