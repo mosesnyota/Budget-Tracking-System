@@ -7,7 +7,7 @@ use App\PettyCash;
 use App\Petty;
 use DB;
 use App\PettyCashReceipt;
-use App\MyPDF;
+use App\MyPDFPortrait;
 use App\DisbursmentNew;
 
 
@@ -34,13 +34,20 @@ class PettyCashs extends Controller
         ->orderBy('transaction_date','DESC')
         ->get();
 
+        $projects =  DB::table('projects')
+        ->select(DB::raw('project_id,project_name'))
+        ->where('cur_status', '=', 'ongoing')
+        ->orWhere('cur_status', '=', 'Active')
+        ->where('deleted_at', '=', NULL)
+        ->get();
+
         $balance = Petty::all();
         //This section gets the petty cash balance
         $current_balance = 0;
         foreach ($balance as $bal){ 
             $current_balance = $bal->balance;
         }
-        return view('pettycash.index', compact('transactions','current_balance'));
+        return view('pettycash.index', compact('transactions','current_balance','projects'));
         
     }
 
@@ -315,7 +322,97 @@ $pdf->SetFillColor(224, 235, 255);
 
     }
 
+    public function report2(Request $request){
+        $input = $request->all();
+        $startdate =   date('Y-m-d',strtotime( $input['start']));
+        $enddate =   date('Y-m-d',strtotime( $input['end']));
+        $input['start'] = $startdate;
+        $input['end'] = $enddate;
+        return view('pettycash.opensummaryreport',compact('input'));
 
+    }
+
+
+    
+
+    
+    public function opensummaryreport($start,$end){
+        $startdate =   date('Y-m-d',strtotime( $start));
+        $enddate   =   date('Y-m-d',strtotime( $end));
+
+        
+
+        // $transactions =  DB::table('petty_cashes')
+        // ->leftJoin('projects', 'projects.project_id', '=', 'petty_cashes.project_id')
+        // ->select(DB::raw('IFNULL(project_name, \'No Project Specified\') AS project_name,sum(petty_cashes.amount) as amount'))
+        // ->where('petty_cashes.transaction_date', '>=', $startdate)
+        // ->where('petty_cashes.transaction_date', '<=', $enddate)
+        // ->where('petty_cashes.deleted_at', '=', NULL)
+        // ->groupBy('projects.project_name')
+        // ->orderBy('amount','DESC')
+        // ->get();
+
+        $transactions =  DB::table('petty_cashes')
+        ->leftJoin('projects', 'projects.project_id', '=', 'petty_cashes.project_id')
+        ->select(DB::raw('IFNULL(project_name, \'No Project Specified\') AS project_name,sum(petty_cashes.amount) as amount'))
+        ->where('petty_cashes.deleted_at', '=', NULL)
+        ->where('petty_cashes.transaction_date', '>=', $startdate)
+        ->orWhere('petty_cashes.transaction_date', '<=', $enddate)
+        ->groupBy('projects.project_name')
+        ->orderBy('amount','DESC')
+        ->get();
+
+
+
+        $balance = Petty::all();
+        //This section gets the petty cash balance
+        $current_balance = 0;
+        foreach ($balance as $bal){ 
+            $current_balance = $bal->balance;
+        }
+  
+        $pdf = new MyPDFPortrait();
+        $pdf-> SetWidths(7);
+        $pdf->AddPage();
+        $pdf->SetFont('Arial','',12);
+        //Table with 20 rows and 4 columns
+        $pdf->SetX(5);
+        $pdf->SetFillColor(237, 228, 226);
+        
+        $pdf->Ln(7);
+        $pdf-> Cell(190, 10, "Petty Cash Summary by projects from ".date('d-m-Y',strtotime( $start))." to ".date('d-m-Y',strtotime( $end)),0, 0, 'C', 1, '');
+        $pdf->Ln(15);
+        $pdf->SetX(10);
+        $pdf->SetFont('Times','',11);
+        $pdf-> Cell(10, 10, "#",1, 0, 'C', 1, '');
+        $pdf-> Cell(130, 10, "Project Name",1, 0, 'C', 1, '');
+       
+        $pdf-> Cell(50, 10, "Amount",1, 0, 'C', 1, '');
+        $pdf->Ln();
+
+        $counter = 1;
+        $pdf->SetWidths(array(10,130,50));
+        $aligns = array('L','L','R');
+        $pdf->SetAligns($aligns );
+        $pdf->SetFillColor(224, 235, 255);
+        
+      
+        $fill = 1 ;
+        foreach($transactions as $transaction){
+            $fill =  !$fill;
+            $pdf->Row(array( $counter,$transaction->project_name, 
+            number_format($transaction->amount,2)), $fill);
+            $counter++;
+            
+        }
+   
+        $pdf-> Cell(140, 10, "Current Balance",1, 0, 'C', 1, '');
+        $pdf-> Cell(50, 10,  number_format($current_balance,2),1, 0, 'R', 1, '');
+        $pdf->Output();
+        exit;
+    }
+
+    
     public function printReport($start,$end){
         $startdate =   date('Y-m-d',strtotime( $start));
         $enddate   =   date('Y-m-d',strtotime( $end));
@@ -353,16 +450,17 @@ $pdf->SetFillColor(224, 235, 255);
         $pdf->SetFont('Times','',12);
         $pdf-> Cell(10, 10, "#",1, 0, 'C', 1, '');
         $pdf-> Cell(85, 10, "Description",1, 0, 'C', 1, '');
-        $pdf-> Cell(75, 10, "Project",1, 0, 'C', 1, '');
+       
         $pdf-> Cell(35, 10, "Date",1, 0, 'C', 1, '');
+        $pdf-> Cell(75, 10, "Project",1, 0, 'C', 1, '');
         $pdf-> Cell(35, 10, "To",1, 0, 'C', 1, '');
         $pdf-> Cell(10, 10, "Txt",1, 0, 'C', 1, '');
         $pdf-> Cell(30, 10, "Amount",1, 0, 'C', 1, '');
         $pdf->Ln();
 
         $counter = 1;
-        $pdf->SetWidths(array(10,85,75,35,35,10,30));
-        $aligns = array('L','L','L','C','L','C','R');
+        $pdf->SetWidths(array(10,85,35,75,35,10,30));
+        $aligns = array('L','L','C','L','L','C','R');
         $pdf->SetAligns($aligns );
         $pdf->SetFillColor(224, 235, 255);
         
@@ -370,7 +468,7 @@ $pdf->SetFillColor(224, 235, 255);
         $fill = 1 ;
         foreach($transactions as $transaction){
             $fill =  !$fill;
-            $pdf->Row(array( $counter,$transaction->description,$transaction->project_name, date_format(date_create($transaction ->transaction_date),"d-M-Y") ,
+            $pdf->Row(array( $counter,$transaction->description,date_format(date_create($transaction ->transaction_date), "d-M-Y") ,$transaction->project_name,
             $transaction->issuedto, substr($transaction ->transactiontype, 0, 1) , number_format($transaction->amount,2)), $fill);
             $counter++;
             

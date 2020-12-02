@@ -80,7 +80,7 @@
 
                
 
-                @can('VIEW PETTY CASH')<li class="has_sub">
+                @can('VIEW PETTY CASH')<li class="has_sub"> 
                     <a href="javascript:void(0);" class="waves-effect"><i class="fas fa-dollar-sign"></i> <span> Petty Cash </span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
                     <ul class="list-unstyled">
                         
