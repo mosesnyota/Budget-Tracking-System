@@ -10,7 +10,7 @@ use App\PettyCashReceipt;
 use App\MyPDFPortrait;
 use App\DisbursmentNew;
 use App\Project;
-
+use App\MyPDF;
 
 class PettyCashs extends Controller
 {
