@@ -201,7 +201,10 @@
                                                                                   <td data-target="debit">{{number_format($disbursment ->debit,2)}}</td>
                                                                                   <td>
                                                                                     <a class="btn btn-primary btn-sm" href="editdisbursment/{{$disbursment ->disbursment_id}}"><i class="fas fa-edit"></i></a>
+                                                                                    
+                                                                                    @can('IS ADMINISTRATOR')
                                                                                     <button type="button" class="btn btn-danger btn-sm mr-1 delete-confirm"  href="disbursment/destroy/{{$disbursment ->disbursment_id}}"> <a  data-role="deletedisburse"  data-id="{{$disbursment ->disbursment_id}}"> <i class="fa fa-trash" > </i></a>  </button>  
+                                                                                    @endcan
                                                                                     <button type="button" class="btn btn-success btn-sm mr-1"> <a  data-role="updatedispersementvotehead"  data-id="{{$disbursment ->disbursment_id}}"> <i class="fa fa-eye" > Assign </i></a>  </button>  
                                                                                
 

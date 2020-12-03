@@ -68,6 +68,20 @@
                                     <?php $counter = 1 ; ?>
                     @foreach($projects2 as $project)
                 <?php 
+
+                if($project->budget == 0){
+                    $project->budget = 1;
+                }
+
+                if($project->budget_local == 0){
+                    if($project->budget == 0){
+                        $project->budget_local = 1;
+                    }else{
+                        $project->budget_local = $project->budget ;
+                    }
+                   
+                }
+
                     $now = time(); 
                     $deadlinedate = strtotime($project ->deadline);
                     $datediff = $deadlinedate - $now ;
@@ -77,7 +91,7 @@
                     $startdate = date('d-m-Y',strtotime($project ->start_date) );
                     $percentused =  0 ;
                     if (array_key_exists($project->project_id,$mytotals)){
-                        $percentused =  ($mytotals[$project->project_id]/($project->budget) * 100) ;
+                        $percentused =  ($mytotals[$project->project_id]/($project->budget_local) * 100) ;
                     }
                    
 
