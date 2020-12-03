@@ -103,6 +103,23 @@
                                         </div>
                                  </div>
                 
+                                 <div class="form-group row">
+                                <label for="project_id" class="col-sm-2 col-form-label">Project</label>
+                                <div class="col-sm-10">
+                                    <select  class="form-control select2" name="project_id" style="width: 100%;"  required>
+                                        <option value="">----Select Project-----</option>
+                                        @foreach ($projects as $project)
+                                        @if($project->project_id == $transaction->project_id)
+                                        <option value="{{$project ->project_id}}" selected >{{$project ->project_name}}</option>
+                                        @else
+                                        <option value="{{$project ->project_id}}">{{$project ->project_name}}</option>
+                                        @endif
+                                          
+                                        @endforeach
+                                        
+                                    </select>
+                                </div>
+                            </div>
                 
                                 </div>
                                 <!-- /.card-body -->
