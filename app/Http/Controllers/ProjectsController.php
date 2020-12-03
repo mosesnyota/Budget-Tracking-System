@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Request as Requested;
 use App\Staff;
 use App\Sponsor;
 use App\Project;
@@ -113,17 +114,13 @@ class ProjectsController extends Controller
             ->where('disbursment_news.deleted_at', '=', NULL)
             ->orderBy('disbursment_news.created_at', 'DESC')
             ->get();
-
-            $votehead =  Votehead::find($id); 
-
-
-            $pdf = new MyPDF();
+        $votehead =  Votehead::find($id); 
+        $pdf = new MyPDF();
         $pdf->AddPage('L');
         $pdf->SetFont('Arial','',14);
         //Table with 20 rows and 4 columns
         $pdf->SetX(5);
         $pdf->SetFillColor(237, 228, 226);
-
         $pdf->Ln(7);
         $pdf-> Cell(280, 10, "Budget Line:  ".$votehead->votehead_name,0, 0, 'C', 1, '');
         $pdf->Ln(15);
@@ -134,16 +131,11 @@ class ProjectsController extends Controller
         $pdf-> Cell(105, 10, "Narration",1, 0, 'C', 1, '');
         $pdf-> Cell(60, 10, "Paid To",1, 0, 'C', 1, '');
         $pdf-> Cell(40, 10, "Amount",1, 0, 'C', 1, '');
-       
         $pdf->Ln();
-
-        
         $pdf->SetWidths(array(40,35,105,60,40));
         $aligns = array('C','C','L','L','R');
         $pdf->SetAligns($aligns );
         $pdf->SetFillColor(224, 235, 255);
-        
-      
         $fill = 1 ;
         $current_balance = 0;
         foreach($disbursments as $transaction){
@@ -156,18 +148,10 @@ class ProjectsController extends Controller
                 $transaction->paid_to, 
                 number_format($transaction->debit,2)), $fill);
         }
-
-       
-   
         $pdf-> Cell(240, 10, "Total :",1, 0, 'C', 1, '');
         $pdf-> Cell(40, 10,  number_format($current_balance,2),1, 0, 'R', 1, '');
         $pdf->Output();
         exit;
-
-
-
-
-
     }
 
     public function comment($id){
@@ -179,7 +163,6 @@ class ProjectsController extends Controller
         $input = $request->all();
         $project = Project::find($id);
         $project ->budget += $input['amount'];
-        
         $project->save();
         alert()->success('Success', 'Projects Successfully Saved');
         return redirect()->action(
@@ -192,9 +175,6 @@ class ProjectsController extends Controller
         $input = $request->all();
         $project =  Project::find($id) ;
         $project->details = $input['details'];
-       
-        
-       
         $project->save();
          return redirect()->action(
              'ProjectsController@show',$project->project_id
@@ -228,12 +208,19 @@ class ProjectsController extends Controller
         $input['start_date']  =  date('Y-m-d', $date);
         $input['deadline']  =  date('Y-m-d', strtotime($input['deadline']));
         $input['budget'] = str_replace( ',', '', $input['budget'] );
-        Project::create($input);
-        alert()->success('Success', 'Projects Successfully Saved');
+        $input['budget_local'] =  $input['budget'] * $input['exchange_rate'];
+        try{
+            Project::create($input);
+            alert()->success('Success', 'Projects Successfully Saved');
+            
+            return redirect()->action(
+                'ProjectsController@index'
+            );
+        }catch(\Illuminate\Database\QueryException $e){
+            alert()->error('error', 'Error Project Not Saved! Fill all data ' );
+            return redirect()->back()->withInput(Requested::input());
+        }
         
-        return redirect()->action(
-            'ProjectsController@index'
-        );
     }
 
     /**
@@ -245,11 +232,30 @@ class ProjectsController extends Controller
     public function show($id)
     {
         $project =  Project::find($id) ;
-        $projects =  DB::table('projects')
-        ->select(DB::raw('project_id,project_name,location,start_date,deadline,sponsor_id,staff_id,budget,cur_status,details,created_at,updated_at,DATEDIFF(deadline, start_date) AS days'))
-        ->where('project_id', '=', $id)
-        ->where('deleted_at', '=', NULL)
+
+        $project =  Project::find($id) ;
+        $currencies = Currency::all();
+
+        $currency =  DB::table('currencies')
+        ->select(DB::raw('currencyname'))
+        ->where('currency_id', '=', $project->currency_id)
         ->get();
+
+
+        $currencyName = '';
+
+        foreach ($currency as $cry){ 
+            $currencyName = $cry->currencyname;
+        }
+        
+        $projects =  DB::table('projects')
+        ->leftJoin('currencies', 'currencies.currency_id', '=', 'projects.currency_id')
+        ->select(DB::raw('currencyname,project_id,project_name,location,start_date,deadline,sponsor_id,staff_id,budget,budget_local,cur_status,details,projects.created_at,projects.updated_at,DATEDIFF(deadline, start_date) AS days'))
+        ->where('project_id', '=', $id)
+        ->where('projects.deleted_at', '=', NULL)
+        ->get();
+
+
         foreach ($projects as $prj){ 
             $val = $prj->days;
             $project->days =  $val;
@@ -303,7 +309,7 @@ class ProjectsController extends Controller
             ->where('disbursment_news.deleted_at', '=', NULL)
             ->orderBy('voucherdate', 'desc')
             ->get();
-        return view('projects.viewproject', compact('disbursments','completionStatus','activities','project','staff','sponsor','voteheads','mytotals','totalAmountUsed'));
+        return view('projects.viewproject', compact('disbursments','currencyName','completionStatus','activities','project','staff','sponsor','voteheads','mytotals','totalAmountUsed'));
     }
 
     /**
@@ -317,7 +323,8 @@ class ProjectsController extends Controller
         $staffs =  Staff::all() ;
         $sponsors =  Sponsor::all() ;
         $project =  Project::find($id) ;
-        return view('projects.editproject', compact('project','staffs','sponsors'));
+        $currencies = Currency::all();
+        return view('projects.editproject', compact('project','staffs','sponsors','currencies'));
     }
 
     /**
@@ -341,6 +348,9 @@ class ProjectsController extends Controller
         $project ->sponsor_id = $input['sponsor_id'];
         $project ->staff_id = $input['staff_id'];
         $project ->budget =  str_replace( ',', '', $input['budget'] );
+        $project ->currency_id = $input['currency_id'];
+        $project ->exchange_rate = $input['exchange_rate'];
+        $project ->budget_local =  $project ->budget  * $input['exchange_rate'];
         $project ->details = $input['details'];
         $project->save();
         alert()->success('Success', 'Projects Successfully Saved');

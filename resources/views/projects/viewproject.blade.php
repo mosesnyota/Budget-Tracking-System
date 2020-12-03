@@ -48,14 +48,14 @@
                         <div class="p-3 mini-stat-desc">
                             <div class="clearfix">
                                 <h6 class="text-uppercase mt-0 float-left text-white-50">BUDGET</h6>
-                                <h4 class="mb-3 mt-0 float-right">{{number_format(($project ->budget),2)}}</h4>
+                                <h4 class="mb-3 mt-0 float-right">{{number_format(($project ->budget_local),2)}}</h4>
                             </div>
                         </div>
                         <div class="p-3">
                             <div class="float-right">
                                 <a href="#" class="text-white-50"><i class="mdi mdi-cube-outline h5"></i></a>
                             </div>
-                            <p class="font-14 m-0">Percentage of budget: 100 % </p>
+                            <p class="font-14 m-0">{{$currencyName."  ".number_format(($project->budget),2)}} </p>
                         </div>
                     </div>
                 </div>
@@ -105,7 +105,7 @@
                     <div class="card bg-success mini-stat text-white">
                         <div class="p-3 mini-stat-desc">
                             <div class="clearfix">
-                                <h6 class="text-uppercase mt-0 float-left text-white-50">Goal Completed</h6>
+                                <h6 class="text-uppercase mt-0 float-left text-white-50">Completed</h6>
                                 <h4 class="mb-3 mt-0 float-right"> {{number_format($completeddays,0)}}% </h4>
                             </div>
                             

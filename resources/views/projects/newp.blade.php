@@ -126,6 +126,13 @@
                           </select>
                       </div>
                   </div>
+
+                  <div class="form-group row">
+                    <label for="budget" class="col-sm-2 col-form-label">Exchange Rate:</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" id="exchange_rate" name="exchange_rate" placeholder="Exchange Rate"  required>
+                    </div>
+                </div>
                
                 <div class="form-group row">
                     <label for="details" class="col-sm-2 col-form-label">Project Details</label>
