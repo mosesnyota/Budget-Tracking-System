@@ -9,6 +9,7 @@ use DB;
 use App\PettyCashReceipt;
 use App\MyPDFPortrait;
 use App\DisbursmentNew;
+use App\Project;
 
 
 class PettyCashs extends Controller
@@ -248,8 +249,9 @@ $pdf->SetFillColor(224, 235, 255);
     public function edit($id)
     {
         $transaction =  PettyCash::find($id) ;
+        $projects = Project::all();
         $transaction->transaction_date  =  date('m/d/Y', strtotime($transaction->transaction_date) );
-        return view('pettycash.edittransaction', compact('transaction'));
+        return view('pettycash.edittransaction', compact('transaction','projects'));
     }
 
     /**
@@ -269,12 +271,13 @@ $pdf->SetFillColor(224, 235, 255);
         }
 
         $input = $request->all();
-        $input['transaction_date']  =  date('Y-m-d', strtotime($input['transaction_date']));
+        $transaction ->transaction_date   =  date('Y-m-d', strtotime($input['transaction_date']));
         $transaction ->transactiontype = $input['transactiontype'];
         $transaction ->issuedto = $input['issuedto'];
         $transaction ->amount = $input['amount'];
+        
         $transaction ->description = $input['description'];
-
+        $transaction ->project_id = $input['project_id'];
         if($transaction ->transactiontype == 'Deposit'){
             DB::statement("UPDATE petties SET balance = balance +   $transaction->amount ");
         }else{
