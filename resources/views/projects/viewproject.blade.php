@@ -48,7 +48,15 @@
                         <div class="p-3 mini-stat-desc">
                             <div class="clearfix">
                                 <h6 class="text-uppercase mt-0 float-left text-white-50">BUDGET</h6>
-                                <h4 class="mb-3 mt-0 float-right">{{number_format(($project ->budget_local),2)}}</h4>
+                                <h4 class="mb-3 mt-0 float-right">
+                                @if($project ->budget_local == 1)
+                                0
+                                @else
+                                 {{number_format(($project ->budget_local ),2)}}
+                                @endif
+
+                                
+                              </h4>
                             </div>
                         </div>
                         <div class="p-3">
@@ -71,7 +79,7 @@
                             <div class="float-right">
                                 <a href="#" class="text-white-50"><i class="mdi mdi-buffer h5"></i></a>
                             </div>
-                            <p class="font-14 m-0">Percentage Used: {{number_format(($totalAmountUsed/$project ->budget) * 100,2)}} %</p>
+                            <p class="font-14 m-0">Percentage Used: {{number_format(($totalAmountUsed/$project ->budget_local) * 100,2)}} %</p>
                         </div>
                     </div>
                 </div>
@@ -80,14 +88,24 @@
                         <div class="p-3 mini-stat-desc">
                             <div class="clearfix">
                                 <h6 class="text-uppercase mt-0 float-left text-white-50">Balance</h6>
-                                <h4 class="mb-3 mt-0 float-right">{{number_format(($project ->budget - $totalAmountUsed),2)}}</h4>
+                                <h4 class="mb-3 mt-0 float-right">
+                                @if($project ->budget_local == 1)
+
+                                    0
+                                @else
+                                {{number_format(($project ->budget_local - $totalAmountUsed),2)}}
+                                @endif
+                                
+                                
+                                
+                                    </h4>
                             </div>
                         </div>
                         <div class="p-3">
                             <div class="float-right">
                                 <a href="#" class="text-white-50"><i class="mdi mdi-tag-text-outline h5"></i></a>
                             </div>
-                            <p class="font-14 m-0">Percentage Balance: {{number_format(((($project ->budget - $totalAmountUsed) /$project ->budget)*100),1)}}% </p>
+                            <p class="font-14 m-0">Percentage Balance: {{number_format(((($project ->budget_local - $totalAmountUsed) /$project ->budget_local)*100),1)}}% </p>
                         </div>
                     </div>
                 </div>
@@ -158,9 +176,10 @@
                                                                 <table id="nobuttonstable" class="table table-striped table-bordered dt-responsive" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                                                     <thead>
                                                                     <tr>
-                                                                      <th style="width: 10%;">Code</th>
+                                                                       <th style="width: 8%;">#</th>
+                                                                       <th style="width: 30%;">Narration</th>
                                                                       <th style="width: 20%;">Budget Line</th>
-                                                                      <th style="width: 30%;">Narration</th>
+                                                                      
                                                                       <th>Date</th>
                                                                       <th>Amount</th>
                                                                       <th>Action</th>
@@ -172,10 +191,11 @@
                                             
                                                                       @foreach ($disbursments as $disbursment)
                                                                               <tr id="{{$disbursment ->disbursment_id}}">
+                                                                                  <td data-target="voucherno" style="width:8%;">{{$counter}}</td>
+                                                                                  
                                                                                  
-                                                                                  <td data-target="voucherno" style="width:10%;">{{$disbursment ->voucherno}}</td>
-                                                                                  <td data-target="votehead_name"  style="width: 20%;">{{$disbursment ->votehead_name}}</td>
                                                                                   <td data-target="narrationname" style="width: 30%;">{{$disbursment ->narration}}</td>
+                                                                                  <td data-target="votehead_name"  style="width: 20%;">{{$disbursment ->votehead_name}}</td>
                                                                                   
                                                                                   <td data-target="voucherdate"> {{ date("d-m-Y", strtotime($disbursment ->voucherdate )) }} </td>
                                                                                   <td data-target="debit">{{number_format($disbursment ->debit,2)}}</td>

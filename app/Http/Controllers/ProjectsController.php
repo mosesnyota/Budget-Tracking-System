@@ -233,7 +233,17 @@ class ProjectsController extends Controller
     {
         $project =  Project::find($id) ;
 
-        $project =  Project::find($id) ;
+        if($project ->budget_local == 0){
+            $project ->budget_local = 1;
+        }
+
+        if($project ->budget == 0){
+            $project ->budget = 1;
+        }
+
+
+
+        
         $currencies = Currency::all();
 
         $currency =  DB::table('currencies')
@@ -302,16 +312,17 @@ class ProjectsController extends Controller
         foreach ($totalused as $totald){ 
             $totalAmountUsed = $totald->total;
         }
-        $disbursments = DB::table('disbursment_news')
-            ->leftJoin('voteheads', 'disbursment_news.votehead_id', '=', 'voteheads.votehead_id')
-            ->select('disbursment_news.*', 'voteheads.votehead_name')
-            ->where('disbursment_news.project_id', '=', $id)
-            ->where('disbursment_news.deleted_at', '=', NULL)
-            ->orderBy('voucherdate', 'desc')
+        $disbursments = DB::table('disbursment_news as D')
+            ->leftJoin('voteheads as V', 'D.votehead_id', '=', 'V.votehead_id')
+            ->select('D.*', 'V.votehead_name')
+            ->where('D.project_id', '=', $id)
+            ->where('D.deleted_at', '=', NULL)
+            ->where('D.credit', '=', 0)
+            ->orderBy('D.voucherdate','DESC')
             ->get();
-        return view('projects.viewproject', compact('disbursments','currencyName','completionStatus','activities','project','staff','sponsor','voteheads','mytotals','totalAmountUsed'));
+       return view('projects.viewproject', compact('disbursments','currencyName','completionStatus','activities','project','staff','sponsor','voteheads','mytotals','totalAmountUsed'));
     }
-
+ 
     /**
      * Show the form for editing the specified resource.
      *
