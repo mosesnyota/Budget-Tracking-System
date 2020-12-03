@@ -37,7 +37,7 @@ class ProjectsController extends Controller
         //get details of all projects
         $projects =  Project::all();
         $projects2 =  DB::table('projects')
-        ->select(DB::raw('project_id,project_name,location,start_date,deadline,sponsor_id,staff_id,budget,cur_status,details,created_at,updated_at,DATEDIFF(deadline, start_date) AS days'))
+        ->select(DB::raw('project_id,project_name,location,start_date,deadline,sponsor_id,staff_id,budget,budget_local,cur_status,details,created_at,updated_at,DATEDIFF(deadline, start_date) AS days'))
         ->get();
 
         $completedactivities = DB::table('activities')
