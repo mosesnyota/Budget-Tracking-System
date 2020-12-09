@@ -43,6 +43,16 @@
          <link href="{{asset('plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css')}}" rel="stylesheet">
          <link href="{{asset('plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css')}}" rel="stylesheet">
          <link href="{{asset('plugins/bootstrap-touchspin/css/jquery.bootstrap-touchspin.min.css')}}" rel="stylesheet" />
+    
+    <style>
+        .form-group.required .control-label:after {
+          content:"*";
+          color:red;
+        }
+    </style>
+    
+    
+    
     </head>
 
 

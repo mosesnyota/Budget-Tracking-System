@@ -6,7 +6,7 @@ use App\DisbursmentNew;
 use App\Imports\DisbursmentsImport;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\DisbursmentsExport;
-
+use DB;
 
 
 use SweetAlert;
@@ -48,10 +48,39 @@ class DisbursmentController extends Controller
     {
         $input = $request->all();
         $input['voucherdate']  =  date('Y-m-d', strtotime($input['voucherdate']));
-        DisbursmentNew::create($input);
-        alert()->success('Success', 'Created Successfully');
-      
+
+        if(DisbursmentController::checkData($request) > 0){  
+        alert()->error('Error', 'Duplicate Entry, Check Values again');
         return back()->withSuccessMessage('Successfully Added');
+
+        }else{
+            DisbursmentNew::create($input);
+            alert()->success('Success', 'Created Successfully');
+          
+            return back()->withSuccessMessage('Successfully Added');
+
+        }
+        
+    }
+
+    public function checkData(Request $request){
+        $input = $request->all();
+        $input['voucherdate']  =  date('Y-m-d', strtotime($input['voucherdate']));
+
+        $voucherdate = $input['voucherdate'];
+        $debit = $input['debit'];
+        $narration = $input['narration'];
+        $project_id = $input['project_id'];
+
+        $record = DB::table('disbursment_news')
+            ->where('voucherdate', '=',  $voucherdate)
+            ->where('debit', '=', $debit)
+            ->where('narration', '=', strtolower($narration))
+            ->where('project_id', '=', $project_id)
+            ->get();
+        return count($record);
+           
+        
     }
 
 
