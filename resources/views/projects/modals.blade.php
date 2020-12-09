@@ -56,12 +56,14 @@
             <div class="modal-body">
                 <form role="form" method="post" action="/finance/public/disbursment/store" enctype="multipart/form-data" >
                     {{ csrf_field() }}
-                    <div class="box-body"> 
-                        <div class="form-group row">
-                            <label for="budget" class="col-sm-2 col-form-label">Date Issued</label>
+                    <div class="box-body">
+                
+                    
+                        <div class="form-group row required">
+                            <label for="budget" class="col-sm-2 col-form-label required control-label">Date Issued</label>
                             <div class="col-sm-10">
                               <div class="input-group">
-                                <input type="text" class="form-control" autocomplete="off" id="datepicker-autoclose" name="voucherdate" >
+                                <input type="text" class="form-control" autocomplete="off" id="datepicker-autoclose" name="voucherdate" required >
                                 <div class="input-group-append bg-custom b-0"><span class="input-group-text"><i class="mdi mdi-calendar"></i></span></div>
                             </div><!-- input-group -->
                             </div>
@@ -76,10 +78,10 @@
                     </div> 
                 
 
-                    <div class="form-group row">
-                        <label for="votehead_id" class="col-sm-2 col-form-label">Votehead</label>
+                    <div class="form-group row required">
+                        <label for="votehead_id" class="col-sm-2 col-form-label  required control-label">Votehead</label>
                         <div class="col-sm-10">
-                            <select class="form-control select2" name="votehead_id" style="width: 100%;">
+                            <select class="form-control select2" name="votehead_id" style="width: 100%;" required>
                                 <option value=""></option>
                                 @foreach ($voteheads as $votehead)
                                   <option value="{{$votehead ->votehead_id}}">{{$votehead ->votehead_name}}</option>
@@ -90,14 +92,14 @@
                     </div>
 
                         
-                        <div class="form-group row">
-                            <label for="debit" class="col-sm-2 col-form-label">Amount</label>
+                        <div class="form-group row required">
+                            <label for="debit" class="col-sm-2 col-form-label  required control-label">Amount</label>
                             <div class="col-sm-10">
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="fas fa-dollar"></i></span>
                                     </div>
-                                    <input type="number" name="debit" id="debit" class="form-control" placeholder="Amount">
+                                    <input type="number" name="debit" id="debit" class="form-control" placeholder="Amount" required>
                                 </div>
                             </div>
                         </div>
@@ -105,17 +107,17 @@
   
                     
 
-                        <div class="form-group row">
-                            <label for="narration" class="col-sm-2 col-form-label">Narration</label>
+                        <div class="form-group row required">
+                            <label for="narration" class="col-sm-2 col-form-label  required control-label">Narration</label>
                             <div class="col-sm-10">
                               <input type="text" class="form-control" id="narration" name="narration" placeholder="Narration" required>
                             </div>
                           </div> 
 
-                          <div class="form-group row">
-                            <label for="paid_to" class="col-sm-2 col-form-label">Paid To</label>
+                          <div class="form-group row required">
+                            <label for="paid_to" class="col-sm-2 col-form-label  required control-label">Paid To</label>
                             <div class="col-sm-10">
-                              <input type="text" class="form-control" id="paid_to" name="paid_to" placeholder="Paid To: optional" >
+                              <input type="text" class="form-control" id="paid_to" name="paid_to" placeholder="Paid To: optional" required>
                             </div>
                           </div> 
 
