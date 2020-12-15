@@ -157,72 +157,72 @@ class PettyCashs extends Controller
         $pdf->setXY(5, 40);
         $pdf-> Cell(200, 8, "PETTY CASH RECEIPT",1, 0, 'C', 1, '');
 
-        //DRAW AN OUTER BOX
-$pdf->Line(5, 5, 205, 5); //TOP
-$pdf->Line(5, 5, 205, 5);//TOP
+                //DRAW AN OUTER BOX
+        $pdf->Line(5, 5, 205, 5); //TOP
+        $pdf->Line(5, 5, 205, 5);//TOP
 
 
-$pdf->Line(5, 5, 5, 125); //SID1
-$pdf->Line(5, 5, 5, 125);//SIDE1
+        $pdf->Line(5, 5, 5, 125); //SID1
+        $pdf->Line(5, 5, 5, 125);//SIDE1
 
-$pdf->Line(205, 5, 205, 125); //SID2
-$pdf->Line(205, 5, 205, 125);//SIDE2
-
-$pdf->Line(5, 125, 205, 125); //bTOP
-$pdf->Line(5, 125, 205, 125);//bTOP
-       
-      
-                //table header
-$pdf->SetFillColor(157, 245, 183);
-$pdf->setFont("times", "", "11");
-$pdf->setXY(10, 51);
-$pdf->Cell(170, 7, "Transaction Details", 1, 0, "L", 1);
-$pdf->Ln();
-$pdf->Cell(40, 7, "Issued to :", 1, 0, "L", 0);
-$pdf->Cell(130, 7,  $transaction->issuedto, 1, 0, "L", 0);
-$pdf->Ln();
-$pdf->Cell(40, 7, "Transaction Date :", 1, 0, "L", 0);
-$pdf->Cell(130, 7, date_format(date_create($transaction ->transaction_date),"d-M-Y"), 1, 0, "L", 0);
-$pdf->Ln();
-$pdf->Cell(40, 7, "Amount :", 1, 0, "L", 0);
-$pdf->Cell(130, 7, $transaction->amount, 1, 0, "L", 0);
-$pdf->Ln();
-
-
-
-$pdf->SetWidths(array(40,130));
-$aligns = array('L','L');
-$pdf->SetAligns($aligns );
-$pdf->SetFillColor(224, 235, 255);
-
-
-    $fill = 1 ;
-
-    $fill =  !$fill;
-    $pdf->Row(array("Narration :",$transaction->description),  $fill);
-
-      
-        $pdf->Ln();
-
-        $pdf->Cell(20, 7, "Issued By :", 0, 0, "L", 0);
-        $pdf->Cell(90, 7,  "__________________________________________", 0, 0, "L", 0);
-        $pdf->Cell(20, 7, "Date & Sign : ", 0, 0, "L", 0);
-        $pdf->Cell(30, 7,  " _________________________", 0, 0, "L", 0);
-        $pdf->Ln();
-        $pdf->Ln();
-        $pdf->Cell(20, 7, "Received By :", 0, 0, "L", 0);
-        $pdf->Cell(90, 7,  "__________________________________________", 0, 0, "L", 0);
-        $pdf->Cell(20, 7, "Date & Sign : ", 0, 0, "L", 0);
-        $pdf->Cell(30, 7,  " _________________________", 0, 0, "L", 0);
+        $pdf->Line(205, 5, 205, 125); //SID2
+        $pdf->Line(205, 5, 205, 125);//SIDE2
 
         $pdf->Line(5, 125, 205, 125); //bTOP
+        $pdf->Line(5, 125, 205, 125);//bTOP
+            
+            
+                        //table header
+        $pdf->SetFillColor(157, 245, 183);
+        $pdf->setFont("times", "", "11");
+        $pdf->setXY(10, 51);
+        $pdf->Cell(170, 7, "Transaction Details", 1, 0, "L", 1);
+        $pdf->Ln();
+        $pdf->Cell(40, 7, "Issued to :", 1, 0, "L", 0);
+        $pdf->Cell(130, 7,  $transaction->issuedto, 1, 0, "L", 0);
+        $pdf->Ln();
+        $pdf->Cell(40, 7, "Transaction Date :", 1, 0, "L", 0);
+        $pdf->Cell(130, 7, date_format(date_create($transaction ->transaction_date),"d-M-Y"), 1, 0, "L", 0);
+        $pdf->Ln();
+        $pdf->Cell(40, 7, "Amount :", 1, 0, "L", 0);
+        $pdf->Cell(130, 7, $transaction->amount, 1, 0, "L", 0);
+        $pdf->Ln();
 
 
 
-        $pdf->setXY(5, 120);
-        $pdf-> Cell(200, 5, "",1, 0, 'C', 1, '');
-        $pdf->Output();
-        exit;
+        $pdf->SetWidths(array(40,130));
+        $aligns = array('L','L');
+        $pdf->SetAligns($aligns );
+        $pdf->SetFillColor(224, 235, 255);
+
+
+        $fill = 1 ;
+
+        $fill =  !$fill;
+        $pdf->Row(array("Narration :",$transaction->description),  $fill);
+
+        
+            $pdf->Ln();
+
+            $pdf->Cell(20, 7, "Issued By :", 0, 0, "L", 0);
+            $pdf->Cell(90, 7,  "__________________________________________", 0, 0, "L", 0);
+            $pdf->Cell(20, 7, "Date & Sign : ", 0, 0, "L", 0);
+            $pdf->Cell(30, 7,  " _________________________", 0, 0, "L", 0);
+            $pdf->Ln();
+            $pdf->Ln();
+            $pdf->Cell(20, 7, "Received By :", 0, 0, "L", 0);
+            $pdf->Cell(90, 7,  "__________________________________________", 0, 0, "L", 0);
+            $pdf->Cell(20, 7, "Date & Sign : ", 0, 0, "L", 0);
+            $pdf->Cell(30, 7,  " _________________________", 0, 0, "L", 0);
+
+            $pdf->Line(5, 125, 205, 125); //bTOP
+
+
+
+            $pdf->setXY(5, 120);
+            $pdf-> Cell(200, 5, "",1, 0, 'C', 1, '');
+            $pdf->Output();
+            exit;
 
 
 

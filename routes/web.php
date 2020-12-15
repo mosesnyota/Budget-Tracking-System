@@ -180,3 +180,6 @@ Route::get('/viewproject/setexchagerate/{project}/currency','ProjectsController@
 Route::get('/viewproject/setcurrency/{project}/currency','ProjectsController@setCurrency');
 
 Route::post('/password/change','ChangePasswordController@store');
+
+Route::get('/projectsPDF','ProjectsController@projectsPDF');
+Route::get('/openprojectreport','ProjectsController@openprojectreport');

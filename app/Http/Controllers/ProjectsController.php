@@ -418,6 +418,8 @@ class ProjectsController extends Controller
 
         return Excel::download(new DisbursmentsExport($id), 'Disbursments_BudgetLine.xlsx');
     }
+
+
     public function printPdfReport($id){
         $project =  Project::find($id) ;
         $time = strtotime($project ->start_date);
@@ -681,6 +683,64 @@ foreach ($activities as $activity){
      }
 
 
+     public function projectsPDF(){
+        return view('projects.openreport');
+     }
+
+
+     public function openprojectreport(){
+        $pdf = new MyPDF();
+        $pdf-> SetWidths(7);
+        $pdf->AddPage('L');
+        $pdf->SetFont('Arial','',14);
+        //Table with 20 rows and 4 columns
+        $pdf->SetX(5);
+        $pdf->SetFillColor(237, 228, 226);
+        
+        $pdf->Ln(7);
+        $pdf-> Cell(280, 10, "ALL RECORDED PROJECTS",0, 0, 'C', 1, '');
+        $pdf->Ln(15);
+        $pdf->SetX(10);
+        $pdf->SetFont('Times','',11);
+        $pdf-> Cell(10, 10, "#",1, 0, 'C', 1, '');
+        $pdf-> Cell(95, 10, "Project",1, 0, 'C', 1, '');
+        $pdf-> Cell(45, 10, "Location",1, 0, 'C', 1, '');
+        $pdf-> Cell(40, 10, "Budget",1, 0, 'C', 1, '');
+        $pdf-> Cell(35, 10, "Disbursed",1, 0, 'C', 1, '');
+        $pdf-> Cell(35, 10, "Balance",1, 0, 'C', 1, '');
+        $pdf-> Cell(20, 10, "Status",1, 0, 'C', 1, '');
+        $pdf->Ln();
+
+        $counter = 1;
+        $pdf->SetWidths(array(10,95,45,40,35,35,20));
+        $aligns = array('L','L','L','R','R','R','L');
+        $pdf->SetAligns($aligns );
+        $pdf->SetFillColor(224, 235, 255);
+        
+        $transactions= DB::table('projects')
+        ->leftJoin('disbursment_news', 'disbursment_news.project_id', '=', 'projects.project_id')
+        ->selectRaw(DB::raw('projects.*,SUM(debit) AS totaldisbursed'))
+        ->where('projects.deleted_at', '=', NULL)
+        ->groupBy('projects.project_id')
+        ->orderBy('projects.project_name', 'DESC')
+        ->get();
+
+
+
+        $fill = 1 ;
+        foreach($transactions as $transaction){
+            $fill =  !$fill;
+            $pdf->Row(array( $counter,strtoupper($transaction->project_name),strtoupper($transaction->location) ,number_format($transaction->budget_local,2),
+            number_format($transaction->totaldisbursed,2), number_format($transaction->budget_local - $transaction->totaldisbursed,2)   , $transaction->cur_status), $fill);
+            $counter++;
+            
+        }
+   
+       
+        $pdf->Output();
+        exit;
+         
+     }
     /**
      * Remove the specified resource from storage.
      *
