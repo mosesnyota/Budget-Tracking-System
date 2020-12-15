@@ -31,9 +31,9 @@ class PettyCashs extends Controller
         ->leftJoin('projects', 'projects.project_id', '=', 'petty_cashes.project_id')
         ->select(DB::raw('petty_cashes.*,project_name'))
         ->where('petty_cashes.deleted_at', '=', NULL)
-        ->skip(0)->take(30)
         ->orderBy('transaction_date','DESC')
         ->get();
+        //        ->skip(0)->take(30)
 
         $projects =  DB::table('projects')
         ->select(DB::raw('project_id,project_name'))
