@@ -300,14 +300,14 @@ class PettyCashs extends Controller
     public function destroy($id)
     {
 
-        $transaction =  PettyCash::find($id) ;
+        // $transaction =  PettyCash::find($id) ;
 
-        if($transaction -> transactiontype == 'Deposit'){
-            DB::statement("UPDATE petties SET balance = balance -   $transaction->amount ");
-        }else{
-            DB::statement("UPDATE petties SET balance = balance +  $transaction->amount ");
-        }
-        PettyCash::where('transactionid',$id)->delete();
+        // if($transaction -> transactiontype == 'Deposit'){
+        //     DB::statement("UPDATE petties SET balance = balance -   $transaction->amount ");
+        // }else{
+        //     DB::statement("UPDATE petties SET balance = balance +  $transaction->amount ");
+        // }
+        //PettyCash::where('transactionid',$id)->delete();
         
         return redirect()->action(
             'PettyCashs@index'
@@ -428,7 +428,7 @@ class PettyCashs extends Controller
         ->where('transaction_date', '>=', $startdate)
         ->where('transaction_date', '<=', $enddate)
         ->where('petty_cashes.deleted_at', '=', NULL)
-        ->orderBy('transaction_date','DESC')
+        ->orderBy('transaction_date','ASC')
         ->get();
 
         $balance = Petty::all();
@@ -454,16 +454,17 @@ class PettyCashs extends Controller
         $pdf-> Cell(10, 10, "#",1, 0, 'C', 1, '');
         $pdf-> Cell(85, 10, "Description",1, 0, 'C', 1, '');
        
-        $pdf-> Cell(35, 10, "Date",1, 0, 'C', 1, '');
-        $pdf-> Cell(75, 10, "Project",1, 0, 'C', 1, '');
-        $pdf-> Cell(35, 10, "To",1, 0, 'C', 1, '');
+        $pdf-> Cell(30, 10, "Date",1, 0, 'C', 1, '');
+        $pdf-> Cell(60, 10, "Project",1, 0, 'C', 1, '');
+        $pdf-> Cell(25, 10, "To",1, 0, 'C', 1, '');
         $pdf-> Cell(10, 10, "Txt",1, 0, 'C', 1, '');
         $pdf-> Cell(30, 10, "Amount",1, 0, 'C', 1, '');
+        $pdf-> Cell(30, 10, "Balance",1, 0, 'C', 1, '');
         $pdf->Ln();
 
         $counter = 1;
-        $pdf->SetWidths(array(10,85,35,75,35,10,30));
-        $aligns = array('L','L','C','L','L','C','R');
+        $pdf->SetWidths(array(10,85,30,60,25,10,30,30));
+        $aligns = array('L','L','C','L','L','C','R','R');
         $pdf->SetAligns($aligns );
         $pdf->SetFillColor(224, 235, 255);
         
@@ -472,7 +473,8 @@ class PettyCashs extends Controller
         foreach($transactions as $transaction){
             $fill =  !$fill;
             $pdf->Row(array( $counter,$transaction->description,date_format(date_create($transaction ->transaction_date), "d-M-Y") ,$transaction->project_name,
-            $transaction->issuedto, substr($transaction ->transactiontype, 0, 1) , number_format($transaction->amount,2)), $fill);
+            $transaction->issuedto, substr($transaction ->transactiontype, 0, 1) , 
+            number_format($transaction->amount,2) ,number_format($transaction->balance,2)  ), $fill);
             $counter++;
             
         }

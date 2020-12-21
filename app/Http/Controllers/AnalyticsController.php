@@ -16,8 +16,6 @@ class AnalyticsController extends Controller
      */
     public function index()
     {
-       
-
        $expenses =  DB::table('expenses')
        ->join('expense_categories', 'expenses.category_id', '=', 'expense_categories.category_id')
        ->select(DB::raw('categoryname , narration , COUNT(expense_categories.categoryname) AS numoftimes'))
@@ -26,10 +24,6 @@ class AnalyticsController extends Controller
        ->groupby('narration')
        ->orderby('numoftimes','DESC')
        ->get();
-
-
-
-
        return view('analytics\expensestrends',compact('expenses'));
     }
 

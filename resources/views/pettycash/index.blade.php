@@ -98,7 +98,7 @@
                                                    
                                                     <td>
                                                                 <a class="btn btn-primary btn-sm" href="pettycash/{{$transaction->transactionid}}/edit"><i class="fas fa-edit"></i></a>
-                                                                <button type="button" class="btn btn-danger btn-sm mr-1 delete-confirm"  href="pettycash/{{$transaction->transactionid}}/destroy"> <a  data-role="deletepetty"> <i class="fa fa-trash" > </i></a>  </button>  
+                                                               
                                                                 <a class="btn btn-warning btn-sm" href="pettycash/reprintreceipt/{{$transaction->transactionid}}/print" target="_blank"><i class="fa fa-print"></i></a>
                                                                 <a class="btn btn-success btn-sm" href="pettycash/pushtoproject/{{$transaction->transactionid}}/push" target="_blank"><i class="fa fa-arrow-right"></i></a>
                                                     <?php $counter += 1; ?>
