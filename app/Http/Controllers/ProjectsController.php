@@ -720,7 +720,8 @@ foreach ($activities as $activity){
         $transactions= DB::table('projects')
         ->leftJoin('disbursment_news', 'disbursment_news.project_id', '=', 'projects.project_id')
         ->selectRaw(DB::raw('projects.*,SUM(debit) AS totaldisbursed'))
-        ->where('projects.deleted_at', '=', NULL)
+        ->where('projects.deleted_at', '=', NULL) 
+        ->whereRAW("projects.project_name NOT LIKE '%PETTY CASH%'")
         ->groupBy('projects.project_id')
         ->orderBy('projects.project_name', 'DESC')
         ->get();
