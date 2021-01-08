@@ -34,7 +34,7 @@ class MyController extends Controller
        
         //get details of all projects
         $projects =  array();
-        $projectdetils =  Project::where('cur_status', '=', 'Active')->orderByRaw('start_date DESC')->skip(0)->take(5)->get();
+        $projectdetils =  Project::where('cur_status', '=', 'Active')->orderByRaw('start_date DESC')->skip(1)->take(5)->get();
         
         $projectdetils2 =  Project::where('cur_status', '!=', 'Complete')
         ->whereRaw('TIMESTAMPDIFF(DAY,NOW() , deadline) < 90 ' )->skip(0)->take(5)->orderByRaw('TIMESTAMPDIFF(DAY,NOW() , deadline) ASC')->get();
