@@ -928,17 +928,7 @@ $('.delete-confirm').on('click', function (event) {
       ];
       this.createDonutChart1('morrisdonut2', $donutData1, ['#f0f1f4', '#f0f1f4', '#f0f1f4']);
 
-      //create line chart Dark
-      var $data1  = [
-          { y: '2009', a: 20, b: 5 },
-          { y: '2010', a: 45,  b: 35 },
-          { y: '2011', a: 50,  b: 40 },
-          { y: '2012', a: 75,  b: 65 },
-          { y: '2013', a: 50,  b: 40 },
-          { y: '2014', a: 75,  b: 65 },
-          { y: '2015', a: 100, b: 90 }
-      ];
-      this.createLineChart1('mymorrisdark', $data1, 'y', ['a', 'b'], ['Series A', 'Series B'], ['#5985ee', '#46cd93']);
+      
   },
   //init
   $.MorrisCharts = new MorrisCharts, $.MorrisCharts.Constructor = MorrisCharts
@@ -951,6 +941,114 @@ function($) {
 }(window.jQuery);
 
 </script>
+
+
+
+
+
+
+
+<script>
+//LINE GRAPH
+
+!function ($) {
+    "use strict";
+
+    var Dashboard = function () {
+    };
+
+    //creates line chart
+    Dashboard.prototype.createLineChart = function(element, data, xkey, ykeys, labels, lineColors) {
+        Morris.Line({
+          element: element,
+          data: data,
+          xkey: xkey,
+          ykeys: ykeys,
+          labels: labels,
+          hideHover: 'auto',
+          gridLineColor: '#eef0f2',
+          resize: true, //defaulted to true
+          lineColors: lineColors
+        });
+    },
+
+    //creates Donut chart
+    Dashboard.prototype.createDonutChart = function(element, data, colors) {
+        Morris.Donut({
+            element: element,
+            data: data,
+            resize: true,
+            colors: colors
+        });
+    },
+
+
+
+
+    Dashboard.prototype.init = function () {
+
+
+      
+    var year0 =  new Date().getFullYear();
+    var year1 = new Date().getFullYear() - 1;
+    var year2 = new Date().getFullYear() - 2;
+    var year3 = new Date().getFullYear() - 3;
+   
+    
+    <?php  if(isset($incomePerYear[date('Y')])){    ?>
+    var incomeY0 = <?php echo $incomePerYear[date('Y')]; ?>;
+    var incomeY1 = <?php echo $incomePerYear[date('Y') - 1]; ?>;
+    var incomeY2 = <?php echo $incomePerYear[date('Y') - 2]; ?>;
+    var incomeY3 = <?php echo $incomePerYear[date('Y') - 3]; ?>;
+
+    var expenseY0 = <?php echo $expensesPerYear[date('Y')]; ?>;
+    var expenseY1 = <?php echo $expensesPerYear[date('Y') - 1]; ?>;
+    var expenseY2 = <?php echo $expensesPerYear[date('Y') - 2]; ?>;
+    var expenseY3 = <?php echo $expensesPerYear[date('Y') - 3]; ?>;
+
+
+<?php } else { ?>
+    var incomeY0 = 100;
+    var incomeY1 = 100;
+    var incomeY2 = 100;
+    var incomeY3 = 100;
+
+
+  <?php }  ?>
+
+
+
+        //create line chart
+            
+        var $data  = [
+            { y: ""+year3, a: parseFloat(incomeY3),  b: expenseY3 },
+            { y: ""+year2, a: parseFloat(incomeY2),  b: expenseY2 },
+            { y: ""+year1, a: parseFloat(incomeY1),  b: expenseY1 },
+            { y: ""+year0, a: parseFloat(incomeY0),  b: expenseY0 }
+          ];
+        this.createLineChart('morris-line-example1', $data, 'y', ['a', 'b'], ['Income', 'Expenses'], ['#46cd93', '#5985ee']);
+
+       
+
+    },
+
+        //init
+        $.Dashboard = new Dashboard, $.Dashboard.Constructor = Dashboard
+}(window.jQuery),
+
+//initializing
+    function ($) {
+        "use strict";
+        $.Dashboard.init();
+    }(window.jQuery);
+</script>
+
+
+
+
+
+
+
 
 @include('layouts.passwordmodal')
     </body>

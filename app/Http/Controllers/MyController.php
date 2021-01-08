@@ -108,7 +108,50 @@ class MyController extends Controller
         }
 
 
-        return view('home', compact('projects','projectdetils','mytotals','projectdetils2'));
+        $year0 = date('Y');
+        $year1 = date('Y') - 1;
+        $year2 = date('Y') - 2;
+        $year3 = date('Y') - 3;
+
+        $incomePerYear = [];
+        $incomePerYear[$year0] =  0 ;
+        $incomePerYear[$year1] =  0 ;
+        $incomePerYear[$year2] =  0 ;
+        $incomePerYear[$year3] =  0 ;
+
+
+        $expensesPerYear = [];
+        $expensesPerYear[ $year0] = 0;
+        $expensesPerYear[ $year1] = 0;
+        $expensesPerYear[ $year2] = 0;
+        $expensesPerYear[ $year3] = 0;
+
+
+        $pettyCashExpenses = DB::select("SELECT YEAR(`voucherdate`) AS expenyear, SUM(`debit`) AS total FROM `disbursment_news`
+        WHERE  deleted_at IS NULL AND YEAR(voucherdate) >= (YEAR(CURDATE()) - 3) GROUP BY expenyear");
+        
+        foreach( $pettyCashExpenses as $expeY4){
+            $expensesPerYear[$expeY4 ->expenyear ] = $expensesPerYear[$expeY4 ->expenyear ] + $expeY4->total;
+        }
+
+
+
+        $incomePY = DB::select("SELECT YEAR(`voucherdate`) AS expenyear, SUM(`credit`) AS total FROM `disbursment_news`
+        WHERE  deleted_at IS NULL AND YEAR(voucherdate) >= (YEAR(CURDATE()) - 3) GROUP BY expenyear");
+        
+        foreach( $incomePY as $expeY4){
+            $incomePerYear[$expeY4 ->expenyear ] = $incomePerYear[$expeY4 ->expenyear ] + $expeY4->total;
+        }
+
+
+
+
+
+
+
+
+
+        return view('home', compact('incomePerYear','expensesPerYear','projects','projectdetils','mytotals','projectdetils2'));
     }
 
     public function test()

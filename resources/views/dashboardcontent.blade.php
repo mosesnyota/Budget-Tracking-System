@@ -121,7 +121,7 @@
 
                                         }
                                     @endphp
-                                    <span class="badge badge-light text-info"> {{number_format( (100 - $percentused),1)}}% </span> <span class="ml-2">Remaining Budget</span>
+                                   
                                 </div>
                             </div>
                             <div class="p-3">
@@ -136,30 +136,20 @@
                 <!-- end row -->
 
                 <div class="row">
-                    <div class="col-xl-9">
+                    <div class="col-xl-8">
                         <div class="card">
                             <div class="card-body">
                                 <h4 class="mt-0 header-title">Projects Report</h4>
                                 <div class="row">
-                                    <div class="col-lg-8">
-                                        <div id="morris-line-example" class="morris-chart" style="height: 300px"></div>
+                                    <div class="col-lg-12">
+                                        <div id="morris-line-example1" class="morris-chart" style="height: 300px"></div>
                                     </div>
-                                    <div class="col-lg-4">
-                                        <div>
-                                            <h5 class="font-14 mb-5">Yearly Projects Report</h5>
-
-                                            <div>
-                                                
-                                               
-                                                <a href="#" class="btn btn-primary btn-sm">View All <i class="mdi mdi-chevron-right"></i></a>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-3">
+                    <div class="col-xl-4">
                         <div class="card">
                             <div class="card-body">
                                 <h4 class="mt-0 header-title">Budget Analytics</h4>
