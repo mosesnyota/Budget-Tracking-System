@@ -50,6 +50,28 @@
           color:red;
         }
     </style>
+
+
+<style>
+.bar-chart-legend {
+	display: inline-block;
+	right: 25px;
+	position: absolute;
+	top: 8px;
+	font-size: 10px;
+}
+
+.bar-chart-legend .legend-item {
+	display: block;
+}
+
+.bar-chart-legend .legend-color {
+	width: 12px;
+	height: 12px;
+	margin: 3px 5px;
+	display: inline-block;
+}
+</style>
     
     
     
@@ -984,6 +1006,7 @@ function($) {
 
 
 
+    
 
     Dashboard.prototype.init = function () {
 
@@ -1027,11 +1050,9 @@ function($) {
             { y: ""+year0, a: parseFloat(incomeY0),  b: expenseY0 }
           ];
         this.createLineChart('morris-line-example1', $data, 'y', ['a', 'b'], ['Income', 'Expenses'], ['#46cd93', '#5985ee']);
-
-       
-
     },
 
+    
         //init
         $.Dashboard = new Dashboard, $.Dashboard.Constructor = Dashboard
 }(window.jQuery),
@@ -1041,6 +1062,8 @@ function($) {
         "use strict";
         $.Dashboard.init();
     }(window.jQuery);
+
+    
 </script>
 
 

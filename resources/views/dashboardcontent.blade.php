@@ -171,9 +171,10 @@
                                   <thead>
                                   <tr>
                                     <th>Project Name</th>
-                                    <th>Status</th>
-                                    <th>Completed</th>
+                                    
+                                  
                                     <th>Budget</th>
+                                    <th>Status</th>
                                   </tr>
                                   </thead>
                                   <tbody>
@@ -196,27 +197,7 @@
                                   <tr>
                                     <td><a href="/finance/public/viewproject/{{$details->project_id}}">{{$details->project_name}}</a></td>
                                     
-                  
-                                    <td>  <?php if($details->cur_status == 'Complete'){ ?>
-                                      <span class="badge badge-success">Completed</span>
-                                      <?php }
-                                         else if($details->cur_status == 'Active'){?>
-                                          <span class="badge badge-warning">Active</span> 
-                                          <?php } ?>
-                                  </td>
-                  
-                  
-                                  <td>  <?php if($percentused < 25){ ?>
-                                    <span class="badge badge-danger">{{number_format($percentused,1).' %'}}</span>
-                                    <?php }
-                                       else if($percentused > 25 && $percentused < 75){?>
-                                        <span class="badge badge-warning">{{number_format($percentused,1).' %'}}</span> 
-                                        <?php } else if($percentused > 75){?>
-                                          <span class="badge badge-success">{{number_format($percentused,1).' %'}}</span> 
-                                          <?php } ?>
-                                </td>
-                                    
-                  
+    
                                     <td>  <?php if($percentused < 25){ ?>
                                       <span class="badge badge-warning">{{number_format($percentused,1).' %'}}</span>
                                       <?php }
@@ -224,6 +205,15 @@
                                           <span class="badge badge-success">{{number_format($percentused,1).' %'}}</span> 
                                           <?php } ?>
                                      </td>
+
+
+                                     <td>  <?php if($details->cur_status == 'Complete'){ ?>
+                                      <span class="badge badge-success">Completed</span>
+                                      <?php }
+                                         else if($details->cur_status == 'Active'){?>
+                                          <span class="badge badge-warning">Active</span> 
+                                          <?php } ?>
+                                  </td>
                   
                                   </tr>
 
