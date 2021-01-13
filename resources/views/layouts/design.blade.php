@@ -71,7 +71,36 @@
 	margin: 3px 5px;
 	display: inline-block;
 }
+.mbox {   
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    margin: 10px 55px 10px 25px;
+    padding-left: 4px;
+}
+
 </style>
+
+
+
+<style>
+    #legend {
+        height: 50px;
+        background: rgba(127, 127, 127, 0.5)
+    }
+    #legend span {
+        display: inline-block;
+        padding: 15px 30px;
+        position: relative;
+    }
+    #legend span:after {
+        padding-left: 4px;
+        content: '\00a0\00a0\00a0\00a0\00a0\00a0';
+    text-decoration: line-through;
+    }
+</style>
+
+
     
     
     
@@ -1067,6 +1096,71 @@ function($) {
 </script>
 
 
+
+<script>
+
+
+var year0 =  new Date().getFullYear();
+    var year1 = new Date().getFullYear() - 1;
+    var year2 = new Date().getFullYear() - 2;
+    var year3 = new Date().getFullYear() - 3;
+   
+    
+    <?php  if(isset($incomePerYear[date('Y')])){    ?>
+    var incomeY0 = <?php echo $incomePerYear[date('Y')]; ?>;
+    var incomeY1 = <?php echo $incomePerYear[date('Y') - 1]; ?>;
+    var incomeY2 = <?php echo $incomePerYear[date('Y') - 2]; ?>;
+    var incomeY3 = <?php echo $incomePerYear[date('Y') - 3]; ?>;
+
+    var expenseY0 = <?php echo $expensesPerYear[date('Y')]; ?>;
+    var expenseY1 = <?php echo $expensesPerYear[date('Y') - 1]; ?>;
+    var expenseY2 = <?php echo $expensesPerYear[date('Y') - 2]; ?>;
+    var expenseY3 = <?php echo $expensesPerYear[date('Y') - 3]; ?>;
+
+
+<?php } else { ?>
+    var incomeY0 = 100;
+    var incomeY1 = 100;
+    var incomeY2 = 100;
+    var incomeY3 = 100;
+
+
+  <?php }  ?>
+
+
+
+        //create line chart
+            
+        var $data  = [
+            { y: ""+year3, a: parseFloat(incomeY3),  b: expenseY3 },
+            { y: ""+year2, a: parseFloat(incomeY2),  b: expenseY2 },
+            { y: ""+year1, a: parseFloat(incomeY1),  b: expenseY1 },
+            { y: ""+year0, a: parseFloat(incomeY0),  b: expenseY0 }
+          ];
+
+          
+/*
+ * Play with this code and it'll update in the panel opposite.
+ *
+ * Why not try some of the options above?
+ */
+var chart = Morris.Line({
+  element: 'mylinegraph',
+  lineColors: ['green', 'red'],
+  data: $data,
+  xkey: 'y',
+  ykeys: ['a', 'b'],
+  labels: ['Income', 'Expenses'],
+  continuousLine: false
+});
+
+
+chart.options.labels.forEach(function(label, i){
+    var legendItem = $('<span></span>').text(label).css('color', chart.options.lineColors[i])
+    $('#legend').append(legendItem)
+})
+
+</script>
 
 
 

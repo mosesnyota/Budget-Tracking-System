@@ -142,8 +142,10 @@
                                 <h4 class="mt-0 header-title">Projects Report</h4>
                                 <div class="row">
                                     <div class="col-lg-12">
-                                        <div id="morris-line-example1" class="morris-chart" style="height: 300px"></div>
+                                        <div id="mylinegraph" class="morris-chart" style="height: 300px"></div>
+                                        <div id="legend"></div>
                                     </div>
+                                   
                                     
                                 </div>
                             </div>
