@@ -68,15 +68,13 @@
     #legend span:after {
         padding-left: 4px;
         content: '\00a0\00a0\00a0\00a0\00a0\00a0';
-    text-decoration: line-through;
+        text-decoration: line-through;
     }
 </style>
 
 
     
-    
-    
-    </head>
+</head>
 
 
     <body class="fixed-left">
@@ -1016,7 +1014,7 @@ var year0 =  new Date().getFullYear();
  */
 var chart = Morris.Line({
   element: 'mylinegraph',
-  lineColors: ['green', 'red'],
+  lineColors: ['#46cd93', '#5985ee'],
   data: $data,
   xkey: 'y',
   ykeys: ['a', 'b'],
