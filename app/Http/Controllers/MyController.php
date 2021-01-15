@@ -144,13 +144,6 @@ class MyController extends Controller
         }
 
 
-
-
-
-
-
-
-
         return view('home', compact('incomePerYear','expensesPerYear','projects','projectdetils','mytotals','projectdetils2'));
     }
 
