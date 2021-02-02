@@ -428,9 +428,27 @@ class PettyCashs extends Controller
         ->where('transaction_date', '>=', $startdate)
         ->where('transaction_date', '<=', $enddate)
         ->where('petty_cashes.deleted_at', '=', NULL)
-        ->orderBy('created_at','ASC')
+        ->orderBy('transaction_date','ASC')
         ->get();
 
+        $oppeningbal = 0;
+
+        $openingD =  DB::select("SELECT SUM(`amount`) AS amount  FROM `petty_cashes` 
+        WHERE `transaction_date` < '$startdate' AND  transactiontype = 'Deposit'");
+
+        $openingW =  DB::select("SELECT SUM(`amount`) AS amount  FROM `petty_cashes` 
+        WHERE `transaction_date` < '$startdate' AND  transactiontype = 'Withdraw'");
+
+        $totalDeposits = 0 ;
+        foreach ($openingD as $depos){ 
+            $totalDeposits  = $depos->amount;
+        }
+
+        $totalWithdrawals = 0 ;
+        foreach ($openingW as $depos){ 
+            $totalWithdrawals  = $depos->amount;
+        }
+        $oppeningbal =  $totalDeposits - $totalWithdrawals    ;
         $balance = Petty::all();
         //This section gets the petty cash balance
         $current_balance = 0;
@@ -441,7 +459,7 @@ class PettyCashs extends Controller
         $pdf = new MyPDF();
         $pdf-> SetWidths(7);
         $pdf->AddPage('L');
-        $pdf->SetFont('Arial','',14);
+        $pdf->SetFont('Arial','',12);
         //Table with 20 rows and 4 columns
         $pdf->SetX(5);
         $pdf->SetFillColor(237, 228, 226);
@@ -450,7 +468,7 @@ class PettyCashs extends Controller
         $pdf-> Cell(280, 10, "Petty Cash Transactions between ".date('d-m-Y',strtotime( $start))." and ".date('d-m-Y',strtotime( $end)),0, 0, 'C', 1, '');
         $pdf->Ln(15);
         $pdf->SetX(10);
-        $pdf->SetFont('Times','',12);
+        $pdf->SetFont('Times','',11);
         $pdf-> Cell(10, 10, "#",1, 0, 'C', 1, '');
         $pdf-> Cell(85, 10, "Description",1, 0, 'C', 1, '');
        
@@ -462,7 +480,17 @@ class PettyCashs extends Controller
         $pdf-> Cell(30, 10, "Balance",1, 0, 'C', 1, '');
         $pdf->Ln();
 
-        $counter = 1;
+        $pdf->SetFont('Times','',10);
+        $pdf-> Cell(10, 10, "1",1, 0, 'L', 0, '');
+        $pdf-> Cell(85, 10, "Openning Balance",1, 0, 'L', 0, '');
+        $pdf-> Cell(30, 10, date_format(date_create($startdate), "d-M-Y") ,1, 0, 'C', 0, '');
+        $pdf-> Cell(60, 10, "-",1, 0, 'L', 0, '');
+        $pdf-> Cell(25, 10, "-",1, 0, 'L', 0, '');
+        $pdf-> Cell(10, 10, "-",1, 0, 'C', 0, '');
+        $pdf-> Cell(30, 10,  number_format($oppeningbal,2),1, 0, 'R', 0, '');
+        $pdf-> Cell(30, 10, number_format($oppeningbal,2),1, 0, 'R', 0, '');
+        $pdf->Ln();
+        $counter = 2;
         $pdf->SetWidths(array(10,85,30,60,25,10,30,30));
         $aligns = array('L','L','C','L','L','C','R','R');
         $pdf->SetAligns($aligns );
@@ -470,15 +498,19 @@ class PettyCashs extends Controller
         
       
         $fill = 1 ;
+        $closing = 0;
         foreach($transactions as $transaction){
             $fill =  !$fill;
             $pdf->Row(array( $counter,$transaction->description,date_format(date_create($transaction ->transaction_date), "d-M-Y") ,$transaction->project_name,
             $transaction->issuedto, substr($transaction ->transactiontype, 0, 1) , 
             number_format($transaction->amount,2) ,number_format($transaction->balance,2)  ), $fill);
             $counter++;
-            
+            $closing = number_format($transaction->balance,2) ;
         }
    
+        $pdf-> Cell(250, 10, "Closing Balance as at ". date('d-m-Y',strtotime( $end)),1, 0, 'C', 1, '');
+        $pdf-> Cell(30, 10,  $closing,1, 0, 'R', 1, '');
+        $pdf->Ln();
         $pdf-> Cell(250, 10, "Current Balance",1, 0, 'C', 1, '');
         $pdf-> Cell(30, 10,  number_format($current_balance,2),1, 0, 'R', 1, '');
         $pdf->Output();
