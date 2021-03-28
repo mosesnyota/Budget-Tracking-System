@@ -18,12 +18,12 @@
                     <div class="col-sm-12">
                         <div class="page-title-box">
                             <div class="row align-items-center">
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <h4 class="page-title m-0"><button type="button" class="btn btn-secondary btn-md  mr-1"
                                         > <b >  <h2><b> BALANCE: {{number_format($current_balance,2)}} </b></h2>
                                         </b></button> </h4>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-8">
                                     
                                   
                                 
@@ -38,6 +38,8 @@
                                         data-toggle="modal" data-target="#modal-addfunds" data-backdrop="static"
                                         data-keyboard="false" href="#"> <b class="fa fa-plus-circle"> Add Funds
                                         </b></button>
+
+                                        <a class="btn btn-primary btn-md float-right mr-1" target="_blank" href="../petty"><i class="fa fa-calculator"> Re-Calculate</i></a>
                                 </div>
 
                                 <!-- end col -->
