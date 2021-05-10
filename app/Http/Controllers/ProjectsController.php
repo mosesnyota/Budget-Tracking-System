@@ -36,9 +36,36 @@ class ProjectsController extends Controller
     {
         //get details of all projects
         $projects =  Project::all();
-        $projects2 =  DB::table('projects')
-        ->select(DB::raw('project_id,project_name,location,start_date,deadline,sponsor_id,staff_id,budget,budget_local,cur_status,details,created_at,updated_at,DATEDIFF(deadline, start_date) AS days'))
-        ->get();
+        $user = auth()->user();
+        
+        $email = $user->email;
+       
+        $stf = Staff::all()->where('email','=',$email);
+        $staff = null;
+        foreach ($stf as $stff){ 
+            $staff = $stff;
+        }
+
+
+
+        if($user->hasRole('Administrator')){
+
+            $projects2 =  DB::table('projects')
+            ->select(DB::raw('project_id,project_name,location,start_date,deadline,sponsor_id,staff_id,budget,budget_local,cur_status,details,created_at,updated_at,DATEDIFF(deadline, start_date) AS days'))
+            ->get();
+        }else{
+
+            $projects2 =  DB::table('projects')
+            ->select(DB::raw('project_id,project_name,location,start_date,deadline,sponsor_id,staff_id,budget,budget_local,cur_status,details,created_at,updated_at,DATEDIFF(deadline, start_date) AS days'))
+            ->where('staff_id', '=',$staff->staffid )
+            ->get();
+
+        }
+       
+
+        
+
+        
 
         $completedactivities = DB::table('activities')
             ->join('projects', 'projects.project_id', '=', 'activities.project_id')
@@ -100,12 +127,17 @@ class ProjectsController extends Controller
             $val = $totald->project_id;
             $mytotals[$val] =  $totald->total;
         }
-
+ 
         return view('projects.index', compact('projects','mytotals','projects2','completionStatus'));
         
     }
 
 
+
+
+
+
+    
 
     public function budgetstatement($id){
         $disbursments = DB::table('disbursment_news')

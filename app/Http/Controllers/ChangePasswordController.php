@@ -49,7 +49,9 @@ class ChangePasswordController extends Controller
         if($newpassword != $confirmedpassword){
             alert()->error('Oops...!', 'The New Password Confirmation does not match');
             return Redirect::back()->withErrors(['msg', 'The New Password Confirmation does not match']);
-        }else if (Hash::check($request->oldpassword, $passwd)) {
+        }
+        
+        if (!(Hash::check($request->oldpassword, $passwd))) {
             alert()->error('Oops...!', 'Wrong Old Password');
             return Redirect::back()->withErrors('Wrong Old Password');
         }else{

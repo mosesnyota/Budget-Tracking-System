@@ -20,10 +20,7 @@
                                             <div class="dropdown-menu dropdown-menu-animated">
                                                 <a class="dropdown-item" href="#"><i class="dripicons-user text-muted"></i> Profile</a>
                                                 <div class="dropdown-divider"></div>
-                                                <a class="dropdown-item" href="#"><i class="dripicons-gear text-muted"></i>Change Password</a>
-                                                <div class="dropdown-divider"></div>
-                                                <a class="dropdown-item" href="#"><i class="dripicons-lock text-muted"></i> Lock screen</a>
-                                                <div class="dropdown-divider"></div>
+         
                                                 <a class="dropdown-item" href="#"  onclick="event.preventDefault();document.getElementById('logout-form').submit();"><i class="dripicons-exit text-muted"></i> Logout</a>
                                             </div>
                                         </div>

@@ -32,8 +32,23 @@ class MyController extends Controller
     public function index()
     {
        
+
+        $user = auth()->user();
+        
+        $email = $user->email;
+       
+        $stf = Staff::all()->where('email','=',$email);
+        $staff = null;
+        foreach ($stf as $stff){ 
+            $staff = $stff;
+        }
+
+
         //get details of all projects
         $projects =  array();
+
+        if($user->hasRole('Administrator')){
+
         $projectdetils =  Project::where('cur_status', '=', 'Active')->orderByRaw('start_date DESC')->skip(1)->take(5)->get();
         
         $projectdetils2 =  Project::where('cur_status', '!=', 'Complete')
@@ -45,6 +60,38 @@ class MyController extends Controller
             ->select(DB::raw('COUNT(*) AS total'))
             ->where('cur_status', '=', 'Active')
             ->get();
+
+            //get budgets
+            $budgets =  DB::table('projects')
+            ->select(DB::raw('sum(budget) AS total'))
+            ->where('cur_status', '=', 'Active')
+            ->get();
+
+        }else{
+
+        $projectdetils =  Project::where('cur_status', '=', 'Active')->where('staff_id', '=',$staff->staffid )->orderByRaw('start_date DESC')->skip(1)->take(5)->get();
+        
+        $projectdetils2 =  Project::where('cur_status', '!=', 'Complete')
+        ->whereRaw('TIMESTAMPDIFF(DAY,NOW() , deadline) < 90 ' )->skip(0)->take(5)->where('staff_id', '=',$staff->staffid )->orderByRaw('TIMESTAMPDIFF(DAY,NOW() , deadline) ASC')->get();
+
+        
+        //this section checks the number of all active projects
+        $countprojects =  DB::table('projects')
+            ->select(DB::raw('COUNT(*) AS total'))
+            ->where('cur_status', '=', 'Active')
+            ->where('staff_id', '=',$staff->staffid )
+            ->get();
+
+            //get budgets
+            $budgets =  DB::table('projects')
+            ->select(DB::raw('sum(budget) AS total'))
+            ->where('cur_status', '=', 'Active')
+            ->where('staff_id', '=',$staff->staffid )
+            ->get();
+
+
+        }
+
     
             $ongoingprojects = 0 ;
             foreach ($countprojects as $totald){ 
@@ -52,11 +99,7 @@ class MyController extends Controller
             }
 
 
-            //get budgets
-            $budgets =  DB::table('projects')
-            ->select(DB::raw('sum(budget) AS total'))
-            ->where('cur_status', '=', 'Active')
-            ->get();
+           
     
             $totalbudget = 0 ;
             foreach ($budgets as $totald){ 

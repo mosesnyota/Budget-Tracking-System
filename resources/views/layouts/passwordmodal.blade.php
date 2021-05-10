@@ -22,7 +22,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="fas fa-dollar"></i></span>
                                     </div>
-                                    <input type="text" autocomplete="off" name="oldpassword" id="oldpassword " class="form-control" required>
+                                    <input type="password" autocomplete="off" name="oldpassword" id="oldpassword " class="form-control" required>
                                 </div>
                             </div>
                         </div>
@@ -36,7 +36,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="fas fa-dollar"></i></span>
                                     </div>
-                                    <input type="text" autocomplete="off" name="newpassword" id="newpassword" class="form-control" required >
+                                    <input type="password" autocomplete="off" name="newpassword" id="newpassword" class="form-control" required >
                                 </div>
                             </div>
                         </div>
@@ -48,7 +48,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="fas fa-dollar"></i></span>
                                     </div>
-                                    <input type="text" autocomplete="off" name="confirmedpassword" id="confirmedpassword" class="form-control"  required>
+                                    <input type="password" autocomplete="off" name="confirmedpassword" id="confirmedpassword" class="form-control"  required>
                                 </div>
                             </div>
                         </div>
