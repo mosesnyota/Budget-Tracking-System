@@ -78,7 +78,10 @@ class DisbursmentController extends Controller
             ->where('narration', '=', strtolower($narration))
             ->where('project_id', '=', $project_id)
             ->get();
-        return count($record);
+
+       // return count($record);
+       //disable checking for duplicate
+       return 0;
            
         
     }
