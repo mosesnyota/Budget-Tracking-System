@@ -5,7 +5,7 @@
       <!-- Top Bar End -->
       <div class="page-content-wrapper ">
           <div class="container-fluid">
-              <div class="row">
+              <div class="row"> 
                   <div class="col-sm-12">
                       <div class="page-title-box">
                           <div class="row align-items-center">
@@ -202,9 +202,9 @@
                                                                                   <td>
                                                                                     <a class="btn btn-primary btn-sm" href="editdisbursment/{{$disbursment ->disbursment_id}}"><i class="fas fa-edit"></i></a>
                                                                                     
-                                                                                    @can('IS ADMINISTRATOR')
+                                                                                    
                                                                                     <button type="button" class="btn btn-danger btn-sm mr-1 delete-confirm"  href="disbursment/destroy/{{$disbursment ->disbursment_id}}"> <a  data-role="deletedisburse"  data-id="{{$disbursment ->disbursment_id}}"> <i class="fa fa-trash" > </i></a>  </button>  
-                                                                                    @endcan
+                                                                                    
                                                                                     <button type="button" class="btn btn-success btn-sm mr-1"> <a  data-role="updatedispersementvotehead"  data-id="{{$disbursment ->disbursment_id}}"> <i class="fa fa-eye" > Assign </i></a>  </button>  
                                                                                
 
@@ -277,7 +277,7 @@
                                                                              
                                                                              <td>
                                                                                 <a class="btn btn-primary btn-sm" href="editvotehead/{{$votehead ->votehead_id}}"><i class="fas fa-edit"></i></a>
-                                                                                <a class="btn btn-danger btn-sm delete-confirm" href="deletevotehead/{{$votehead ->votehead_id}}"><i class="fas fa-trash"></i></a>
+                                                                               
                                                                                 <a class="btn btn-warning btn-sm" href="budgetstatement/{{$votehead ->votehead_id}}/statement" target="_blank"><i class="fas fa-file-pdf">PDF</i></a>
                                                                                 <a class="btn btn-success btn-sm" href="export/{{$votehead ->votehead_id}}" target="_blank"><i class="fas fa-file-csv">Excel</i></a>
                                                                      
