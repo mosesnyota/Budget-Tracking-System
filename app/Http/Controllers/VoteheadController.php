@@ -82,7 +82,6 @@ class VoteheadController extends Controller
     public function update(Request $request, $id)
     {
         $input = $request->all();
-        
         $votehead =  Votehead::find($id); 
         $votehead ->votehead_name  =  $input['votehead_name'];
         $votehead ->amount_allocated =  $input['amount_allocated'];
@@ -100,15 +99,12 @@ class VoteheadController extends Controller
         $myid = $input['disbursmentid'];
       
         $disbursment = DisbursmentNew::find($myid);
-        
-       
         $disbursment->votehead_id = $input['votehead_id'];
-        
         $disbursment->save();
        
-        alert()->success('Success!', 'Updated Successfully');
+        //alert()->success('Success!', 'Updated Successfully');
         
-        return back()->withSuccessMessage('Successfully Added');
+        return back()->with('success','Successfully Added');
     }
 
     

@@ -17,7 +17,7 @@ use App\PettyCashPDF;
 use App\Currency;
 
 use SweetAlert;
-
+use App\Test;
 
 class ProjectsController extends Controller
 {
@@ -135,7 +135,23 @@ class ProjectsController extends Controller
 
 
 
+    /**
+     * The function is called by an Ajax function in design.blade.php
+     * called when trying to change the vote head for a transaction. 
+     * The approach may slow down the system significantly during first open
+     * but will improve usability. 
+     */
+    public function getmsg(Request $request){
 
+        $inputs =  $request->all();
+        $disbursment_id = $inputs['disbursment_id'];
+        $votehead_id = $inputs['votehead_id'];
+        $Disbursment =  DisbursmentNew::find($disbursment_id) ;
+        $Disbursment->votehead_id = $votehead_id; 
+        $Disbursment->save();
+        $msg = "Success";
+      return response()->json(array('msg'=> $msg), 200);
+    }
 
     
 
@@ -352,7 +368,13 @@ class ProjectsController extends Controller
             ->where('D.credit', '=', 0)
             ->orderBy('D.voucherdate','DESC')
             ->get();
-       return view('projects.viewproject', compact('disbursments','currencyName','completionStatus','activities','project','staff','sponsor','voteheads','mytotals','totalAmountUsed'));
+
+        $voteheads = DB::table('voteheads')
+        ->where('project_id', '=', $id)
+        ->where('deleted_at', '=', NULL)
+        ->orderBy('votehead_name','ASC')
+        ->get();
+       return view('projects.viewproject', compact('voteheads','disbursments','currencyName','completionStatus','activities','project','staff','sponsor','voteheads','mytotals','totalAmountUsed'));
     }
  
     /**
@@ -782,10 +804,10 @@ foreach ($activities as $activity){
      */
     public function destroy($id)
     {
-        DisbursmentNew::where('project_id',$id)->delete();
-        Votehead::where('project_id',$id)->delete();
-        Activities::where('project_id',$id)->delete();
-        Project::where('project_id',$id)->delete();
+        //DisbursmentNew::where('project_id',$id)->delete();
+        //Votehead::where('project_id',$id)->delete();
+        //Activities::where('project_id',$id)->delete();
+        //Project::where('project_id',$id)->delete();
 
         return redirect()->action(
             'ProjectsController@index'

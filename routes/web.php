@@ -183,3 +183,7 @@ Route::post('/password/change','ChangePasswordController@store');
 
 Route::get('/projectsPDF','ProjectsController@projectsPDF');
 Route::get('/openprojectreport','ProjectsController@openprojectreport');
+
+Route::post('/getmsg','ProjectsController@getmsg');
+Route::get('/updatemyvote?/{disbursment_id}/{votehead_id}','ProjectsController@updatemyvote');
+Route::get('/viewproject/updatemyvote?/{disbursment_id}/{votehead_id}','ProjectsController@updatemyvote');

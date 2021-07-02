@@ -138,6 +138,17 @@
                 </div>
             </div>
 
+            <div class="row"  >  <div class="col-xl-12">
+            
+                                @if ($message = Session::get('success'))
+                    <div class="alert alert-success alert-block">
+                        <button type="button" class="close" data-dismiss="alert">×</button>	
+                            <strong>{{ $message }}</strong>
+                    </div>
+                    @endif
+            
+             </div> </div>
+
               <div class="row">
 
                 <div class="col-xl-12">
@@ -195,7 +206,24 @@
                                                                                   
                                                                                  
                                                                                   <td data-target="narrationname" style="width: 30%;">{{$disbursment ->narration}}</td>
-                                                                                  <td data-target="votehead_name"  style="width: 20%;">{{$disbursment ->votehead_name}}</td>
+                                                                                 
+
+                                                                                  <td>  <div class="form-group row">
+
+                                                                                        <div class="col-sm-10">
+                                                                                            <select class="form-control select2" name="votehead_id" id="votehead_id" style="width: 100%;" onchange="updateVotehead({{$disbursment->disbursment_id}},this.value)">
+                                                                                                @foreach ($voteheads as $votehead)
+                                                                                                    @if ($disbursment ->votehead_id == $votehead ->votehead_id)
+                                                                                                        <option selected value="{{$votehead -> votehead_id}}">{{$votehead -> votehead_name}}</option>
+                                                                                                    @else
+                                                                                                    <option value="{{$votehead -> votehead_id}}">{{$votehead -> votehead_name}}</option>
+                                                                                                    @endif
+                                                                                                    
+                                                                                                @endforeach
+                                                                                                
+                                                                                            </select>
+                                                                                        </div>
+                                                                                    </div> </td>
                                                                                   
                                                                                   <td data-target="voucherdate"> {{ date("d-m-Y", strtotime($disbursment ->voucherdate )) }} </td>
                                                                                   <td data-target="debit">{{number_format($disbursment ->debit,2)}}</td>

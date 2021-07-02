@@ -44,6 +44,10 @@
          <link href="{{asset('plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css')}}" rel="stylesheet">
          <link href="{{asset('plugins/bootstrap-touchspin/css/jquery.bootstrap-touchspin.min.css')}}" rel="stylesheet" />
     
+    <!-- SweetAlert2 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.all.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
         .form-group.required .control-label:after {
           content:"*";
@@ -71,6 +75,8 @@
         text-decoration: line-through;
     }
 </style>
+
+
 
 
     
@@ -1031,7 +1037,78 @@ chart.options.labels.forEach(function(label, i){
 </script>
 
 
+<script type="text/javascript">
+function updateVotehead(disbursment_id,votehead_id) {
 
+            Swal.fire({
+            title: 'Change Votehead?',
+            icon: "success",
+            buttons: true,
+            showCancelButton: true,
+            confirmButtonText: `Yes`,
+          }).then((result) => {
+            /* Read more about isConfirmed, isDenied below */
+            if (result.isConfirmed) {
+
+              
+                            $.ajaxSetup({
+                    headers: {
+                      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                  });
+
+                    $.ajax({
+                                type:'POST',
+                                url:'../getmsg',
+                                data: { disbursment_id: disbursment_id,votehead_id:votehead_id, _token: '{{csrf_token()}}' },
+                                success:function(data) {
+                                 
+                                },
+                                error:function(data){
+                                  Swal.fire('Error Occured While Saving', '', 'info')
+                                  
+                                }
+                              });
+
+
+              
+            } else if (result.isDenied) {
+              Swal.fire('Changes are not saved', '', 'info')
+            }
+          });
+
+
+         
+
+}
+</script>
+
+
+<script type="text/javascript">  
+      $(document).ready(function(){  
+           // Edit record to mysqli from php using jquery ajax  
+           $(document).on("click",".edit-btn",function(){  
+                var id = $(this).data('id');  
+                $.ajax({  
+                     url :"fetch.php",  
+                     type:"POST",  
+                     cache:false,  
+                     data:{editId:id},  
+                     success:function(data){  
+                          $("#editForm").html(data);  
+                     },  
+                });  
+           });
+</script>
+
+
+<script>
+$(document).ready(function(){
+  $("votehead_id").change(function(){
+    alert("The text has been changed.");
+  });
+});
+</script>
 
 
 
