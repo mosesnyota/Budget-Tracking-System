@@ -213,13 +213,23 @@
                                                                                         <div class="col-sm-10">
                                                                                             <select class="form-control select2" name="votehead_id" id="votehead_id" style="width: 100%;" onchange="updateVotehead({{$disbursment->disbursment_id}},this.value)">
                                                                                                 @foreach ($voteheads as $votehead)
+                                                                                                    
+                                                                                                    
+
                                                                                                     @if ($disbursment ->votehead_id == $votehead ->votehead_id)
                                                                                                         <option selected value="{{$votehead -> votehead_id}}">{{$votehead -> votehead_name}}</option>
+                                                                                                    
                                                                                                     @else
                                                                                                     <option value="{{$votehead -> votehead_id}}">{{$votehead -> votehead_name}}</option>
                                                                                                     @endif
+
+
                                                                                                     
                                                                                                 @endforeach
+
+                                                                                                @if($disbursment ->votehead_id == 0)
+                                                                                                      <option selected  value="">-------</option>
+                                                                                                @endif
                                                                                                 
                                                                                             </select>
                                                                                         </div>
